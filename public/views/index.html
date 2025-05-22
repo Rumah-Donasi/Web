@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Rumah Donasi</title>
+    <link href="/css/tailwind.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <!-- Kiri: Logo dan Nama -->
+          <div class="flex items-center">
+            <img
+              class="h-12 w-12 mr-2"
+              src="images/logo-green.png"
+              alt="Logo"
+            />
+            <span class="text-xl font-bold text-primary">Rumah Donasi</span>
+          </div>
+
+          <!-- Tengah: Navigasi -->
+          <div class="hidden md:flex space-x-6">
+            <a href="#" class="text-gray-600 hover:text-primary font-medium"
+              >Beranda</a
+            >
+            <a href="" class="text-gray-600 hover:text-primary font-medium"
+              >Program</a
+            >
+            <a href="#" class="text-gray-600 hover:text-primary font-medium"
+              >Tentang Kami</a
+            >
+            <a href="#" class="text-gray-600 hover:text-primary font-medium"
+              >Kontak</a
+            >
+          </div>
+
+          <!-- Kanan: Tombol Aksi -->
+          <div class="hidden md:flex space-x-4">
+            <a href="#" class="text-primary font-semibold hover:underline py-2"
+              >Masuk</a
+            >
+            <a
+              href="#"
+              class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+              >Daftar</a
+            >
+          </div>
+
+          <!-- Menu Hamburger Mobile -->
+          <div class="md:hidden">
+            <button id="menu-toggle" class="text-gray-600 focus:outline-none">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu Mobile -->
+      <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+        <a href="#" class="block py-2 text-gray-700 hover:text-primary"
+          >Beranda</a
+        >
+        <a href="#" class="block py-2 text-gray-700 hover:text-primary"
+          >Program</a
+        >
+        <a href="#" class="block py-2 text-gray-700 hover:text-primary"
+          >Tentang Kami</a
+        >
+        <a href="#" class="block py-2 text-gray-700 hover:text-primary"
+          >Kontak</a
+        >
+        <a href="#" class="block py-2 text-primary font-semibold">Masuk</a>
+        <a
+          href="#"
+          class="block py-2 bg-primary text-white rounded-lg text-center hover:bg-blue-700"
+          >Daftar</a
+        >
+      </div>
+    </nav>
+
+    <!-- Include in your HTML -->
+    <div
+      class="swiper w-full max-w-screen-xl mx-auto rounded-xl overflow-hidden mt-10"
+    >
+      <div class="swiper-wrapper">
+        <!-- Slide 1 -->
+        <a href="" class="swiper-slide">
+          <img
+            src="images/test.jpeg"
+            alt="Mozza Banner 1"
+            class="w-full h-96 object-cover"
+          />
+        </a>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <img
+            src="images/banner2.jpg"
+            alt="Mozza Banner 2"
+            class="w-full h-auto object-cover"
+          />
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <img
+            src="images/banner2.jpg"
+            alt="Mozza Banner 2"
+            class="w-full h-auto object-cover"
+          />
+        </div>
+      </div>
+
+      <div class="swiper-pagination mt-4"></div>
+    </div>
+
+    <section
+      class="container mx-auto px-4 py-12 my-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+      aria-label="Kategori Bantuan"
+    >
+      <a
+        href="#"
+        class="flex items-center space-x-3 hover:bg-dull hover:shadow-md rounded-xl p-4 transition-colors"
+      >
+        <img
+          class="w-12 h-12"
+          src="images/bencana.png"
+          alt="Ikon Bencana Alam"
+        />
+        <span class="text-lg font-medium">Bencana Alam</span>
+      </a>
+
+      <a
+        href="#"
+        class="flex items-center space-x-3 hover:bg-dull hover:shadow-md rounded-xl p-4 transition-colors"
+      >
+        <img
+          class="w-12 h-12"
+          src="images/lingkungan.png"
+          alt="Ikon Lingkungan"
+        />
+        <span class="text-lg font-medium">Lingkungan</span>
+      </a>
+
+      <a
+        href="#"
+        class="flex items-center space-x-3 hover:bg-dull hover:shadow-md rounded-xl p-4 transition-colors"
+      >
+        <img
+          class="w-12 h-12"
+          src="images/medis.png"
+          alt="Ikon Bantuan Medis"
+        />
+        <span class="text-lg font-medium">Bantuan Medis</span>
+      </a>
+
+      <a
+        href="#"
+        class="flex items-center space-x-3 hover:bg-dull hover:shadow-md rounded-xl p-4 transition-colors"
+      >
+        <img
+          class="w-12 h-12"
+          src="images/sosial.png"
+          alt="Ikon Kegiatan Sosial"
+        />
+        <span class="text-lg font-medium">Kegiatan Sosial</span>
+      </a>
+    </section>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".swiper", {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script>
+</html>

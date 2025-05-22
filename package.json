@@ -1,0 +1,31 @@
+{
+  "name": "rumah-donasi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rumah-Donasi/Web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rumah-Donasi/Web/issues"
+  },
+  "homepage": "https://github.com/Rumah-Donasi/Web#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.1"
+  },
+  "scripts": {
+  "build:css": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --watch"
+  }
+}
