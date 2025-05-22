@@ -2,12 +2,11 @@ const { pool, checkDB } = require('./database/db.js');
 const { authUser, authLembaga, authAdmin } = require('./auth/auth.js');
 const {
   rootRouter,
-  loginUserRouter,
-  registerUserRouter,
+  loginAdminRouter,
   loginLembagaRouter,
   registerLembagaRouter,
-  loginAdminRouter,
-  registerAdminRouter,
+  loginUserRouter,
+  registerUserRouter,
   userRouter,
   lembagaRouter,
   adminRouter,
@@ -36,12 +35,11 @@ app.use(
 
 app.use("/", rootRouter);
 
-app.use('/login/user', loginUserRouter);
-app.use('/register/user', registerUserRouter);
+app.use('/login/admin', loginAdminRouter);
 app.use('/login/lembaga', loginLembagaRouter);
 app.use('/register/lembaga', registerLembagaRouter);
-app.use('/login/admin', loginAdminRouter);
-app.use('/register/admin', registerAdminRouter);
+app.use('/login/user', loginUserRouter);
+app.use('/register/user', registerUserRouter);
 
 app.use('/admin', authAdmin, adminRouter);
 app.use('/lembaga', authLembaga, lembagaRouter);
