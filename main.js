@@ -1,11 +1,12 @@
+// pool untuk koneksi ke database
 const { pool, checkDB } = require('./database/db.js');
+
+//auth untuk cek session apakah sudah login atau belum
 const { authUser, authLembaga, authAdmin } = require('./auth/auth.js');
 const {
   rootRouter,
-  loginAdminRouter,
-  loginLembagaRouter,
+  loginRouter,
   registerLembagaRouter,
-  loginUserRouter,
   registerUserRouter,
   userRouter,
   lembagaRouter,
@@ -15,12 +16,15 @@ const {
 const express = require('express');
 const session = require('express-session');
 
-checkDB();
+checkDB(); //check apakah database sudah terhubung
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
+//middleware untuk bisa baca body berupa json dan form. 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//middleware untuk session
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -35,16 +39,14 @@ app.use(
 
 app.use("/", rootRouter);
 
-app.use('/login/admin', loginAdminRouter);
-app.use('/login/lembaga', loginLembagaRouter);
+app.use('/login', loginRouter);
 app.use('/register/lembaga', registerLembagaRouter);
-app.use('/login/user', loginUserRouter);
 app.use('/register/user', registerUserRouter);
 
 app.use('/admin', authAdmin, adminRouter);
 app.use('/lembaga', authLembaga, lembagaRouter);
 app.use('/user', authUser, userRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server: http://localhost:${port}`);
 });
