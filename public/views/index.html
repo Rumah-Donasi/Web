@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rumah Donasi</title>
     <link href="/css/tailwind.css" rel="stylesheet" />
     <link
@@ -10,12 +10,12 @@
       href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
     />
   </head>
-  <body>
+  <body class="bg-gray-50 text-gray-800">
     <!-- Navbar -->
-    <nav class="bg-white shadow-md">
+    <nav class="bg-white shadow-md fixed top-0 w-full z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
-          <!-- Kiri: Logo dan Nama -->
+          <!-- Logo -->
           <div class="flex items-center">
             <img
               class="h-12 w-12 mr-2"
@@ -25,12 +25,12 @@
             <span class="text-xl font-bold text-primary">Rumah Donasi</span>
           </div>
 
-          <!-- Tengah: Navigasi -->
+          <!-- Navigation Links -->
           <div class="hidden md:flex space-x-6">
             <a href="#" class="text-gray-600 hover:text-primary font-medium"
               >Beranda</a
             >
-            <a href="" class="text-gray-600 hover:text-primary font-medium"
+            <a href="#" class="text-gray-600 hover:text-primary font-medium"
               >Program</a
             >
             <a href="#" class="text-gray-600 hover:text-primary font-medium"
@@ -41,7 +41,7 @@
             >
           </div>
 
-          <!-- Kanan: Tombol Aksi -->
+          <!-- Auth Buttons -->
           <div class="hidden md:flex space-x-4">
             <a href="#" class="text-primary font-semibold hover:underline py-2"
               >Masuk</a
@@ -53,7 +53,7 @@
             >
           </div>
 
-          <!-- Menu Hamburger Mobile -->
+          <!-- Mobile Menu Button -->
           <div class="md:hidden">
             <button id="menu-toggle" class="text-gray-600 focus:outline-none">
               <svg
@@ -62,20 +62,19 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   d="M4 6h16M4 12h16M4 18h16"
-                ></path>
+                />
               </svg>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Menu Mobile -->
+      <!-- Mobile Menu -->
       <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
         <a href="#" class="block py-2 text-gray-700 hover:text-primary"
           >Beranda</a
@@ -92,51 +91,45 @@
         <a href="#" class="block py-2 text-primary font-semibold">Masuk</a>
         <a
           href="#"
-          class="block py-2 bg-primary text-white rounded-lg text-center hover:bg-blue-700"
+          class="block py-2 bg-primary text-white rounded-lg text-center hover:bg-dull transition"
           >Daftar</a
         >
       </div>
     </nav>
 
-    <!-- Include in your HTML -->
+    <!-- Swiper Section -->
     <div
-      class="swiper w-full max-w-screen-xl mx-auto rounded-xl overflow-hidden mt-10"
+      class="swiper w-full max-w-screen-xl mx-auto rounded-xl overflow-hidden mt-32"
     >
       <div class="swiper-wrapper">
-        <!-- Slide 1 -->
-        <a href="" class="swiper-slide">
+        <a href="#" class="swiper-slide">
           <img
             src="images/test.jpeg"
             alt="Mozza Banner 1"
             class="w-full h-96 object-cover"
           />
         </a>
-
-        <!-- Slide 2 -->
         <div class="swiper-slide">
           <img
             src="images/banner2.jpg"
             alt="Mozza Banner 2"
-            class="w-full h-auto object-cover"
+            class="w-full h-96 object-cover"
           />
         </div>
-
-        <!-- Slide 3 -->
         <div class="swiper-slide">
           <img
             src="images/banner2.jpg"
-            alt="Mozza Banner 2"
-            class="w-full h-auto object-cover"
+            alt="Mozza Banner 3"
+            class="w-full h-96 object-cover"
           />
         </div>
       </div>
-
       <div class="swiper-pagination mt-4"></div>
     </div>
 
+    <!-- Kategori Bantuan -->
     <section
-      class="container mx-auto px-4 py-12 my-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
-      aria-label="Kategori Bantuan"
+      class="container mx-auto px-4 py-12 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6"
     >
       <a
         href="#"
@@ -149,7 +142,6 @@
         />
         <span class="text-lg font-medium">Bencana Alam</span>
       </a>
-
       <a
         href="#"
         class="flex items-center space-x-3 hover:bg-dull hover:shadow-md rounded-xl p-4 transition-colors"
@@ -161,7 +153,6 @@
         />
         <span class="text-lg font-medium">Lingkungan</span>
       </a>
-
       <a
         href="#"
         class="flex items-center space-x-3 hover:bg-dull hover:shadow-md rounded-xl p-4 transition-colors"
@@ -173,7 +164,6 @@
         />
         <span class="text-lg font-medium">Bantuan Medis</span>
       </a>
-
       <a
         href="#"
         class="flex items-center space-x-3 hover:bg-dull hover:shadow-md rounded-xl p-4 transition-colors"
@@ -186,18 +176,145 @@
         <span class="text-lg font-medium">Kegiatan Sosial</span>
       </a>
     </section>
+
+    <!-- Kebutuhan Mendesak -->
+    <section class="bg-gray-200 py-10 px-6 md:px-16 rounded-xl mx-4 md:mx-40">
+      <h1 class="text-2xl font-semibold mb-6">Kebutuhan Mendesak</h1>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a
+          href="#"
+          class="rounded-xl overflow-hidden shadow-lg border bg-white"
+        >
+          <div class="flex">
+            <img
+              src="/images/bencana.png"
+              alt="Campaign"
+              class="w-full object-cover h-40"
+            />
+          </div>
+          <div class="p-4">
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+              <span>Klinik Najwa Medika</span>
+            </div>
+            <h2 class="mt-1 text-gray-900 font-semibold text-base">
+              Bersama Lawan Stunting, Wujudkan Generasi Sehat!
+            </h2>
+            <div class="mt-3">
+              <span class="text-sm text-gray-500">Terkumpul</span>
+              <span class="text-primary font-semibold">Rp16.339.708</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5 mt-3">
+              <div
+                class="bg-secondary h-1.5 rounded-full"
+                style="width: 65%"
+              ></div>
+            </div>
+          </div>
+        </a>
+        <a
+          href="#"
+          class="rounded-xl overflow-hidden shadow-lg border bg-white"
+        >
+          <div class="flex">
+            <img
+              src="/images/test.jpeg"
+              alt="Campaign"
+              class="w-full object-cover h-40"
+            />
+          </div>
+          <div class="p-4">
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+              <span>Klinik Najwa Medika</span>
+            </div>
+            <h2 class="mt-1 text-gray-900 font-semibold text-base">
+              Bersama Lawan Stunting, Wujudkan Generasi Sehat!
+            </h2>
+            <div class="mt-3">
+              <span class="text-sm text-gray-500">Terkumpul</span>
+              <span class="text-primary font-semibold">Rp16.339.708</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5 mt-3">
+              <div
+                class="bg-secondary h-1.5 rounded-full"
+                style="width: 65%"
+              ></div>
+            </div>
+          </div>
+        </a>
+        <a
+          href="#"
+          class="rounded-xl overflow-hidden shadow-lg border bg-white"
+        >
+          <div class="flex">
+            <img
+              src="/images/test.jpeg"
+              alt="Campaign"
+              class="w-full object-cover h-40"
+            />
+          </div>
+          <div class="p-4">
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+              <span>Klinik Najwa Medika</span>
+            </div>
+            <h2 class="mt-1 text-gray-900 font-semibold text-base">
+              Bersama Lawan Stunting, Wujudkan Generasi Sehat!
+            </h2>
+            <div class="mt-3">
+              <span class="text-sm text-gray-500">Terkumpul</span>
+              <span class="text-primary font-semibold">Rp16.339.708</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5 mt-3">
+              <div
+                class="bg-secondary h-1.5 rounded-full"
+                style="width: 65%"
+              ></div>
+            </div>
+          </div>
+        </a>
+        <a
+          href="#"
+          class="rounded-xl overflow-hidden shadow-lg border bg-white"
+        >
+          <div class="flex">
+            <img
+              src="/images/test.jpeg"
+              alt="Campaign"
+              class="w-full object-cover h-40"
+            />
+          </div>
+          <div class="p-4">
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+              <span>Klinik Najwa Medika</span>
+            </div>
+            <h2 class="mt-1 text-gray-900 font-semibold text-base">
+              Bersama Lawan Stunting, Wujudkan Generasi Sehat!
+            </h2>
+            <div class="mt-3">
+              <span class="text-sm text-gray-500">Terkumpul</span>
+              <span class="text-primary font-semibold">Rp16.339.708</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5 mt-3">
+              <div
+                class="bg-secondary h-1.5 rounded-full"
+                style="width: 65%"
+              ></div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+      const swiper = new Swiper(".swiper", {
+        loop: true,
+        autoplay: { delay: 5000 },
+        pagination: { el: ".swiper-pagination", clickable: true },
+      });
+
+      document.getElementById("menu-toggle").addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+      });
+    </script>
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-  <script>
-    const swiper = new Swiper(".swiper", {
-      loop: true,
-      autoplay: {
-        delay: 5000,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-    });
-  </script>
 </html>

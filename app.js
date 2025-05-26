@@ -1,17 +1,23 @@
-const express = require('express');
-const path = require('path');
+var express = require('express');
+var app = express();
+var path = require('path');
 
-const app = express();
-const PORT = 3000;
+const views = path.join(__dirname, 'public', 'views', 'pages')+ '\\';
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 
-// Set folder public untuk file static (seperti CSS)
+// use res.render to load up an ejs view file
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Arahkan ke file HTML utama
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+// index page
+app.get('/', function(req, res) {
+  res.render(views + 'index');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+// about page
+app.get('/about', function(req, res) {
+  res.render('pages/about');
 });
+
+app.listen(8080);
+console.log('Server is listening on port 8080');
