@@ -1,74 +1,123 @@
-<nav class="bg-white shadow-md fixed top-0 w-full z-50">
+<nav class="bg-white shadow-md fixed top-0 w-full z-50 py-3">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center">
-      <!-- Logo -->
-      <div class="flex items-center">
-        <img class="h-12 w-12 mr-2" src="images/logo-green.png" alt="Logo" />
-        <span class="text-xl font-bold text-primary">Rumah Donasi</span>
+    <div class="flex justify-between items-center h-16">
+      <a href="/">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+          <img src="/images/logo-green.png" alt="Logo" class="w-14 h-14" />
+          <span class="text-xl font-bold text-primary">Rumah Donasi</span>
+        </div>
+  
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex space-x-6 items-center">
+          <a href="/" class="text-gray-600 hover:text-primary font-medium"
+            >Beranda</a
+          >
+          <a href="#" class="text-gray-600 hover:text-primary font-medium"
+            >Program</a
+          >
+          <a href="#" class="text-gray-600 hover:text-primary font-medium"
+            >Tentang Kami</a
+          >
+          <a href="#" class="text-gray-600 hover:text-primary font-medium"
+            >Kontak</a
+          >
+      </a>
       </div>
 
-      <!-- Navigation Links -->
-      <div class="hidden md:flex space-x-6">
-        <a href="#" class="text-gray-600 hover:text-primary font-medium"
-          >Beranda</a
+      <!-- Auth Section (Desktop) -->
+      <% if (user) { %>
+      <a
+        href="<%= user.id %>a/account"
+        class="hidden md:flex items-center space-x-3"
+      >
+        <img
+          src="<%= user.image || '/images/default.png' %>"
+          alt="Foto Profil"
+          class="w-8 h-8 rounded-full object-cover"
+        />
+        <span class="text-primary font-semibold"
+          >Hi, <%= user.name || 'User' %></span
         >
-        <a href="#" class="text-gray-600 hover:text-primary font-medium"
-          >Program</a
-        >
-        <a href="#" class="text-gray-600 hover:text-primary font-medium"
-          >Tentang Kami</a
-        >
-        <a href="#" class="text-gray-600 hover:text-primary font-medium"
-          >Kontak</a
-        >
-      </div>
-
-      <!-- Auth Buttons -->
-      <div class="hidden md:flex space-x-4">
-        <a href="#" class="text-primary font-semibold hover:underline py-2"
-          >Masuk</a
-        >
+      </a>
+      <% } else { %>
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="#" class="text-primary font-semibold hover:underline">Masuk</a>
         <a
           href="#"
-          class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+          class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-dark transition"
           >Daftar</a
         >
       </div>
+      <% } %>
 
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden">
-        <button id="menu-toggle" class="text-gray-600 focus:outline-none">
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-      </div>
+      <!-- Mobile Toggle Button -->
+      <button
+        id="menu-toggle"
+        class="md:hidden text-gray-600 focus:outline-none"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
     </div>
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
-    <a href="#" class="block py-2 text-gray-700 hover:text-primary">Beranda</a>
-    <a href="#" class="block py-2 text-gray-700 hover:text-primary">Program</a>
-    <a href="#" class="block py-2 text-gray-700 hover:text-primary"
-      >Tentang Kami</a
-    >
-    <a href="#" class="block py-2 text-gray-700 hover:text-primary">Kontak</a>
-    <a href="#" class="block py-2 text-primary font-semibold">Masuk</a>
-    <a
-      href="#"
-      class="block py-2 bg-primary text-white rounded-lg text-center hover:bg-dull transition"
-      >Daftar</a
-    >
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-white px-4 pb-6 pt-4 shadow-lg space-y-4 transition-all duration-300"
+  >
+    <div class="border-t border-gray-200 pt-4 space-y-2">
+      <a href="#" class="block text-gray-700 hover:text-primary font-medium"
+        >Beranda</a
+      >
+      <a href="#" class="block text-gray-700 hover:text-primary font-medium"
+        >Program</a
+      >
+      <a href="#" class="block text-gray-700 hover:text-primary font-medium"
+        >Tentang Kami</a
+      >
+      <a href="#" class="block text-gray-700 hover:text-primary font-medium"
+        >Kontak</a
+      >
+    </div>
+
+    <div class="border-t border-gray-200 pt-4">
+      <% if (user) { %>
+      <a href="#" class="flex items-center space-x-3">
+        <img
+          src="<%= user.image || '/images/default.png' %>"
+          alt="Profil"
+          class="w-8 h-8 rounded-full object-cover"
+        />
+        <span class="text-primary font-semibold text-base">
+          Hi, <%= user.name || 'User' %>
+        </span>
+      </a>
+      <% } else { %>
+      <div class="space-y-2">
+        <a href="#" class="block text-primary font-semibold text-center"
+          >Masuk</a
+        >
+        <a
+          href="#"
+          class="block bg-primary text-white rounded-lg text-center py-2 hover:bg-dull transition"
+        >
+          Daftar
+        </a>
+      </div>
+      <% } %>
+    </div>
   </div>
 </nav>

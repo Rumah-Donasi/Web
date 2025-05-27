@@ -1,0 +1,11 @@
+<main class="pt-24 md:pl-64 px-4">
+  <!-- Akun -->
+  <% if(currentPath === '/a/account') { %> <%-
+  include('../partials/mainaccpart/akun'); %> <% } %>
+  <!-- Donasi -->
+  <% if(currentPath === '/a/donasi') { %> <%-
+  include('../partials/mainaccpart/donasisaya'); %> <% } %>
+  <!-- Inbox -->
+  <% if(currentPath === '/a/inbox') { %> <%-
+  include('../partials/mainaccpart/inbox'); %> <% } %>
+</main>

@@ -1,0 +1,30 @@
+<!-- sidebar.ejs -->
+<div
+  class="hidden md:block fixed top-20 left-0 w-64 h-[calc(100vh-5rem)] bg-white shadow-lg z-40 py-6 px-4"
+>
+  <a
+    href="/a/account"
+    class="<%= currentPath === '/a/account' ? 'bg-gray-100 text-primary' : 'text-gray-700 ' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Akun
+  </a>
+  <a
+    href="/a/donasi"
+    class="<%= currentPath === '/a/donasi' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Donasi Saya
+  </a>
+  <a
+    href="/a/inbox"
+    class="<%= currentPath === '/a/inbox' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Inbox
+  </a>
+  <a
+    href="/keluar"
+    class="block px-4 py-2 rounded-lg font-medium text-red-600 hover:text-red-800"
+  >
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Keluar
+  </a>
+</div>

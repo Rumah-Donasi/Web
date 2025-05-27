@@ -1,0 +1,19 @@
+<form action="/search" method="GET" class="w-full max-w-md mx-auto">
+  <div
+    class="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-sm"
+  >
+    <input
+      type="text"
+      name="q"
+      placeholder="Cari campaign, nama, atau kata kunci..."
+      class="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+      value="<%= typeof query !== 'undefined' ? query : '' %>"
+    />
+    <button
+      type="submit"
+      class="bg-primary text-white px-4 py-2 hover:bg-dark transition-all"
+    >
+      Cari
+    </button>
+  </div>
+</form>
