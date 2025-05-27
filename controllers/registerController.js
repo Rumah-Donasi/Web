@@ -1,7 +1,10 @@
 exports.getView = (req, res) => {
   res.send('Register page');
 };
-
+//query pgsql
+const uquery='insert into users ()values'
+const lquery='insert into lembaga(username,passwd,nama_lembaga) values'
+// continue this
 exports.postRegister = (req, res) => {
   const { code } = req.body;
   if (code === 1) {//user register

@@ -1,0 +1,176 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="main.css">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="admin.js"></script>
+    <title>admintool</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row bg-primary">
+            <!-- Sidebar for md+ screens -->
+            <nav class="col-md-2 d-none d-md-block bg-secondary sidebar vh-100">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="showSection('verifikasi')">
+                                <i class="bi bi-building"></i> Verifikasi lembaga
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('history')">
+                                <i class="bi bi-people"></i> History transaksi
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('issue')">
+                                <i class="bi bi-exclamation-circle"></i> edit Issue
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('pencairan')">
+                                <i class="bi bi-exclamation-circle"></i> pencairan dana
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- Offcanvas Sidebar for small screens -->
+            <div class="d-md-none bg-secondary">
+                <button class="btn btn-primary m-2" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+                    <i class="bi bi-list"></i> Menu
+                </button>
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar"
+                    aria-labelledby="offcanvasSidebarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" onclick="showSection('verifikasi')">
+                                    <i class="bi bi-building"></i> Verifikasi lembaga
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showSection('history')">
+                                    <i class="bi bi-people"></i> History transaksi
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showSection('issue')">
+                                    <i class="bi bi-exclamation-circle"></i> edit Issue
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showSection('pencairan')">
+                                    <i class="bi bi-exclamation-circle"></i> pencairan dana
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Content (section)-->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light" id="main-content">
+                <div id="section-verifikasi">
+                    <div class="container-fluid">
+                        <h2>Verifikasi Lembaga</h2>
+                        <!--table-->
+                        <table class="table striped-coloumns">
+                            <thead>
+                                <tr>
+                                    <th scope="col">no</th>
+                                    <th scope="col">nama lembaga</th>
+                                    <th scope="col">status</th>
+                                    <th scope="col">Modify</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-verifikasi">
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div id="section-history" style="display:none;">
+                    <div class="container-fluid">
+                        <h2>History transaksi</h2>
+                        <!--table-->
+                        <table class="table striped-coloumns">
+                            <thead>
+                                <tr>
+                                    <th scope="col">no</th>
+                                    <th scope="col">id transaksi</th>
+                                    <th scope="col">id user</th>
+                                    <th scope="col">id issue</th>
+                                    <th scope="col">jumlah donasi</th>
+                                    <th scope="col">waktu transaksi</th>
+                                    <th scope="col">pesan</th>
+                                    <th scope="col">nama donatur</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-history">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="section-issue" style="display:none;">
+                    <div class="container-fluid">
+                        <h2>Edit Issue</h2>
+                        <!--table-->
+                        <table class="table striped-coloumns">
+                            <thead>
+                                <tr>
+                                    <th scope="col">no</th>
+                                    <th scope="col">id issue</th>
+                                    <th scope="col">id lembaga</th>
+                                    <th scope="col">id thumbnail</th>
+                                    <th scope="col">target</th>
+                                    <th scope="col">terkumpul</th>
+                                    <th scope="col">deadline</th>
+                                    <th scope="col">deskripsi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-issue">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="section-pencairan" style="display:none;">
+                    <div class="container-fluid">
+                        <h2>Edit Izin pencairan dana</h2>
+                        <!--table-->
+                        <table class="table striped-coloumns">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">no</th>
+                                    <th scope="col">id issue</th>
+                                    <th scope="col">waktu permintaan</th>
+                                    <th scope="col">detail rekening</th>
+                                    <th scope="col">rencana</th>
+                                    <th scope="col">jumlah dana</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-pencairan">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</body>
+
+</html>
