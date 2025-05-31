@@ -46,5 +46,9 @@ app.get('/view', getIssue, (req, res) => {
 
 app.use('/cari', require('./routes/searchRoute'));
 
+app.get('/login', function(req, res) {
+  res.render(views + 'login');
+});
+
 app.listen(8080);
 console.log('Server is listening on port 8080');
