@@ -1,0 +1,7 @@
+.swiper-pagination-bullet-active {
+  background-color: #5fcfba !important;
+}
+
+#swiperCampaign .swiper-slide {
+    width: 85% !important;
+}

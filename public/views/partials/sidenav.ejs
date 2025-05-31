@@ -28,3 +28,26 @@
     Keluar
   </a>
 </div>
+
+<!-- bottom nav -->
+ <!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-md md:hidden">
+  <div class="flex justify-around items-center h-16">
+    <a href="/a/inbox" class="flex flex-col items-center <%= currentPath === '/a/inbox' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-envelope text-xl"></i>
+      <span class="text-xs">Inbox</span>
+    </a>
+    <a href="/a/donasi" class="flex flex-col items-center <%= currentPath === '/a/donasi' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-hand-holding-heart text-xl"></i>
+      <span class="text-xs">Donasi</span>
+    </a>
+    <a href="/a/account" class="flex flex-col items-center <%= currentPath === '/a/account' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-user text-xl"></i>
+      <span class="text-xs">Akun</span>
+    </a>
+    <a href="/keluar" class="flex flex-col items-center text-red-600 hover:text-red-800">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span class="text-xs">Keluar</span>
+    </a>
+  </div>
+</nav>

@@ -2,13 +2,15 @@
   href="<%= link || '#' %>"
   class="rounded-xl overflow-hidden shadow-lg border bg-white <%= link ? '' : 'pointer-events-none cursor-not-allowed opacity-50' %>"
 >
-  <div class="flex">
+  <!-- Gambar dengan rasio 4:3 -->
+  <div class="w-full aspect-[16/9]">
     <img
       src="<%= image || '/images/default.jpg' %>"
       alt="Campaign"
-      class="w-full object-cover h-40"
+      class="w-full h-full object-cover"
     />
   </div>
+
   <div class="p-4">
     <div class="flex items-center space-x-2 text-sm text-gray-500">
       <span><%= creator || 'Nama Penggalang' %></span>
