@@ -23,6 +23,10 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/login', function(req, res) {
+  res.render(views + 'login');
+});
+
 app.get('/:id', function(req, res) {
   res.render(views + 'index', {
     user: {
@@ -41,9 +45,6 @@ app.get('/a/:where', (req, res) => {
   });
 });
 
-app.get('/login', function(req, res) {
-  res.render(views + 'login');
-});
 
 app.listen(8080);
 console.log('Server is listening on port 8080');

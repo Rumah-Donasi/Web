@@ -1,51 +1,61 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
   <%- include('../partials/head'); %>
+    <link rel="stylesheet" href="/css/input.css">
 </head>
 
-<body class="bg-gradient-to-br from-dark via-secondary to-dull min-h-screen flex items-center justify-center p-4">
-  <div class="bg-white shadow-2xl rounded-xl w-full max-w-md px-8 py-10">
-    <h2 class="text-3xl font-bold text-center text-dark mb-8">Masuk ke Akun Anda</h2>
+<body style="background: url('/images/BANTU.svg')"
+  class="bg-gradient-to-br from-dark via-secondary to-dull min-h-screen flex items-center justify-center p-4">
+  <div class="flex flex-col md:flex-row bg-white shadow-2xl rounded-xl w-full max-w-4xl overflow-hidden justify-center">
+    <div class="w-full md:w-1/2 px-8 py-10">
+      <h2 class="text-4xl text-gray-600 mb-[10px]">Selamat Datang!</h2>
+      <p class="text-sm text-gray-600 mb-1">
+        Belum punya akun?
+        <a href="/register" class="text-indigo-500 font-medium hover:underline">Daftar di sini sekarang.</a>
+      </p>
+      <p class="text-sm text-gray-600 mb-4">
+        Mari selamatkan saudara kita <bersama-sama!></bersama-sama!>
+      </p>
 
-    <% if (typeof error !== 'undefined' && error) { %>
-      <div class="mb-4 text-sm text-red-600 text-center border border-red-300 rounded-md p-2 bg-red-50">
-        <%= error %>
-      </div>
-    <% } %>
+      <% if (typeof error !=='undefined' && error) { %>
+        <div class="mb-4 text-sm text-red-600 text-center border border-red-300 rounded-md p-2 bg-red-50">
+          <%= error %>
+        </div>
+        <% } %>
 
-    <form action="/login" method="POST" class="space-y-6">
-      <div>
-        <label for="username" class="block text-sm font-semibold text-gray-700">Username</label>
-        <input type="text" id="username" name="username" required
-          class="mt-1 w-full rounded-lg border border-gray-300 p-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-dark focus:border-dark" />
-      </div>
+          <form action="/login" method="POST" class="space-y-6 login-form">
+            <div class="username">
+              <input id="uname" class="usernameinput" name="username" type="text" required>
+              <label class="placeholder1" for="uname">Username</label>
+            </div>
+            <div class="password">
+              <input id="password" class="passwordinput" name="password" type="password" required>
+              <label class="placeholder2" for="password">Password</label>
+            </div>
 
-      <div>
-        <label for="password" class="block text-sm font-semibold text-gray-700">Password</label>
-        <input type="text" id="password" name="password" required
-          class="mt-1 w-full rounded-lg border border-gray-300 p-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-dark focus:border-dark" />
-      </div>
+            <div>
+              <button type="submit"
+                class="w-full bg-dark hover:bg-dark transition-colors text-white font-medium py-2.5 px-4 rounded-full shadow-md mt-3">
+                Masuk
+              </button>
+            </div>
+          </form>
 
-      <div>
-        <button type="submit"
-          class="w-full bg-dark hover:bg-dark transition-colors text-white font-medium py-2.5 px-4 rounded-lg shadow-md">
-          Masuk
-        </button>
-      </div>
-    </form>
+          <p class="text-center text-sm text-gray-600 mt-6">
+            Lupa password?
+            <a href="/register" class="text-indigo-500 font-medium hover:underline">Klik disini</a>
+          </p>
+    </div>
 
-    <p class="text-center text-sm text-gray-600 mt-6">
-      Belum punya akun?
-      <a href="/register" class="text-indigo-500 font-medium hover:underline">Daftar di sini</a>
-    </p>
-    <p class="text-center text-sm text-gray-600 mt-4">
-      Daftar sebagai lembaga?
-      <a href="/register" class="text-indigo-500 font-medium hover:underline">Daftar di sini</a>
-    </p>
+    <div class="w-full md:w-1/2 hidden md:block">
+      <img src="/images/pegangan2.jpg" alt="" class="w-full h-full mx-auto shadow-lg" />
+    </div>
   </div>
 </body>
+
 </html>
