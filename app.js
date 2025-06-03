@@ -1,54 +1,25 @@
 var express = require('express');
 var app = express();
-const session = require('express-session');
 var path = require('path');
+app.use(express.json());
+const {
+    authorize
+} = require('./middleware/authUser');
 
-const views = path.join(__dirname, 'public', 'views', 'pages')+ '\\';
-// set the view engine to ejs
-
-// Set folder views
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true
-}));
-
-const pilihanIssue = require('./middleware/showIssue');
-const randomIssue = require('./middleware/showIssue');
-const getIssue = require('./middleware/showIssue');
-
-app.get('/', pilihanIssue, (req, res) => {
-  res.render('pages/index', {
-    user: {
-      name: 'Egit',
-      image: null
-    },
-    issues: req.issues,
-    random: req.random
-  });
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path;
+  next();
 });
 
-app.get('/view', getIssue, (req, res) => {
-  res.render('pages/viewIssue', {
-    user: {
-      name: 'Egit',
-      image: null
-    },
-    issue: req.issue,
-    donatur: req.donatur
-  });
-});
-
+app.use('/', require('./routes/firstRoute'));
 app.use('/cari', require('./routes/searchRoute'));
-
-app.get('/login', function(req, res) {
-  res.render(views + 'login');
-});
+app.use('/akun', require('./routes/akunRoute'));
+app.use('/isu', require('./routes/galangDanaRoute'));
 
 app.listen(8080);
 console.log('Server is listening on port 8080');

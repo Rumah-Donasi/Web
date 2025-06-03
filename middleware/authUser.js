@@ -1,4 +1,5 @@
 const JWT = require("jsonwebtoken");
+require('dotenv').config();
 
 const authorize = (...allowedUserTypes) => {
     return (req, res, next) => {
@@ -34,5 +35,29 @@ const authorize = (...allowedUserTypes) => {
         }
     };
 };
+const cekLogin = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];  // Format: "Bearer token"
 
-module.exports = authorize;
+    if (!token) {
+        next();
+    }
+
+    jwt.verify(token, 'secretkey', (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Token tidak valid' });
+      }
+      
+      req.user = decoded; 
+      next(); 
+    });
+  } catch (error) {
+        console.log(error);
+        res.render("../views/pages/error.ejs", {
+            error: error
+    });
+}
+};
+
+
+module.exports = { authorize, cekLogin };

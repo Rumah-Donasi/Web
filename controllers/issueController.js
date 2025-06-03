@@ -18,12 +18,15 @@ const createIssue = async (req, res) => {
             });
         }
 
+        imgBuffer = thumbnail;
+        imgHex = imgBuffer.toString('hex');
+
         const insertQuery = `
             INSERT INTO issues (title, thumbnail, target, deadline, deskripsi, id_lembaga)
             VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *;
         `;
-        const values = [title, thumbnail, target, deadline, deskripsi, id_lembaga];
+        const values = [title, imgHex, target, deadline, deskripsi, id_lembaga];
 
         db.query(insertQuery, values, (err, result) => {
             if(err) {
@@ -34,16 +37,15 @@ const createIssue = async (req, res) => {
                 });
             }
 
-            return res.status(201).json({
+            res.render("pages/createIssue", {
                 success: true,
-                message: "Issue berhasil dibuat",
-                data: result.rows[0]
+                message: "Issue berhasil dibuat"
             });
         });
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
+        res.render("pages/error", {
             success: false,
             message: "Terjadi kesalahan pada server"
         });
@@ -281,10 +283,20 @@ const getIssueById = async (req, res) => {
     }
 };
 
+const homeCreate = async (req, res) => {
+    try {
+        res.render('pages/createIssue');
+    } catch (error) {
+        console.log(error);
+        res.render("pages/error", { error: error });
+    }
+};
+
 module.exports = {
     createIssue,
     rejectIssue,
     accIssue,
     updateIssue,
-    deleteIssue
+    deleteIssue,
+    homeCreate
 }

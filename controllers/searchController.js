@@ -5,9 +5,24 @@ const searchPilihan = async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM issues WHERE isPilihan = true');
         res.render("pages/search", {
-            user: { name: "Egit", image: null },
             issues: result.rows || [],
             query: "Campaign Pilihan"
+        });
+    } catch (error) {
+        console.log(error);
+        res.render("../views/pages/error.ejs", {
+            error: error
+        });
+    }
+};
+
+// Search Mendesak
+const searchMendesak = async (req, res) => {
+    try {
+        const result = await db.query('SELECT * FROM issues WHERE prioritas_donasi = 3');
+        res.render("pages/search", {
+            issues: result.rows || [],
+            query: "Kebutuhan Mendesak"
         });
     } catch (error) {
         console.log(error);
@@ -26,17 +41,16 @@ const searchQuery = async (req, res) => {
         );
 
         res.render("pages/search", {
-            user: { name: "Egit", image: null },
             issues: result.rows || [],
             query
         });
     } catch (error) {
         console.log(error);
         res.render("pages/error", {
-            error
+            error: error
         });
     }
 };
 
 
-module.exports = { searchPilihan, searchQuery };
+module.exports = { searchPilihan, searchMendesak, searchQuery };

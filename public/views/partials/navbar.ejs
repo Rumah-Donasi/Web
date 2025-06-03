@@ -23,7 +23,7 @@
       </div>
 
       <!-- Auth Section (Desktop) -->
-      <% if (user) { %>
+      <% if (typeof user !== 'undefined') { %>
       <a
         href="/akun"
         class="hidden md:flex items-center space-x-3"
@@ -91,7 +91,7 @@
     </div>
 
     <div class="border-t border-gray-200 pt-4">
-      <% if (user) { %>
+      <% if (typeof user !== 'undefined') { %>
       <a href="/akun" class="flex items-center space-x-3">
         <img
           src="<%= user.image || '/images/default.png' %>"
