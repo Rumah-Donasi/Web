@@ -16,34 +16,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// index page
-app.get('/', function(req, res) {
-  res.render(views + 'index', {
-    user : null
-  });
-});
-
-app.get('/:id', function(req, res) {
-  res.render(views + 'index', {
-    user: {
-      name: 'Egit',
-      image : null
-    }
-  });
-});
-
-app.get('/a/:where', (req, res) => {
-  res.render('pages/account', { 
-    user: { 
-      name: 'Egit',
-      image : null
-    } 
-  });
-});
-
-app.get('/login', function(req, res) {
-  res.render(views + 'login');
-});
+app.use('/', require('./routes/firstRoute'));
+app.use('/cari', require('./routes/searchRoute'));
+app.use('/akun', require('./routes/akunRoute'));
+app.use('/isu', require('./routes/galangDanaRoute'));
+app.use('/lembaga', require('./routes/lembagaRoute'));
 
 app.listen(8080);
 console.log('Server is listening on port 8080');

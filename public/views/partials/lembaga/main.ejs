@@ -1,0 +1,9 @@
+<% if (currentPath === '/lembaga') { %>
+  <%- include('./akun', { currentPath }) %>
+<% } else if (currentPath === '/lembaga/createIssue') { %>
+  <%- include('./createIssue', { currentPath }) %>
+<% } else if (currentPath === '/lembaga/issue') { %>
+  <%- include('./issue', { currentPath }) %>
+<% } else if (currentPath === '/lembaga/pesan') { %>
+  <%- include('./pesan', { currentPath }) %>
+<% } %>

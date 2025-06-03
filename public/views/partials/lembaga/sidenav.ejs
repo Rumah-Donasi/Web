@@ -1,0 +1,73 @@
+<!-- sidebar.ejs -->
+<div
+  class="hidden md:block fixed left-0 top-0 bottom-0 w-64 h-screen bg-white shadow-lg z-40 py-6 px-4"
+>
+  <a
+    href="/"
+    class="flex justify-center items-center mb-6 text-primary font-bold text-xl"
+  >
+    <img
+      src="/images/logo.svg"
+      alt="Logo"
+      class="w-10 h-10 mr-2"
+    />
+    Rumah Donasi
+  </a>
+  <a
+    href="/lembaga"
+    class="<%= currentPath === '/lembaga' ? 'bg-gray-100 text-primary' : 'text-gray-700 ' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Lembaga
+  </a>
+  <a
+    href="/lembaga/createIssue"
+    class="<%= currentPath === '/lembaga/createIssue' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Buat Galang Dana
+  </a>
+  <a
+    href="/lembaga/issue"
+    class="<%= currentPath === '/lembaga/issue' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Galang Dana
+  </a>
+  <a
+    href="/lembaga/pesan"
+    class="<%= currentPath === '/lembaga/pesan' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Inbox
+  </a>
+  <a
+    href="/keluar"
+    class="block px-4 py-2 rounded-lg font-medium text-red-600 hover:text-red-800"
+  >
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Keluar
+  </a>
+</div>
+
+<!-- bottom nav -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-md md:hidden">
+  <div class="flex justify-around items-center h-16">
+    <a href="/lembaga" class="flex flex-col items-center <%= currentPath === '/lembaga' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-user text-xl"></i>
+      <span class="text-xs">Lembaga</span>
+    </a>
+    <a href="/lembaga/createIssue" class="flex flex-col items-center <%= currentPath === '/lembaga/createIssue' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-plus text-xl"></i>
+      <span class="text-xs">Buat</span>
+    </a>
+    <a href="/lembaga/issue" class="flex flex-col items-center <%= currentPath === '/lembaga/issue' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-hand-holding-heart text-xl"></i>
+      <span class="text-xs">Galang Dana</span>
+    </a>
+    <a href="/lembaga/pesan" class="flex flex-col items-center <%= currentPath === '/lembaga/pesan' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-envelope text-xl"></i>
+      <span class="text-xs">Inbox</span>
+    </a>
+    <a href="/keluar" class="flex flex-col items-center text-red-600 hover:text-red-800">
+      <i class="fa-solid fa-right-from-bracket text-xl"></i>
+      <span class="text-xs">Keluar</span>
+    </a>
+  </div>
+</nav>
