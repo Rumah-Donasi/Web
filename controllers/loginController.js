@@ -2,7 +2,7 @@ exports.getView = (req, res) => {
   res.send('Register page');
 };
 
-const { pool, checkDB } = require('./database/db.js');
+const { pool, checkDB } = require('../database/db.js');
 // Check database connection
 checkDB();
 

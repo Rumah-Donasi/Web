@@ -11,7 +11,7 @@ const {
   userRouter,
   lembagaRouter,
   adminRouter,
-} = require('./routes/mainRouter.js');
+} = require('./routers/mainRouter.js');
 
 const express = require('express');
 const session = require('express-session');
