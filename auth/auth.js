@@ -2,7 +2,7 @@ const authAdmin = (req, res, next) => {
   if (req.session && req.session.role === 'admin') {
     next();
   } else {
-    res.status(403).json({ message: 'Forbidden: unathorized access' });
+    res.redirect('/private/adminlogin.html');
   }
 }
 

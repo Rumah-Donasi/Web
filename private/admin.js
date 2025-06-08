@@ -4,6 +4,7 @@ let data = [];
 let pagedt = [];
 const rowsamnt = 20
 let page = 1;
+let pagetotal;
 let pagenumber = 1;
 //
 
@@ -36,9 +37,15 @@ function showSection(section) {
     else if (section === 'verifikasi') {
         render_verifikasitable(); 
     }
-    else if (section ==='history'){}
-    else if (section ==='issue'){}
-    else if (section ==='pencairan'){}
+    else if (section ==='history'){
+        render_historytable();
+    }
+    else if (section ==='issue'){
+        render_issuetable();
+    }
+    else if (section ==='pencairan'){
+        render_pencairantable();
+    }
 }
 
 //table pagination
@@ -46,17 +53,18 @@ function showSection(section) {
 function page_int() {
     const start = (page - 1 * rowsamnt)
     const end = start + rowsamnt
-    const pagedt = data.slice(start, end)
+    pagedt = data.slice(start, end)
 }
 function calcpage() {
-    let pagetotal = Math.ceil(data.length / rowsamnt);
+    pagetotal = Math.ceil(data.length / rowsamnt);
 }
 
 function page_control() {
+    calcpage();
     let pagebutton = 
     `
     <div>
-        <form>
+        <form action="#" onsubmit="return false;" >
             <input list="pagenum" id='pagenum'></input>
             <datalist id=pagenum>
     `;
@@ -83,7 +91,7 @@ async function render_verifikasitable() {
     page_int();
     let table =
     `
-    <table class="table striped-coloumns">
+    <table class="">
         <thead>
             <tr>
                 <th scope="col">no</th>
@@ -98,11 +106,11 @@ async function render_verifikasitable() {
         table +=
         `
             <tr>
-                <td class="">${no}</td>
-                <td class="">${id}</td>
-                <td class="">${waktu}</td>
+                <td class="">${item.id_lembaga}</td>
+                <td class="">${item.nama_lembaga}</td>
+                <td class="">${item.verifikasi}</td>
                 <td class="">
-                    <form action="">
+                    <form action="#" onsubmit="return false;">
                         <input type="checkbox" id="" value="1">
                         </input>
                     </form>
@@ -115,7 +123,8 @@ async function render_verifikasitable() {
         </tbody>
     </table>
     ` 
-    document.getElementById('section-verifikasi').innerHTML = table + page_control();
+    paging= page_control()
+    document.getElementById('section-verifikasi').innerHTML = table + paging;
 }
 
 function render_historytable() {

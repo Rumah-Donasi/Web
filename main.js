@@ -15,6 +15,7 @@ const {
 
 const express = require('express');
 const session = require('express-session');
+const { adminLogin } = require('./controllers/loginController.js');
 
 checkDB(); //check apakah database sudah terhubung
 const app = express();
@@ -36,9 +37,10 @@ app.use(
     }
   })
 );
+app.use('/private', express.static(__dirname + '/private'));
 
 app.use("/", rootRouter);
-
+app.post('/loginadmin',adminLogin);
 app.use('/login', loginRouter);
 app.use('/register/lembaga', registerLembagaRouter);
 app.use('/register/user', registerUserRouter);
