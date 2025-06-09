@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body style="background: url(/images/BANTU.svg);" class="min-h-screen flex items-center justify-center p-4 <%- currentPath === '/login' ? 'overflow-hidden' : '' %>">
+    <% if(currentPath === '/login' || currentPath === '/lembaga/login') { %>
+        <%- include('../partials/login'); %>
+    <% } %>
+    <% if(currentPath === '/register' || currentPath === '/lembaga/register') { %>
+        <%- include('../partials/register'); %>
+    <% } %>
+  </body>
+</html>

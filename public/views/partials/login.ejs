@@ -1,0 +1,159 @@
+    <main class="flex flex-col lg:flex-row bg-white/95 backdrop-blur-lg shadow-2xl rounded-2xl w-full max-w-6xl mx-4 overflow-hidden border border-white/20">
+      <section class="w-full lg:w-1/2 px-8 py-14 relative">
+        <div class="mb-8 relative">
+            <h1 class="text-5xl font-bold pb-4 bg-gradient-to-r from-dark to-secondary bg-clip-text text-transparent mb-2">Selamat Datang!</h1>
+            <p class="text-gray-600 mb-8">Mari selamatkan saudara kita bersama-sama!</p>
+        </div>
+
+        <form action="/login" method="post" class="space-y-2">
+            <div class="relative group pt-3">
+                <input 
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                    class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent"
+                >
+                <label for="username"
+                class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm">
+                    Username
+                </label>
+                <p class="ml-4 text-xs text-red-500"><%= typeof err.username !== 'undefined' ? err.username : '' %></p>
+            </div>
+
+            <div class="relative group pt-3">
+                <!-- Input Password -->
+                <input 
+                    type="password"
+                    name="password"
+                    id="password"
+                    required
+                    class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent"
+                />
+
+                <!-- Label -->
+                <label for="password"
+                    class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm">
+                    Password
+                </label>
+
+                <!-- Toggle Password Visibility -->
+                <button
+                    type="button"
+                    id="toggle-password"
+                    class="absolute right-4 top-10 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                >
+                    <div class="hidden" id="eye-closed">
+                        <i class="fa-solid fa-eye-slash"></i>
+                    </div>
+                    <div id="eye-open" >
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                </button>
+                 <p class="ml-4 text-xs text-red-500"><%= typeof err.password !== 'undefined' ? err.password : '' %></p>
+
+                <!-- Link Lupa Password -->
+                <a href="/forgot" class="absolute right-4 -bottom-6 text-sm text-dark hover:underline">
+                    Lupa password?
+                </a>
+            </div>
+
+            <div class="pt-10 pb-3">
+                <button
+                    type="submit"
+                    class="group relative w-full h-14 bg-primary hover:bg-dark text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-dark/20 overflow-hidden"
+                >
+                <span class="relative z-10 flex items-center justify-center space-x-2">
+                    <span>Masuk</span>
+                    <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </span>
+            </button>
+            </div>
+
+            <!-- Tautan ke halaman pendaftaran -->
+            <div class="text-center text-sm text-gray-600">
+                 Belum punya akun? 
+            <a href="/register" class="text-primary font-medium hover:underline">Daftar di sini</a>
+            </div>
+        </form>
+
+        <div class="mt-8">
+            <div class="relative">
+                <div class="absolute inset-3 flex items-center">
+                    <div class="w-full border-t border-gray-200"></div>
+                </div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-4 bg-white text-gray-500">Atau masuk dengan</span>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 gap-3">
+            <button class="flex items-center justify-center px-4 py-3 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 hover:shadow-md">
+                <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Google
+            </button>
+            
+            <button class="flex items-center justify-center px-4 py-3 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 hover:shadow-md">
+                <svg class="w-5 h-5 mr-2" fill="#1877F2" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                Facebook
+            </button>
+        </div>
+    </section>
+    <section class="w-full lg:w-1/2 relative overflow-hidden p-0">
+        <!-- Full Background Image -->
+        <img src="/images/pegangan2.jpg" alt="Helping hands together" class="absolute inset-0 w-full h-full object-cover z-0"/>
+
+        <!-- Caption / Box Text -->
+        <div class="absolute bottom-8 left-8 right-8 z-20">
+            <div class="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800 mb-1">Bersama Kita Kuat</h3>
+                <p class="text-sm text-gray-600">Bergabunglah dengan komunitas yang peduli dan siap membantu sesama.</p>
+    
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <script>
+    // Password toggle functionality
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('password');
+    const eyeOpen = document.getElementById('eye-open');
+    const eyeClosed = document.getElementById('eye-closed');
+
+    togglePassword.addEventListener('click', function() {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      
+      eyeOpen.classList.toggle('hidden');
+      eyeClosed.classList.toggle('hidden');
+    });
+
+    // Form validation and loading state
+    const form = document.querySelector('form');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    form.addEventListener('submit', function(e) {
+      submitBtn.innerHTML = `
+        <span class="relative z-10 flex items-center justify-center space-x-2">
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>Memproses...</span>
+        </span>
+      `;
+      submitBtn.disabled = true;
+    });
+  </script>

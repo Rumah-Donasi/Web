@@ -31,7 +31,7 @@ const awalBanget = async (req, res) => {
 
         const mendesak = await db.query(`
            SELECT * FROM issues
-           WHERE prioritas_donasi='high'
+           WHERE prioritas='high'
            ORDER BY RANDOM()
            LIMIT 4 
         `);
@@ -44,12 +44,14 @@ const awalBanget = async (req, res) => {
         });
 
         res.render('pages/index.ejs', {
+
+
             issues: req.issues,
             random: req.random,
             mendesak: req.mendesak
         });
     } catch (err) {
-        res.render('pages/error.ejs', {
+        res.render('pages/error', {
             error: err
         });
     }

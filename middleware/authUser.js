@@ -1,15 +1,11 @@
+const db = require('../config/db');
 const JWT = require("jsonwebtoken");
 require('dotenv').config();
 
 const authorize = (...allowedUserTypes) => {
     return (req, res, next) => {
         try {
-            const authHeader = req.headers['authorization'];
-            if (!authHeader || !authHeader.startsWith("Bearer ")) {
-                return res.status(401).json({ success: false, message: "Token tidak ditemukan" });
-            }
-
-            const token = authHeader.split(" ")[1];
+            const token = req.cookies.token;
             JWT.verify(token, process.env.JWT_SECRET, (err, decoded) => {
                 if (err) {
                     return res.status(401).json({ success: false, message: "Token tidak valid" });
@@ -35,29 +31,74 @@ const authorize = (...allowedUserTypes) => {
         }
     };
 };
-const cekLogin = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization?.split(' ')[1];  // Format: "Bearer token"
 
-    if (!token) {
-        next();
-    }
+const checkNotUsertype = (...notAllowedUserTypes) => {
+    return (req, res, next) => {
+        try {
+            const user = req.user;
+            const token = req.cookies.token;
+            
+            if (!token){
+                res.locals.user = null;
+                return next(); 
+            } 
 
-    jwt.verify(token, 'secretkey', (err, decoded) => {
-      if (err) {
-        return res.status(401).json({ message: 'Token tidak valid' });
-      }
-      
-      req.user = decoded; 
-      next(); 
-    });
-  } catch (error) {
-        console.log(error);
-        res.render("../views/pages/error.ejs", {
-            error: error
-    });
-}
+            if (notAllowedUserTypes.includes(user.usertype)) {
+                return res.render('pages/error', {
+                    error: `Akses ditolak: ${notAllowedUserTypes.join('/')} tidak boleh mengakses halaman ini`
+                });
+            }
+            next();
+        } catch (error) {
+            return res.render("pages/error.ejs", { error });
+        }
+    };
 };
 
+const cekLogin = async (req, res, next) => {
+    try {
+        const token = req.cookies.token;
 
-module.exports = { authorize, cekLogin };
+        if (!token){
+            res.locals.user = null;
+            return next(); 
+        } 
+
+        JWT.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+            if (err) {
+                return next(); 
+            }
+
+            req.user = {
+                id: decoded.id,
+                usertype: decoded.usertype,
+                username: decoded.username
+            };
+
+            res.locals.user = req.user;
+
+            next();
+        });
+    } catch (error) {
+        return res.render("pages/error.ejs", { error });
+    }
+};
+
+const getInfoAkun = (req, res, next) => {
+    try {
+        const id = req.user.id;
+
+        db.query(`SELECT * FROM users WHERE id_user = $1`, [id], (err, result) => {
+            if (err) {
+                return res.render("pages/error.ejs", { error: err });
+            }
+
+            res.locals.user = result.rows[0];
+            next();
+        });
+    } catch (error) {
+        return res.render("pages/error.ejs", { error });
+    }
+};
+
+module.exports = { authorize, cekLogin, getInfoAkun, checkNotUsertype };

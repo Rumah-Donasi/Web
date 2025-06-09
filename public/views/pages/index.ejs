@@ -61,18 +61,38 @@
         <% }) %>
       </div>
     </section>
-
+    
     <!-- Kebutuhan Mendesak -->
     <section class="bg-primary py-10 px-6 md:px-16 rounded-xl mx-4 sm:mx-20 lg:mx-40 mt-12">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl text-white font-semibold">Kebutuhan Mendesak</h1>
         <a
-          href="/cari/Kebutuhan-Mendesak"
-          class="text-sm font-medium md:text-base text-white border border-white px-4 py-2 rounded-full hover:bg-white hover:text-primary transition-colors"
+        href="/cari/Kebutuhan-Mendesak"
+        class="text-sm font-medium md:text-base text-white border border-white px-4 py-2 rounded-full hover:bg-white hover:text-primary transition-colors"
         >
-          Lihat Lainnya
-        </a>
+        Lihat Lainnya
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+      <% mendesak.forEach((item) => { %>
+        <% include('../partials/card', {
+            link: '/detail/' + item.id_issue,
+            image: item.thumbnail,
+            creator: 'Lembaga #' + item.id_lembaga, // opsional
+            title: item.nama_issue,
+            amount: item.target.toLocaleString('id-ID'),
+            progress: item.progress
+          }) %>
+        <% }) %>
       </div>
+    </section>
+
+    <!-- Campaign Pilihan -->
+    <section class="bg-primary py-10 px-6 md:px-16 rounded-xl mx-4 sm:mx-20 lg:mx-40 mt-12">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl text-white font-semibold">Campaign Pilihan</h1>
+      </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
         <% random.forEach((item) => { %>
           <% include('../partials/card', {
@@ -90,7 +110,7 @@
     <!-- Banner -->
     <section class="mt-10"><%- include('../partials/banner'); %></section>
     <%- include('../partials/footer'); %>
-
+    
     <!-- SwiperJS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 

@@ -285,7 +285,7 @@ const getIssueById = async (req, res) => {
 
 const homeCreate = async (req, res) => {
     try {
-        res.render('pages/createIssue');
+        res.render('pages/createIssue', { err: {} });
     } catch (error) {
         console.log(error);
         res.render("pages/error", { error: error });

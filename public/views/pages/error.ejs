@@ -81,8 +81,8 @@
                 <!-- Action Buttons -->
                 <div class="space-y-4">
                     <!-- Primary Action -->
-                    <button 
-                        onclick="goHome()"
+                    <a 
+                        href="<%= user.usertype === 'lembaga' ? '/lembaga' : '/'%>"
                         class="w-full py-3 px-6 rounded-lg font-medium text-white transition-all transform hover:scale-105 shadow-lg flex items-center justify-center"
                         style="background: linear-gradient(135deg, #5FCFBA 0%, #3B9E8C 100%);"
                         onmouseover="this.style.background='linear-gradient(135deg, #3B9E8C 0%, #5FCFBA 100%)'"
@@ -90,7 +90,7 @@
                     >
                         <i class="fas fa-home mr-2"></i>
                         Kembali ke Beranda
-                    </button>
+                    </a>
 
                     <!-- Secondary Actions -->
                     <div class="grid grid-cols-2 gap-3">
@@ -159,7 +159,10 @@
 
     <script>
         function goHome() {
-            window.location.href = '/';
+            if(user.usertype==='lembaga')
+                window.location.href = '/lembaga';
+            else
+                window.location.href = '/';
         }
 
         function goBack() {
