@@ -31,5 +31,18 @@ exports.getIssue = async (req, res) => {
     }
 };
 
+exports.admlogout = (req, res) => {
+    if (req.session) {
+        req.session.destroy(err => {
+            if (err) {
+                console.error("Error destroying session:", err);
+                return res.status(500).json({ success: false, message: "Logout failed." });
+            }
+            return res.redirect("/admin"); // Redirect to login page
+        });
+    } else {
+        return res.redirect("/admin");
+    }
+};
 
 

@@ -11,8 +11,6 @@ const dberror = () => {
   res.status(500).send('Internal server error');
 };
 //query pgsql
-const uquery = 'SELECT * FROM users WHERE username = $1 AND passwd = $2 limit 1'
-const lquery = 'SELECT * FROM lembaga WHERE username = $1 AND passwd = $2 limit 1'
 const aquery = 'select * from admins where username = $1 and passwd = $2 limit 1'
 
 exports.adminLogin = async (req, res) => {

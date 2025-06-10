@@ -54,7 +54,7 @@ async function render_verifikasitable() {
         table +=
         `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                <td class="p-3 px-5"><input value="${item.id_lembaga}" class="bg-transparent"></td>
+                <td class="p-3 px-5"><input value="${item.id_lembaga}" class="bg-transparent w-20"></td>
                 <td class="p-3 px-5"><input value="${item.nama_lembaga}" class="bg-transparent"></td>
                 <td class="p-3 px-5">
                     <select value="${item.verifikasi}" class="bg-transparent">
@@ -64,8 +64,8 @@ async function render_verifikasitable() {
                 </td>
                 <td class="p-3 px-5 flex justify-start">
                     
-                    <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button>
-                    <button type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Save</button>
+                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i></button>
+                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
                 </td>
             </tr>
         `
@@ -91,14 +91,14 @@ async function render_historytable() {
         table +=
         `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                <td class="p-3 px-5"><input value="${item.id_detail}" class="bg-transparent"></td>
-                <td class="p-3 px-5"><input value="${item.id_user}" class="bg-transparent"></td>
-                <td class="p-3 px-5"><input value="${item.id_issue}" class="bg-transparent"></td>
+                <td class="p-3 px-5"><input value="${item.id_detail}" class="bg-transparent w-20"></td>
+                <td class="p-3 px-5"><input value="${item.id_user}" class="bg-transparent w-20"></td>
+                <td class="p-3 px-5"><input value="${item.id_issue}" class="bg-transparent w-20"></td>
                 <td class="p-3 px-5"><input value="${item.jumlah_bayar}" class="bg-transparent"></td>
                 <td class="p-3 px-5"><input value="${item.tanggal}" class="bg-transparent"></td>
-                <td class="p-3 px-5"><input value="${item.nama_donatur}" class="bg-transparent"></td>
+                <td class="p-3 px-5"><input value="${item.nama_donatur}" class="bg-transparent "></td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button>
+                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
                 </td>
             </tr>
         `
@@ -124,20 +124,20 @@ const response = await fetch('/admin/issue');
         table +=
         `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                <td class="p-3 px-5"><input value="${item.id_issue}" class="bg-transparent"></td>
-                <td class="p-3 px-5"><input value="${item.id_lembaga}" class="bg-transparent"></td>
+                <td class="p-3 px-5"><input value="${item.id_issue}" class="bg-transparent w-20"></td>
+                <td class="p-3 px-5"><input value="${item.id_lembaga}" class="bg-transparent w-20"></td>
                 <td class="p-3 px-5"><input type="text" value="${item.deskripsi}" class="bg-transparent"></td>
                 <td class="p-3 px-5"><input type="datetime-local" value="${item.deadline}" class="bg-transparent"></td>
                 <td class="p-3 px-5">
-                    <select value="${item.pilihan}" class="bg-transparent">
+                    <select value="${item.pilihan}" class="bg-transparent w-20">
                         <option value="true">true</option>
                         <option value="false">false</option>
                     </select>
                 </td>
                 <td class="p-3 px-5"><input type="text" value="${item.alasan}" class="bg-transparent"></td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Save</button>
-                    <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button>
+                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i></button>
+                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
                 </td>
             </tr>
         `

@@ -4,7 +4,7 @@ const {
   getVerifikasi,
   getHistory,
   getIssue, 
-
+  admlogout
 } = require('../controllers/adminController');
 const { adminLogin } = require('../controllers/loginController');
 const router = express.Router();
@@ -17,5 +17,5 @@ router.get('/', (req, res) => {
 router.get('/verifikasi', getVerifikasi);
 router.get('/history', getHistory);
 router.get('/issue', getIssue);
-
+router.get('/logout',admlogout);
 module.exports = router;
