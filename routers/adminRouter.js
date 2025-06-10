@@ -1,6 +1,11 @@
 const path=require('path');
 const express = require('express');
-const { getVerifikasi } = require('../controllers/adminController');
+const { 
+  getVerifikasi,
+  getHistory,
+  getIssue, 
+
+} = require('../controllers/adminController');
 const { adminLogin } = require('../controllers/loginController');
 const router = express.Router();
 
@@ -10,4 +15,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/verifikasi', getVerifikasi);
+router.get('/history', getHistory);
+router.get('/issue', getIssue);
 module.exports = router;
