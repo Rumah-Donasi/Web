@@ -1,4 +1,21 @@
 const db = require('../config/db');
+
+const awalLembaga = async (req, res) => {
+    try {
+        const result = await db.query(`SELECT * FROM issues WHERE id_pembuat = $1`, [req.user.id_user]);
+
+        res.locals.issues = result.rows;
+        res.render('pages/awalLembaga', {
+            issues: result.rows
+        });
+    } catch (error) {
+        console.log(error);
+        res.render('pages/error', {
+            error: error
+        });
+    }
+};
+
 const accLembaga = async (req, res) => {
     try {
         const id_user = req.params.id_user;
@@ -221,5 +238,8 @@ module.exports = {
     updateIssue,
     deleteIssue,
     inbox,
-    keluar
+    keluar,
+    awalLembaga,
+    accLembaga,
+    rejectLembaga
 }

@@ -1,204 +1,358 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <%- include('../partials/head'); %>
-    </head>
-    <body class="">
-        <!-- Navbar -->
-        <%- include('../partials/lembaga/sidenav'); %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+        <style>
+            .animate-fade-in-down {
+                animation: fadeInDown 0.3s ease-out;
+            }
+
+            @keyframes fadeInDown {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+</head>
+
+
+<body class="">
+    <!-- Navbar -->
+    <%- include('../partials/lembaga/sidenav'); %>
 
         <!-- main -->
         <main class="px-4 sm:px-6 lg:px-8 py-8 mt-2 md:ml-64 ml-0 md:mr-8">
-            <!-- header -->
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-black">Galang Dana</h1>
-                <p class="text-black/50 mb-4">Peduli Bersama Rumah Donasi</p>
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full" style="background: rgba(223, 248, 243, 0.5); backdrop-filter: blur(16px);">
-                    <i class="fa fa-plus-circle text-2xl text-primary"></i>
-                </div>
-            </div>
+            <header><%- include('../partials/navbar'); %></header>
 
-            <!-- Form -->
-            <div class="rounded-2xl shadow-2xl p-8 bg-primary backdrop-blur-lg border-2 border-primary">
-                <form action="/createIssue" method="post" id="formIssue">
-                    <!-- nama issue -->
-                    <div>
-                        <label for="nama" class="block text-sm font-medium text-white mb-2">
-                            <i class="fas fa-heading mr-2"></i>Nama Issue *
-                        </label>
-                        <input 
-                            id="nama_issue"
-                            name="nama_issue"
-                            type="text"
-                            required
-                            maxlength="100"
-                            class="w-full px-4 py-3 placeholder-black/20 text-black rounded-lg focus:outline-none focus:outline-dark focus:ring-2 focus:ring-dull transition-all"
-                            placeholder="Masukkan nama issue"
-                            value="<%= typeof nama_issue !== 'undefined' ? nama_issue : '' %>"
-                            oninput="updateCharCounter('nama_issue', 'title-counter', 100)">
-                        <div class="mt-1 text-right">
-                            <span id="title-counter" class="text-xs text-white/60">0/100</span>
-                        </div>
-                    </div>
-                    
-                    <!-- tipe dan prioritas -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- tipe -->
-                        <div>
-                            <label for="tipe" class="block text-sm font-medium text-white mb-2">
-                                <i class="fas fa-tag mr-2"></i>Tipe Isu *
-                            </label>
-                            <select 
-                                name="tipe_donasi" 
-                                id="tipe"
-                                required
-                                class="w-full px-4 py-3 pr-10 text-black rounded-lg focus:outline-dark focus:ring-2 focus:ring-dull transition-all border-dark">
-                                <option class="bg-gray-100" value="" selected disabled hidden>Pilih tipe isu</option>
-                                <option class="bg-gray-100" value="Bencana Alam">Bencana Alam</option>
-                                <option class="bg-gray-100" value="Bantuan Sosial">Bantuan Sosial</option>
-                                <option class="bg-gray-100" value="Bantuan Medis">Bantuan Medis</option>
-                                <option class="bg-gray-100" value="Lingkungan">Lingkungan</option>
-                            </select>
-                        </div>
-                        
-                        <!-- prioritas -->
-                        <div>
-                            <label for="prioritas" class="block text-sm font-medium text-white mb-2">
-                                <i class="fas fa-tag mr-2"></i>Prioritas Isu *
-                            </label>
-                            <select 
-                            name="prioritas" 
-                            id="prioritas"
-                            required
-                            class="w-full px-4 py-3 pr-10 text-black rounded-lg focus:outline-dark focus:ring-2 focus:ring-dull transition-all border-dark">
-                            <option class="bg-gray-100" value="" selected disabled hidden>Tentukan prioritas</option>
-                            <option class="bg-gray-100" value="low">Low - Tidak Mendesak</option>
-                            <option class="bg-gray-100" value="medium">Medium - Perlu Perhatian</option>
-                            <option class="bg-gray-100" value="high">High - Mendesak</option>
-                        </select>
+            <!-- main -->
+            <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-24">
+                <!-- header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-black">Galang Dana</h1>
+                    <p class="text-black/50 mb-4">Peduli Bersama Rumah Donasi</p>
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full"
+                        style="background: rgba(223, 248, 243, 0.5); backdrop-filter: blur(16px);">
+                        <i class="fa fa-plus-circle text-2xl text-primary"></i>
                     </div>
                 </div>
-                
-                <!-- deskripsi -->
-                <div class="mt-6">
-                    <label for="deskripsi" class="block text-sm font-medium text-white mb-2">
-                        <i class="fas fa-align-left mr-2"></i>Deskripsi *
-                        </label>
-                        <textarea 
-                        id="deskripsi"
-                        name="deskripsi"
-                        type="text"
-                        required
-                        rows="6"
-                        maxlength="1000"
-                        class="w-full px-4 py-3 placeholder-black/20 text-black rounded-lg focus:outline-none focus:outline-dark focus:ring-2 focus:ring-dull transition-all resize-none"
-                        placeholder="Masukkan deskripsi issue yang deskriptif"
-                        value="<%= typeof deskripsi !== 'undefined' ? deskripsi : '' %>"
-                        oninput="updateCharCounter('deskripsi', 'desc-counter', 1000)"></textarea>
-                        <div class="mt-1 text-right">
-                            <span id="desc-counter" class="text-xs text-white/60">0/1000</span>
-                        </div>
-                    </div>
-                    
-                    <!-- thumbnail -->
-                    <div>
-                        <label for="thumbnail" class="block text-sm font-medium text-white mb-2">
-                            <i class="fas fa-paperclip mr-2"></i>Thumbnail
-                        </label>
-                        <div class="relative">
-                            <input 
-                            type="file"
-                            id="thumbnail"
-                            name="thumbnail"
-                            accept=".jpg, .jpeg"
-                            class="hidden"
-                            onchange="handleFileUpload(this)"
-                            >
-                            <label 
-                            for="thumbnail" 
-                            class="bg-white w-full border-2 border-white hover:scale-[1.02] rounded-lg p-6 cursor-pointer transition-all flex flex-col items-center justify-center text-center"
-                            >
-                            <i class="fas fa-cloud-upload-alt text-3xl mb-2 text-black/60"></i>
-                            <span class="text-black/80 font-medium">Klik untuk upload file</span>
-                                <span class="text-black/60 text-sm mt-1">Thumbnail untuk issue</span>
-                                <span class="text-black/50 text-xs mt-2">Max 10MB per file - jpg, jpeg</span>
-                            </label>
-                        </div>
-                        <div id="thumbnail-preview" class="mt-4"></div>
-                    </div>
 
-                    <!-- target -->
-                    <div class="mt-6">
-                        <label for="target" class="block text-sm font-medium text-white mb-2">
-                            <i class="fas fa-bullseye mr-2"></i>Target *
-                        </label>
-                        <div class="relative">
-                            <input 
-                                id="target"
-                                name="target"
-                                type="text"
-                                inputmode="numeric"
-                                required
-                                maxlength="100"
-                                min="10000"
-                                value="<%= typeof target !== 'undefined' ? target : '' %>"
-                                class="w-full pl-16 px-4 py-3 placeholder-black/20 text-black rounded-lg focus:outline-none focus:outline-dark focus:ring-2 focus:ring-dull transition-all"
-                                placeholder="Masukkan target dana yang ingin dikumpulkan"
-                                oninput="formatRupiah(this)">
-                            <div id="idr" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-black/60">
-                                <span>IDR</span>
+                <!-- Form -->
+                <div class="rounded-2xl shadow-2xl p-8 bg-primary backdrop-blur-lg border-2 border-primary">
+                    <form action="/createIssue" method="post" id="formIssue">
+                        <!-- nama issue -->
+                        <div>
+                            <label for="nama" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-heading mr-2"></i>Nama Issue *
+                            </label>
+                            <input id="nama_issue" name="nama_issue" type="text" required maxlength="100"
+                                class="w-full px-4 py-3 placeholder-black/20 text-black rounded-lg focus:outline-none focus:outline-dark focus:ring-2 focus:ring-dull transition-all"
+                                placeholder="Masukkan nama issue"
+                                value="<%= typeof nama_issue !== 'undefined' ? nama_issue : '' %>"
+                                oninput="updateCharCounter('nama_issue', 'title-counter', 100)">
+                            <<<<<<< HEAD <div class="mt-1 text-right">
+                                =======
+                                <div class="mt-1 flex justify-between flex-row">
+                                    <p id="err-nama" class="ml-4 text-xs text-red-500">
+                                        <%= typeof err.nama !=='undefined' ? err.nama : '' %>
+                                    </p>
+                                    >>>>>>> origin/front_end
+                                    <span id="title-counter" class="text-xs text-white/60">0/100</span>
+                                </div>
+                        </div>
+
+                        <!-- tipe dan prioritas -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- tipe -->
+                            <div>
+                                <label for="tipe" class="block text-sm font-medium text-white mb-2">
+                                    <i class="fas fa-tag mr-2"></i>Tipe Isu *
+                                </label>
+                                <select name="tipe_donasi" id="tipe" required
+                                    class="w-full px-4 py-3 pr-10 text-black rounded-lg focus:outline-dark focus:ring-2 focus:ring-dull transition-all border-dark">
+                                    <option class="bg-gray-100" value="" selected disabled hidden>Pilih tipe isu
+                                    </option>
+                                    <option class="bg-gray-100" value="Bencana Alam">Bencana Alam</option>
+                                    <option class="bg-gray-100" value="Bantuan Sosial">Bantuan Sosial</option>
+                                    <option class="bg-gray-100" value="Bantuan Medis">Bantuan Medis</option>
+                                    <option class="bg-gray-100" value="Lingkungan">Lingkungan</option>
+                                </select>
+                                <<<<<<< HEAD=======<p id="err-tipe" class="ml-4 text-xs text-red-500 mt-1">
+                                    <%= typeof err.tipe !=='undefined' ? err.tipe : '' %>
+                                        </p>
+                                        >>>>>>> origin/front_end
+                            </div>
+
+                            <!-- prioritas -->
+                            <div>
+                                <label for="prioritas" class="block text-sm font-medium text-white mb-2">
+                                    <i class="fas fa-tag mr-2"></i>Prioritas Isu *
+                                </label>
+                                <select name="prioritas" id="prioritas" required
+                                    class="w-full px-4 py-3 pr-10 text-black rounded-lg focus:outline-dark focus:ring-2 focus:ring-dull transition-all border-dark">
+                                    <option class="bg-gray-100" value="" selected disabled hidden>Tentukan prioritas
+                                    </option>
+                                    <option class="bg-gray-100" value="low">Low - Tidak Mendesak</option>
+                                    <option class="bg-gray-100" value="medium">Medium - Perlu Perhatian</option>
+                                    <option class="bg-gray-100" value="high">High - Mendesak</option>
+                                </select>
+                                <<<<<<< HEAD=======<p id="err-prioritas" class="ml-4 text-xs mt-1 text-red-500">
+                                    <%= typeof err.prioritas !=='undefined' ? err.prioritas : '' %>
+                                        </p>
+                                        >>>>>>> origin/front_end
                             </div>
                         </div>
-                    </div>
 
-                    <!-- deadline -->
-                     <div class="mt-6">
-                        <label for="deadline" class="block text-sm font-medium text-white mb-2">
-                            <i class="fas fa-clock mr-2"></i>Deadline *
-                        </label>
-                        <input 
-                            id="deadline"
-                            name="deadline"
-                            type="date"
-                            required
-                            min="<%= new Date().toISOString().split('T')[0] %>"
-                            value="<%= typeof target !== 'undefined' ? target : new Date().toISOString().split('T')[0] %>"
-                            class="w-full px-4 py-3 text-black rounded-lg placeholder:text-black/20 focus:outline-none focus:ring-2 focus:ring-dull transition-all"
-                            placeholder="Masukkan deadline">
-                    </div>
+                        <!-- deskripsi -->
+                        <div class="mt-6">
+                            <label for="deskripsi" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-align-left mr-2"></i>Deskripsi *
+                            </label>
+                            <textarea id="deskripsi" name="deskripsi" type="text" required rows="6" maxlength="1000"
+                                class="w-full px-4 py-3 placeholder-black/20 text-black rounded-lg focus:outline-none focus:outline-dark focus:ring-2 focus:ring-dull transition-all resize-none"
+                                placeholder="Masukkan deskripsi issue yang deskriptif"
+                                value="<%= typeof deskripsi !== 'undefined' ? deskripsi : '' %>"
+                                oninput="updateCharCounter('deskripsi', 'desc-counter', 1000)"></textarea>
+                            <<<<<<< HEAD <div class="mt-1 text-right">
+                                =======
+                                <div class="mt-1 flex justify-between flex-row">
+                                    <p id="err-deskripsi" class="ml-4 text-xs text-red-500">
+                                        <%= typeof err.deskripsi !=='undefined' ? err.deskripsi : '' %>
+                                    </p>
+                                    >>>>>>> origin/front_end
+                                    <span id="desc-counter" class="text-xs text-white/60">0/1000</span>
+                                </div>
+                        </div>
 
-
-
-                    <!-- submit -->
-                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <button
-                            type="submit"
-                            class="flex-1 py-3 px-6 rounded-lg font-medium text-primary hover:text-white transition-all hover:scale-105 shadow-lg flex items-center justify-center bg-white hover:bg-dark"
-                        >
-                            <i class="fas fa-paper-plane mr-2"></i><span>Buat Isu</span>
-                        </button>
-                     </div>
-                </form>
-
-                <% if (typeof message === 'undefined') { %>
-                <div>
-                    <span class="<% typeof suucess !== 'undefined' ? 'text-green-500' : 'text-red-500' %>"><%= typeof message !== 'undefined' ? message : '' %></span>
+                        <!-- thumbnail -->
+                        <div>
+                            <label for="thumbnail" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-paperclip mr-2"></i>Thumbnail
+                            </label>
+                            <div class="relative">
+                                <input type="file" id="thumbnail" name="thumbnail" accept=".jpg, .jpeg" class="hidden"
+                                    onchange="handleFileUpload(this)">
+                                <label for="thumbnail"
+                                    class="bg-white w-full border-2 border-white hover:scale-[1.02] rounded-lg p-6 cursor-pointer transition-all flex flex-col items-center justify-center text-center">
+                                    <<<<<<< HEAD <i class="fas fa-cloud-upload-alt text-3xl mb-2 text-black/60"></i>
+                                        <span class="text-black/80 font-medium">Klik untuk upload file</span>
+                                        <span class="text-black/60 text-sm mt-1">Thumbnail untuk issue</span>
+                                        <span class="text-black/50 text-xs mt-2">Max 10MB per file - jpg,
+                                            jpeg</span>
+                                </label>
+                            </div>
+                            <div id="thumbnail-preview" class="mt-4"></div>
+                            =======
+                            <i class="thumbnail-inner fas fa-cloud-upload-alt text-3xl mb-2 text-black/60"></i>
+                            <span class="thumbnail-inner text-black/80 font-medium">Klik untuk upload file</span>
+                            <span class="thumbnail-inner text-black/60 text-sm mt-1">Thumbnail untuk issue</span>
+                            <span class="thumbnail-inner text-black/50 text-xs mt-2">Max 10MB per file - jpg,
+                                jpeg</span>
+                            <div id="thumbnail-preview" class="mt-4"></div>
+                            </label>
+                        </div>
+                        <p id="err-nama" class="mt-1 ml-4 text-xs text-red-500">
+                            <%= typeof err.thumbnail !=='undefined' ? err.thumbnail : '' %>
+                        </p>
+                        >>>>>>> origin/front_end
                 </div>
-                <% } %>
+
+                <!-- target -->
+                <div class="mt-6">
+                    <label for="target" class="block text-sm font-medium text-white mb-2">
+                        <i class="fas fa-bullseye mr-2"></i>Target *
+                    </label>
+                    <div class="relative">
+                        <input id="target" name="target" type="text" inputmode="numeric" required maxlength="100"
+                            min="10000" value="<%= typeof target !== 'undefined' ? target : '' %>"
+                            class="w-full pl-16 px-4 py-3 placeholder-black/20 text-black rounded-lg focus:outline-none focus:outline-dark focus:ring-2 focus:ring-dull transition-all"
+                            placeholder="Masukkan target dana yang ingin dikumpulkan" oninput="formatRupiah(this)">
+                        <<<<<<< HEAD <div id="idr"
+                            class="absolute left-4 top-1/2 transform -translate-y-1/2 text-black/60">
+                            <span>IDR</span>
+                    </div>
+                </div>
+                </div>
+
+                <!-- deadline -->
+                <div class="mt-6">
+                    =======
+                    <div id="idr" class="absolute left-4 top-6 transform -translate-y-1/2 text-black/60">
+                        <span>IDR</span>
+                    </div>
+                    <p id="err-nama" class="mt-1 ml-4 text-xs text-red-500">
+                        <%= typeof err.target !=='undefined' ? err.target : '' %>
+                    </p>
+                </div>
+                </div>
+
+                <!-- deadline -->
+                <div class="mt-6">
+                    >>>>>>> origin/front_end
+                    <label for="deadline" class="block text-sm font-medium text-white mb-2">
+                        <i class="fas fa-clock mr-2"></i>Deadline *
+                    </label>
+                    <input <<<<<<< HEAD id="deadline" name="deadline" type="date" required
+                        min="<%= new Date().toISOString().split('T')[0] %>"
+                        value="<%= typeof target !== 'undefined' ? target : new Date().toISOString().split('T')[0] %>"
+                        class="w-full px-4 py-3 text-black rounded-lg placeholder:text-black/20 focus:outline-none focus:ring-2 focus:ring-dull transition-all"
+                        placeholder="Masukkan deadline">
+                </div>
+
+
+
+                =======
+                id="deadline"
+                name="deadline"
+                type="date"
+                required
+                min="<%= new Date().toISOString().split('T')[0] %>"
+                    value="<%= typeof target !=='undefined' ? target : new Date().toISOString().split('T')[0] %>"
+                        class="w-full px-4 py-3 text-black rounded-lg placeholder:text-black/20 focus:outline-none
+                        focus:ring-2 focus:ring-dull transition-all"
+                        placeholder="Masukkan deadline">
+                        <p id="err-nama" class="mt-1 ml-4 text-xs text-red-500">
+                            <%= typeof err.deadline !=='undefined' ? err.deadline : '' %>
+                        </p>
+                        </div>
+
+                        >>>>>>> origin/front_end
+                        <!-- submit -->
+                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                            <button type="submit" <<<<<<< HEAD
+                                class="flex-1 py-3 px-6 rounded-lg font-medium text-primary hover:text-white transition-all hover:scale-105 shadow-lg flex items-center justify-center bg-white hover:bg-dark">
+                                <i class="fas fa-paper-plane mr-2"></i><span>Buat Isu</span>
+                            </button>
+                        </div>
+                        </form>
+
+                        <% if (typeof message==='undefined' ) { %>
+                            <div>
+                                <span class="<% typeof suucess !== 'undefined' ? 'text-green-500' : 'text-red-500' %>">
+                                    <%= typeof message !=='undefined' ? message : '' %>
+                                </span>
+                            </div>
+                            <% } %>
+                                </div>
+            </main>
+            =======
+            class="flex-2 w-2/3 sm:w-full py-3 px-6 rounded-lg font-medium text-primary hover:text-white
+            transition-all hover:scale-105 shadow-lg flex items-center justify-center bg-white hover:bg-dark"
+            >
+            <i class="fas fa-paper-plane mr-2"></i><span>Buat Isu</span>
+            </button>
+            <button type="button" onclick="showPreview()"
+                class="flex-1 w-1/3 sm:w-full py-3 px-6 rounded-lg font-medium text-white transition-all hover:scale-105 shadow-lg flex items-center justify-center bg-primary hover:bg-dark">
+                <i class="fas fa-eye mr-2"></i><span>Preview</span>
+            </button>
+            </div>
+            </form>
             </div>
         </main>
-        
+
+        <!-- Modal Content -->
+        <div id="preview"
+            class="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 hidden animate-fade-in-down">
+            <div class="relative w-full max-w-md mx-auto bg-white rounded-xl shadow-xl p-4">
+
+                <!-- Card Preview -->
+                <div class="rounded-xl overflow-hidden shadow-lg border bg-white">
+                    <!-- Gambar -->
+                    <div class="w-full aspect-[16/9]">
+                        <img id="preview-image" src="/images/default-isu-img.svg" alt="Campaign"
+                            class="w-full h-full object-cover" />
+                    </div>
+
+                    <div class="p-4">
+                        <div class="flex items-center space-x-2 text-sm text-gray-500">
+                            <span id="preview-creator">Nama Penggalang</span>
+                        </div>
+                        <h2 id="preview-title" class="mt-1 text-gray-900 font-semibold text-base">Judul Donasi</h2>
+                        <p id="preview-desc" class="text-sm text-gray-600 mt-2">Deskripsi singkat</p>
+
+                        <div class="mt-3">
+                            <span class="text-sm text-gray-500">Target</span>
+                            <span id="preview-amount" class="text-primary font-semibold">Rp. 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tombol Modal -->
+                <div class="flex justify-end gap-2 mt-4">
+                    <button onclick="toggleModal('preview')"
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded">
+                        Batal
+                    </button>
+                    <button onclick="document.getElementById('formIssue').submit()"
+                        class="bg-primary hover:bg-dark text-white font-semibold px-4 py-2 rounded">
+                        Lanjut
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        >>>>>>> origin/front_end
+
         <script>
             function updateCharCounter(inputId, counterId, maxLength) {
                 const input = document.getElementById(inputId);
                 const counter = document.getElementById(counterId);
                 const currentLength = input.value.length;
-                
+
                 counter.textContent = `${currentLength}/${maxLength}`;
             }
 
             function handleFileUpload(input) {
                 const previewContainer = document.getElementById('thumbnail-preview');
+            }
+            function showPreview() {
+                const user = <%- JSON.stringify(user) %>;
+                const title = document.getElementById("nama_issue").value;
+                const target = document.getElementById("target").value;
+                const deskripsi = document.getElementById("deskripsi").value;
+                const creator = user.username || 'Nama Penggalang';
+                const fileInput = document.getElementById("thumbnail");
+
+                // Elemen target di modal
+                document.getElementById("preview-title").innerText = title || "Judul Donasi";
+                document.getElementById("preview-amount").innerText = `Rp. ${target || '0'}`;
+                document.getElementById("preview-desc").innerText = deskripsi || 'Deskripsi tidak tersedia.';
+                document.getElementById("preview-creator").innerText = creator;
+
+                // Gambar
+                if (fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById("preview-image").src = e.target.result;
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                } else {
+                    document.getElementById("preview-image").src = "/images/default-isu-img.svg";
+                }
+
+                // Tampilkan modal
+                toggleModal("preview");
+            }
+
+            function toggleModal(id) {
+                const modal = document.getElementById(id);
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
+                }
+            }
+
+            function handleFileUpload(input) {
+                const previewContainer = document.getElementById('thumbnail-preview');
+                const thumbnailInners = document.querySelectorAll('.thumbnail-inner');
 
                 if (input.files) {
                     const file = input.files[0];
@@ -234,7 +388,7 @@
                 let ribuan = split[0].substr(sisa).match(/\d{3}/g);
                 const idr = document.getElementById('idr');
 
-                if(input.value.length > 0){
+                if (input.value.length > 0) {
                     idr.classList.add('text-black');
                     idr.classList.remove('text-black/60');
                 } else {
@@ -253,13 +407,14 @@
 
             const form = document.getElementById('formIssue');
             form.addEventListener('submit', (event) => {
-              event.preventDefault();
-              fetch('/issueController/createIssue', {
-                method: 'POST',
-                body: new FormData(form),
-              })
+                event.preventDefault();
+                fetch('/issueController/createIssue', {
+                    method: 'POST',
+                    body: new FormData(form),
+                })
             })
         </script>
 
-    </body>
-    </html>
+</body>
+
+</html>

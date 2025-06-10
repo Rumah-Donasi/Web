@@ -1,0 +1,27 @@
+<section class="lg:col-span-2 space-y-6">
+      <img src="<%= issue.thumbnail %>" alt="<%= issue.nama_issue %>" class="w-full h-72 object-cover rounded-xl shadow">
+
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2"><%= issue.nama_issue %></h1>
+        <p class="text-gray-600 mb-4">Penggalang: <span class="font-medium">Lembaga #<%= issue.id_lembaga %></span></p>
+
+        <h3 class="text-xl font-semibold mb-2">Deskripsi</h3>
+        <p class="text-gray-700 leading-relaxed whitespace-pre-line"><%= issue.deskripsi %></p>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold mb-4">Para Donatur</h3>
+        <% if (donatur.length === 0) { %>
+          <p class="text-gray-500 italic">Belum ada donatur.</p>
+        <% } else { %>
+          <ul class="space-y-2">
+            <% donatur.forEach(d => { %>
+              <li class="flex justify-between items-center bg-white p-3 rounded-lg shadow">
+                <span class="font-medium"><%= d.nama %></span>
+                <span class="text-green-600 font-semibold">Rp. <%= d.nominal.toLocaleString('id-ID') %></span>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </div>
+    </section>

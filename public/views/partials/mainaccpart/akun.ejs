@@ -24,7 +24,7 @@
           class="w-16 h-16 rounded-full object-cover"
         />
         <div>
-          <h2 class="text-xl font-semibold">Jack Adams</h2>
+          <h2 class="text-xl font-semibold"><%- user.username %></h2>
         </div>
       </div>
     </div>
@@ -35,6 +35,9 @@
     <div class="flex justify-between items-start mb-4">
       <h3 class="text-lg font-semibold">Informasi Pribadi</h3>
       <button
+        id="editProfile"
+        type="button"
+        onclick="location.href='/akun/editProfile'"
         class="text-sm text-primary hover:underline flex items-center gap-1"
       >
         <i class="fas fa-pen mr-2"></i> Edit
@@ -43,19 +46,19 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
       <div>
         <p class="font-medium text-gray-500">Nama</p>
-        <p>Ardanu Egitya Ash Shafah</p>
+        <p><%- user.nama_user || "-" %></p>
       </div>
       <div>
         <p class="font-medium text-gray-500">Email</p>
-        <p>ardanuash@gmail.com</p>
+        <p><%- user.email || "-" %></p>
       </div>
       <div>
         <p class="font-medium text-gray-500">No Telepon</p>
-        <p>089699997929</p>
+        <p><%- user.telp_user || "-" %></p>
       </div>
       <div>
         <p class="font-medium text-gray-500">Alamat</p>
-        <p>Raya Rungkut Menanggal 27</p>
+        <p><%- user.alamat || "-" %></p>
       </div>
     </div>
   </div>

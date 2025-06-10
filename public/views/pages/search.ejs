@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <%- include('../partials/navbar') %>
+
+  <!-- Search Bar -->
+  <div class="mt-32"><%- include('../partials/searchbar') %></div>
+
+  <!-- Result Section -->
+  <section class="px-4 mb-20 max-w-screen-xl mx-auto mt-12">
+    <h1>Hasil pencarian untuk "<%= query %>":</h1>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% issues.forEach((item) => { %>
+          <% include('../partials/card', {
+            link: '/detail/' + item.id_issue,
+            image: item.thumbnail,
+            creator: 'Lembaga #' + item.id_lembaga, // opsional
+            title: item.nama_issue,
+            amount: item.target.toLocaleString('id-ID'),
+            progress: item.progress
+          }) %>
+        <% }) %>
+      </div>
+  </section>
+
+</body>
+</html>

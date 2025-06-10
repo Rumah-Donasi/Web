@@ -3,28 +3,51 @@
   class="hidden md:block fixed top-20 left-0 w-64 h-[calc(100vh-5rem)] bg-white shadow-lg z-40 py-6 px-4"
 >
   <a
-    href="/a/account"
-    class="<%= currentPath === '/a/account' ? 'bg-gray-100 text-primary' : 'text-gray-700 ' %> block px-4 py-2 rounded-lg font-medium"
+    href="/akun"
+    class="<%= currentPath === '/akun' ? 'bg-gray-100 text-primary' : 'text-gray-700 ' %> block px-4 py-2 rounded-lg font-medium"
   >
     Akun
   </a>
   <a
-    href="/a/donasi"
-    class="<%= currentPath === '/a/donasi' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
+    href="/akun/histori"
+    class="<%= currentPath === '/akun/histori' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
   >
     Donasi Saya
   </a>
   <a
-    href="/a/inbox"
-    class="<%= currentPath === '/a/inbox' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
+    href="/akun/pesan"
+    class="<%= currentPath === '/akun/pesan' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
   >
     Inbox
   </a>
   <a
-    href="/keluar"
+    href="/logout"
     class="block px-4 py-2 rounded-lg font-medium text-red-600 hover:text-red-800"
   >
     <i class="fa-solid fa-right-from-bracket"></i>
     Keluar
   </a>
 </div>
+
+<!-- bottom nav -->
+ <!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-md md:hidden">
+  <div class="flex justify-around items-center h-16">
+    <a href="/a/inbox" class="flex flex-col items-center <%= currentPath === '/a/inbox' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-envelope text-xl"></i>
+      <span class="text-xs">Inbox</span>
+    </a>
+    <a href="/a/donasi" class="flex flex-col items-center <%= currentPath === '/a/donasi' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-hand-holding-heart text-xl"></i>
+      <span class="text-xs">Donasi</span>
+    </a>
+    <a href="/a/account" class="flex flex-col items-center <%= currentPath === '/a/account' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-user text-xl"></i>
+      <span class="text-xs">Akun</span>
+    </a>
+    <a href="/keluar" class="flex flex-col items-center text-red-600 hover:text-red-800">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span class="text-xs">Keluar</span>
+    </a>
+  </div>
+</nav>

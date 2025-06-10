@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <% include('../partials/head'); %>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <% include('../partials/navbar'); %>
+
+  <main class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <!-- Bagian Kiri (Detail Campaign) -->
+    <% include('../partials/leftView'); %>
+
+    <!-- Bagian Kanan (Sticky Donasi Box) -->
+    <% include('../partials/rightView'); %>
+  </main>
+
+  <section>
+    <section class="bg-primary py-10 px-6 md:px-16 rounded-xl mx-4 sm:mx-20 lg:mx-40 mt-12">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl text-white font-semibold">Donasi Lainnya</h1>
+        <a
+          href="/search/"
+          class="text-sm font-medium md:text-base text-white border border-white px-4 py-2 rounded-full hover:bg-white hover:text-primary transition-colors"
+        >
+          Lihat Lainnya
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <% random.forEach((item) => { %>
+          <% include('../partials/card', {
+            link: '/detail/' + item.id_issue,
+            image: item.thumbnail,
+            creator: 'Lembaga #' + item.id_lembaga, // opsional
+            title: item.nama_issue,
+            amount: item.target.toLocaleString('id-ID'),
+            progress: item.progress
+          }) %>
+        <% }) %>
+      </div>
+    </section>
+  </section>
+
+</body>
+</html>
