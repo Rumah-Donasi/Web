@@ -8,7 +8,7 @@
       </a>
 
       <!-- Desktop Nav Links -->
-      <% if (user && user.usertype === 'user') { %>
+      <% if (!user || (user && user.usertype !== 'lembaga')) { %>
       <div class="hidden md:flex space-x-6 items-center">
         <a href="/" class="text-gray-600 hover:text-primary font-medium">Beranda</a>
         <a href="/tentang-kami" class="text-gray-600 hover:text-primary font-medium">Tentang Kami</a>

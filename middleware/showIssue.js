@@ -3,13 +3,12 @@ const db = require('../config/db');
 const pilihanIssue = async (req, res, next) => {
     try {
         const result = await db.query(`
-            SELECT * 
-            FROM issues
-            WHERE isPilihan = true
-            LIMIT 4;
+            SELECT i.id_issue, i.nama_issue, u.username, i.terkumpul, i.target, i.thumbnail, i.deskripsi 
+            FROM issues i
+            JOIN users u ON i.id_pembuat = u.id_user
         `);
 
-        req.issues = result.rows.map(issue => {
+        req.result = result.rows.map(issue => {
             const progress = Math.round((issue.terkumpul / issue.target) * 100);
             return {
                 ...issue,

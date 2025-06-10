@@ -144,10 +144,17 @@
         </div>
 
         <!-- Link to Login -->
-        <div class="text-center text-sm text-gray-600">
-          Sudah punya akun? 
-          <a href="/login" class="text-primary font-medium hover:underline">Masuk di sini</a>
-        </div>
+         <div class="flex md:justify-between items-center">
+             <div class="text-sm text-gray-600">
+                Sudah punya akun? 
+                <a href="/login" class="text-primary font-medium hover:underline">Masuk di sini</a>
+            </div>
+            <% if(currentPath === '/register') { %>
+                <a href="/lembaga/register" class="text-primary text-sm hover:text-dark underline">Daftar Lembaga</a>
+            <% } else { %>
+                <a href="/register" class="text-primary text-sm hover:text-dark underline">Daftar User</a>
+            <% } %>
+         </div>
       </form>
 
       <!-- <div class="mt-8">

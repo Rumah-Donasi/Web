@@ -1,5 +1,6 @@
 const db = require('../config/db');
 const JWT = require("jsonwebtoken");
+var path = require('path');
 require('dotenv').config();
 
 const authorize = (...allowedUserTypes) => {
@@ -8,13 +9,12 @@ const authorize = (...allowedUserTypes) => {
             const token = req.cookies.token;
             JWT.verify(token, process.env.JWT_SECRET, (err, decoded) => {
                 if (err) {
-                    return res.status(401).json({ success: false, message: "Token tidak valid" });
+                    return res.redirect('/');
                 }
 
                 if (!allowedUserTypes.includes(decoded.usertype)) {
-                    return res.status(403).json({
-                        success: false,
-                        message: `Akses ditolak: hanya ${allowedUserTypes.join('/')} yang diizinkan`
+                    return res.render('pages/error', {
+                        error: `Akses ditolak: Hanya ${allowedUserTypes.join('/')} yang boleh mengakses halaman ini`
                     });
                 }
 
@@ -26,8 +26,7 @@ const authorize = (...allowedUserTypes) => {
                 next();
             });
         } catch (error) {
-            console.error(error);
-            return res.status(500).json({ success: false, message: "Server error" });
+            res.render("pages/error.ejs", { error });
         }
     };
 };
@@ -101,4 +100,12 @@ const getInfoAkun = (req, res, next) => {
     }
 };
 
-module.exports = { authorize, cekLogin, getInfoAkun, checkNotUsertype };
+const redirectIfLogin = (req, res, next) => {
+    if (!res.locals.user) {
+        res.redirect('/');
+    } else {
+        next();
+    }
+};
+
+module.exports = { authorize, cekLogin, getInfoAkun, checkNotUsertype, redirectIfLogin };

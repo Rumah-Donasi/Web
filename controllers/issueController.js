@@ -3,41 +3,64 @@ const db = require('../config/db');
 const createIssue = async (req, res) => {
     try {
         const {
-            title,
-            thumbnail,
-            target,
-            deadline,
+            nama_issue,
+            tipe,
+            prioritas,
             deskripsi,
-            id_lembaga
+            target,
+            deadline
         } = req.body;
-        
-        if(!title || !thumbnail || !target || !deadline || !deskripsi || !id_lembaga) {
-            return res.status(400).json({
-                success: false,
-                message: "Mohon lengkapi semua field"
+
+        console.log('File:', req.file);
+
+        const jumlah = parseInt(target.replace(/\./g, ''), 10);
+        const thumbnail = req.file ? req.file.buffer : null;
+
+        if (isNaN(jumlah)) {
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                target,
+                deadline,
+                err: { target: "Target harus berupa angka" }
             });
         }
 
-        imgBuffer = thumbnail;
-        imgHex = imgBuffer.toString('hex');
+        if (new Date(deadline) < new Date()) {
+            return res.status(400).json({
+                success: false,
+                message: "Deadline harus lebih besar dari hari ini"
+            });
+        }
 
         const insertQuery = `
-            INSERT INTO issues (title, thumbnail, target, deadline, deskripsi, id_lembaga)
-            VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING *;
+            INSERT INTO issues (nama_issue, tipe, prioritas, deskripsi, thumbnail, target, deadline, id_pembuat)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
         `;
-        const values = [title, imgHex, target, deadline, deskripsi, id_lembaga];
+        const values = [
+            nama_issue,
+            tipe,
+            prioritas,
+            deskripsi,
+            thumbnail,
+            jumlah,
+            deadline,
+            req.user.id
+        ];
+
+        console.log(values);
 
         db.query(insertQuery, values, (err, result) => {
-            if(err) {
+            if (err) {
                 console.log(err);
                 return res.status(500).json({
                     success: false,
                     message: "Terjadi kesalahan pada server"
                 });
             }
-
-            res.render("pages/createIssue", {
+            res.status(201).json({
                 success: true,
                 message: "Issue berhasil dibuat"
             });
@@ -45,12 +68,10 @@ const createIssue = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.render("pages/error", {
-            success: false,
-            message: "Terjadi kesalahan pada server"
-        });
+        return res.status(500).json({ success: false, message: "Error server" });
     }
 };
+
 
 const accIssue = async (req, res) => {
     try {

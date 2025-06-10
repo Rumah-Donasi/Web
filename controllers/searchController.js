@@ -19,7 +19,7 @@ const searchPilihan = async (req, res) => {
 // Search Mendesak
 const searchMendesak = async (req, res) => {
     try {
-        const result = await db.query('SELECT * FROM issues WHERE prioritas_donasi = 3');
+        const result = await db.query(`SELECT * FROM issues WHERE prioritas = 'high'`);
         res.render("pages/search", {
             issues: result.rows || [],
             query: "Kebutuhan Mendesak"
@@ -30,6 +30,27 @@ const searchMendesak = async (req, res) => {
             error: error
         });
     }
+};
+
+// Search Tipe
+const searchTipe = (...tipeCari) => {
+    return async (req, res) => {
+        try {
+            const result = await db.query(
+                `SELECT * FROM issues WHERE tipe = $1`, 
+                tipeCari // langsung string, bukan array
+            );
+            res.render("pages/search", {
+                issues: result.rows || [],
+                query: tipeCari
+            });
+        } catch (error) {
+            console.log(error);
+            res.render("../views/pages/error.ejs", {
+                error: error
+            });
+        }
+    };
 };
 
 const searchQuery = async (req, res) => {
@@ -53,4 +74,4 @@ const searchQuery = async (req, res) => {
 };
 
 
-module.exports = { searchPilihan, searchMendesak, searchQuery };
+module.exports = { searchPilihan, searchMendesak, searchQuery, searchTipe };

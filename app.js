@@ -7,9 +7,9 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 const {
-    cekLogin
+    cekLogin,
+    redirectIfLogin
 } = require('./middleware/authUser');
 
 app.set('views', path.join(__dirname, 'public/views'));
@@ -24,10 +24,9 @@ app.use((req, res, next) => {
 app.use(cekLogin);
 
 app.use('/', require('./routes/firstRoute'));
-app.use('/', require('./routes/loginRoute'));
 app.use('/cari', require('./routes/searchRoute'));
-app.use('/akun', require('./routes/akunRoute'));
-app.use('/lembaga', require('./routes/lembagaRoute'));
+app.use('/akun', redirectIfLogin, require('./routes/akunRoute'));
+app.use('/lembaga', redirectIfLogin, require('./routes/lembagaRoute'));
 
 app.listen(8080);
 console.log('Server is listening on port 8080');

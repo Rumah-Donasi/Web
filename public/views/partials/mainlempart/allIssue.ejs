@@ -63,7 +63,7 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-sm font-medium text-gray-700">Terkumpul</p>
-                                <p class="text-2xl font-bold text-primary">Rp <%= item.terkumpul %></p>
+                                <p class="text-2xl font-bold text-primary">Rp <%= item.terkumpul || 0 %></p>
                             </div>
                             <div class="text-right">
                                 <p class="text-sm text-gray-500">Target</p>
@@ -74,10 +74,10 @@
 
                     <div class="relative pb-6">
                         <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                            <div class="bg-gradient-to-r from-primary to-secondary h-full rounded-full transition-all duration-500 ease-out" style="width: <%= item.progress %>%"></div>
+                            <div class="bg-gradient-to-r from-primary to-secondary h-full rounded-full transition-all duration-500 ease-out" style="width: <%= item.progress || 0 %>%"></div>
                         </div>
                         <div class="absolute right-0 bottom-0">
-                            <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full"><%= item.progress %>%</span>
+                            <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full"><%= item.progress || 0 %>%</span>
                         </div>
                     </div>
 
@@ -85,16 +85,16 @@
                         <div class="flex items-center space-x-4 text-sm text-gray-500">
                             <span class="flex items-center">
                                 <i class="fas fa-users mr-1"></i>
-                                <%= item.donatur %> donatur
+                                <%= item.jumlahDonatur %> donatur
                             </span>
                             <span class="flex items-center">
                                 <i class="fas fa-clock mr-1"></i>
-                                <%= item.hari %> hari tersisa
+                                <%= item.hariTersisa %> hari tersisa
                             </span>
                         </div>
-                        <button class="bg-primary hover:bg-dark text-white px-6 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-md">
+                        <a href="/lembaga/<%= item.id_issue %>" class="bg-primary hover:bg-dark text-white px-6 py-2 rounded-lg font-medium transition-all hover:scale-105 shadow-md">
                             <i class="fas fa-hand-holding-heart mr-2"></i>Lihat Selengkapnya
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

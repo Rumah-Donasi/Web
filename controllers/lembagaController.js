@@ -2,11 +2,46 @@ const db = require('../config/db');
 
 const awalLembaga = async (req, res) => {
     try {
-        const result = await db.query(`SELECT * FROM issues WHERE id_pembuat = $1`, [req.user.id_user]);
+        const result = await db.query(`
+            SELECT 
+                i.*, 
+                COUNT(dd.id_user) AS jumlah_donatur
+            FROM issues i
+            LEFT JOIN detail_donasi dd ON i.id_issue = dd.id_issue
+            WHERE i.id_pembuat = $1
+            GROUP BY i.id_issue
+        `, [res.locals.user.id_user]);
 
-        res.locals.issues = result.rows;
+        req.issues = result.rows.map(issue => {
+            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+
+            let hariTersisa = 0;
+            if (issue.deadline) {
+                const deadline = new Date(issue.deadline);
+                const now = new Date();
+                const diffTime = deadline.getTime() - now.getTime();
+                hariTersisa = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Konversi ke hari
+            }
+
+            let imageSrc = null;
+            if (issue.thumbnail) {
+                const base64Image = issue.thumbnail.toString('base64');
+                const mimeType = 'image/jpeg';
+                imageSrc = `data:${mimeType};base64,${base64Image}`;
+            }
+
+            return {
+                ...issue,
+                progress,
+                thumbnail: imageSrc,
+                jumlahDonatur: parseInt(issue.jumlah_donatur, 10),
+                hariTersisa: hariTersisa
+            };
+        });
+
+        
         res.render('pages/awalLembaga', {
-            issues: result.rows
+            issues: req.issues
         });
     } catch (error) {
         console.log(error);
@@ -16,94 +51,64 @@ const awalLembaga = async (req, res) => {
     }
 };
 
-const accLembaga = async (req, res) => {
+const detailDonasi = async (req, res) => {
     try {
-        const id_user = req.params.id_user;
-
-        if (!id_user) {
-            return res.status(400).json({
-                success: false,
-                message: "id_user diperlukan"
-            });
-        }
-
-        const existing = await db.query('SELECT * FROM users WHERE id_user = $1', [id_user]);
-        if (existing.rows.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "User tidak ditemukan"
-            });
-        }
-
+        const { id } = req.params;
         const result = await db.query(`
-            UPDATE users
-            SET verifikasi = true
-            WHERE id_user = $1
-            RETURNING *;
-        `, [id_user]);
+            SELECT 
+                i.*,
+                u.username
+            FROM issues i
+            LEFT JOIN users u ON i.id_pembuat = u.id_user
+            WHERE i.id_issue = $1
+        `, [id]);
 
-        return res.status(200).json({
-            success: true,
-            message: "Lembaga berhasil diverifikasi",
-            data: result.rows[0]
+        req.issues = result.rows.map(issue => {
+            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+
+            let hariTersisa = 0;
+            if (issue.deadline) {
+                const deadline = new Date(issue.deadline);
+                const now = new Date();
+                const diffTime = deadline.getTime() - now.getTime();
+                hariTersisa = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Konversi ke hari
+            }
+
+            let imageSrc = null;
+            if (issue.thumbnail) {
+                const base64Image = issue.thumbnail.toString('base64');
+                const mimeType = 'image/jpeg';
+                imageSrc = `data:${mimeType};base64,${base64Image}`;
+            }
+
+            return {
+                ...issue,
+                progress,
+                thumbnail: imageSrc,
+                jumlahDonatur: parseInt(issue.jumlah_donatur, 10),
+                hariTersisa: hariTersisa
+            };
         });
 
+        if (req.issues.length > 0) {
+            res.render('pages/viewIssue', {
+                issue: req.issues,
+                donatur:{}
+            });
+        } else {
+            res.render('pages/error', {
+                error: 'Data tidak ditemukan'
+            });
+    }
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: "Terjadi kesalahan pada server",
-            error
+        console.log(error);
+        res.render('pages/error', {
+            error: error
         });
     }
 };
-
-
-const rejectLembaga = async (req, res) => {
-    try {
-        const id_user = req.params.id_user;
-
-        if (!id_user) {
-            return res.status(400).json({
-                success: false,
-                message: "id_user diperlukan"
-            });
-        }
-
-        const existing = await db.query('SELECT * FROM users WHERE id_user = $1', [id_user]);
-        if (existing.rows.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "User tidak ditemukan"
-            });
-        }
-
-        const result = await db.query(`
-            UPDATE users
-            SET verifikasi = false
-            WHERE id_user = $1
-            RETURNING *;
-        `, [id_user]);
-
-        return res.status(200).json({
-            success: true,
-            message: "Lembaga berhasil ditolak",
-            data: result.rows[0]
-        });
-
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: "Terjadi kesalahan pada server",
-            error
-        });
-    }
-};
-
 
 module.exports = {
     awalLembaga,
-    accLembaga,
-    rejectLembaga
+    detailDonasi
 }

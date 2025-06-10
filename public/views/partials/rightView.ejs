@@ -1,16 +1,16 @@
 <section class="sticky top-28 bg-white rounded-xl p-6 shadow space-y-4 h-fit">
       <h3 class="text-xl font-bold">Dana Terkumpul</h3>
       <p class="text-gray-700">
-        Rp. <%= issue.terkumpul.toLocaleString('id-ID') %> dari Rp. <%= issue.target.toLocaleString('id-ID') %>
+        Rp. <%= terkumpul.toLocaleString('id-ID') %> dari Rp. <%= target.toLocaleString('id-ID') %>
       </p>
       
       <!-- Progress Bar -->
       <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-        <div class="bg-primary h-4" style="width: <%= issue.progress %>%"></div>
+        <div class="bg-primary h-4" style="width: <%= progress %>%"></div>
       </div>
-      <p class="text-sm text-gray-500"><%= issue.progress %>% tercapai</p>
+      <p class="text-sm text-gray-500"><%= progress %>% tercapai</p>
 
-      <a href="/donasi/<%= issue.id_issue %>" class="block bg-primary hover:bg-dark text-white text-center py-2 rounded-lg font-semibold transition">
+      <a href="/donasi/<%= id_issue %>" class="block bg-primary hover:bg-dark text-white text-center py-2 rounded-lg font-semibold transition">
         Donasi Sekarang
       </a>
     </section>

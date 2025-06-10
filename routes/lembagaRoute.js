@@ -1,6 +1,11 @@
 const express = require('express');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 const {
-    awalLembaga
+    awalLembaga,
+    detailDonasi
 } = require('../controllers/lembagaController');
 const {
     cekLogin,
@@ -20,7 +25,8 @@ const router = express.Router();
 router.get("/", authorize("lembaga"), getInfoAkun, awalLembaga);
 router.get("/register", (req, res) => res.render("pages/logres", { usertype: "lembaga", err: {}}));
 router.post("/register", register('lembaga'));
-router.get("/galangDana", cekLogin, getInfoAkun, homeCreate);
-router.post("/galangDana", getInfoAkun, createIssue);
+router.get("/galangDana", authorize("lembaga"), getInfoAkun, homeCreate);
+router.post("/galangDana", authorize("lembaga"), getInfoAkun, upload.single('thumbnail'), createIssue);
+router.get("/:id", authorize("lembaga"), detailDonasi);
 
 module.exports = router;
