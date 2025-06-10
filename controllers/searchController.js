@@ -19,11 +19,7 @@ const searchPilihan = async (req, res) => {
 // Search Mendesak
 const searchMendesak = async (req, res) => {
     try {
-<<<<<<< HEAD
         const result = await db.query(`SELECT * FROM issues WHERE prioritas_donasi = 'high'`);
-=======
-        const result = await db.query('SELECT * FROM issues WHERE prioritas_donasi = 3');
->>>>>>> origin/front_end
         res.render("pages/search", {
             issues: result.rows || [],
             query: "Kebutuhan Mendesak"

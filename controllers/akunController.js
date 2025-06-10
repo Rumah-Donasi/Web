@@ -9,11 +9,7 @@ const histori = async (req, res) => {
         `, [req.user.id_user]);
 
         res.render('pages/account', {
-<<<<<<< HEAD
             histori: result.rows
-=======
-            hostori: result.rows
->>>>>>> origin/front_end
         });
     } catch (error) {
         console.log(error);
@@ -24,10 +20,7 @@ const histori = async (req, res) => {
 };
 
 const akun = (req, res) => {
-<<<<<<< HEAD
-=======
     if(!req.user) return res.redirect('/login');
->>>>>>> origin/front_end
     res.render('pages/account');
 };
 
@@ -50,12 +43,6 @@ const pesan = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
-module.exports = {
-    histori,
-    akun,
-    pesan
-=======
 const editProfileHome = async (req, res) => {
     try {
         res.render('pages/editProfile', {
@@ -166,5 +153,4 @@ module.exports = {
     pesan,
     editProfile,
     editProfileHome
->>>>>>> origin/front_end
 }
