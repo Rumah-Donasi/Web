@@ -1,5 +1,4 @@
-//data
-let data = [];
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Show dashboard by default
@@ -41,11 +40,17 @@ function showSection(section) {
 
 //table renderer
 async function render_verifikasitable() {
-
+    dataverify = []
     const response = await fetch('/admin/verifikasi');
-    data = await response.json();
+    jsonData = await response.json();
     let table = ``;
-    data.forEach(item => {
+    dataverify = jsonData.rows || jsonData; // Adjust based on actual API response format
+
+    if (!Array.isArray(dataverify)) {
+        console.error("Expected an array, but got:", datahistory);
+        return;
+    }
+    dataverify.forEach(item => {
         table +=
         `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
@@ -71,10 +76,18 @@ async function render_verifikasitable() {
 }
 
 async function render_historytable() {
+    datahistory = []
     const response = await fetch('/admin/history');
-    data = await response.json();
+    jsonData = await response.json();
     let table = ``;
-    data.forEach(item => {
+
+    datahistory = jsonData.rows || jsonData; // Adjust based on actual API response format
+
+    if (!Array.isArray(datahistory)) {
+        console.error("Expected an array, but got:", datahistory);
+        return;
+    }
+    datahistory.forEach(item => {
         table +=
         `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
@@ -97,10 +110,17 @@ async function render_historytable() {
 
 
 async function render_issuetable() {
+    let dataissue=[]
 const response = await fetch('/admin/issue');
-    data = await response.json();
+    jsonData = await response.json();
     let table = ``;
-    data.forEach(item => {
+    dataissue  = jsonData.rows || jsonData; // Adjust based on actual API response format
+
+    if (!Array.isArray(dataissue)) {
+        console.error("Expected an array, but got:", datahistory);
+        return;
+    }
+    dataissue.forEach(item => {
         table +=
         `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">

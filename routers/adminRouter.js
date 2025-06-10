@@ -17,4 +17,5 @@ router.get('/', (req, res) => {
 router.get('/verifikasi', getVerifikasi);
 router.get('/history', getHistory);
 router.get('/issue', getIssue);
+
 module.exports = router;

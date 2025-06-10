@@ -14,7 +14,7 @@ exports.getVerifikasi = async (req, res) => {
 };
 exports.getHistory = async (req, res) => {
     try {
-        const data = await pool.query(qhistory);
+        const data = await pool.query(ghistory);
         res.json(data.rows);
     } catch (error) {
         console.error("Query error:", error);
@@ -23,7 +23,7 @@ exports.getHistory = async (req, res) => {
 };
 exports.getIssue = async (req, res) => {
     try {
-        const data = await pool.query(qissue);
+        const data = await pool.query(gissue);
         res.json(data.rows);
     } catch (error) {
         console.error("Query error:", error);
