@@ -9,14 +9,6 @@
 <body>
     <div class="flex min-h-screen">
         <nav class="bg-white shadow-md border-r border-gray-200 h-screen min-w-[250px] py-6 px-4 overflow-auto">
-            <ul>
-                <li>
-                    <a href="javascript:void(0)" data-section="dashboard"
-                        class="text-slate-700 font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
-                        Dashboard
-                    </a>
-                </li>
-            </ul>
 
             <div class="mt-4">
                 <h6 class="text-blue-600 text-sm font-semibold px-4">Lembaga</h6>
@@ -62,7 +54,7 @@
                 <h6 class="text-blue-600 text-sm font-semibold px-4">Action</h6>
                 <ul class="mt-2 space-y-1">
                     <li>
-                        <a href="" 
+                        <a href=""
                             class="text-slate-700 font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
                             Logout
                         </a>
@@ -72,18 +64,25 @@
         </nav>
         <!-- Main Content (section)-->
         <main class="flex-1 p-8" id="main-content">
-            <div id="section-dashboard">
-                <div class="container">
-                    <h1>Dashboard</h1>
-                    <!--table-->
-
-                </div>
-            </div>
             <div id="section-verifikasi" style="display:none;">
                 <div class="container">
                     <h1>Verifikasi Lembaga</h1>
-                    <!--table-->
+                    <div class="px-3 py-4 flex justify-center">
+                        <table class="w-full text-md bg-white shadow-md rounded mb-4">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="text-left p-3 px-5">ID</th>
+                                    <th class="text-left p-3 px-5">Nama lembaga</th>
+                                    <th class="text-left p-3 px-5">verifikasi</th>
+                                    <th>submit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel_verifikasi">
 
+                            </tbody>
+                        </table>
+
+                    </div>
                 </div>
             </div>
             <div id="section-history" style="display:none;">

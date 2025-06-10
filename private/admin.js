@@ -1,11 +1,8 @@
 //data
 let data = [];
-//paging
-let pagedt = [];
-const rowsamnt = 20
-let page = 1;
-let pagetotal;
-let pagenumber = 1;
+
+
+
 //
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -33,98 +30,49 @@ function showSection(section) {
     const target = document.getElementById('section-' + section);
     if (target) target.style.display = '';
     //section call
-    if (section==='dashboard'){}
+    if (section === 'dashboard') { }
     else if (section === 'verifikasi') {
-        render_verifikasitable(); 
+        render_verifikasitable();
     }
-    else if (section ==='history'){
+    else if (section === 'history') {
         render_historytable();
     }
-    else if (section ==='issue'){
+    else if (section === 'issue') {
         render_issuetable();
     }
-    else if (section ==='pencairan'){
+    else if (section === 'pencairan') {
         render_pencairantable();
     }
 }
 
-//table pagination
-
-function page_int() {
-    const start = (page - 1 * rowsamnt)
-    const end = start + rowsamnt
-    pagedt = data.slice(start, end)
-}
-function calcpage() {
-    pagetotal = Math.ceil(data.length / rowsamnt);
-}
-
-function page_control() {
-    calcpage();
-    let pagebutton = 
-    `
-    <div>
-        <form action="#" onsubmit="return false;" >
-            <input list="pagenum" id='pagenum'></input>
-            <datalist id=pagenum>
-    `;
-    for(let i=1;i<=pagenumber;i++){
-        pagebutton+=`<option value="${i}">\n`    
-    }
-    pagebutton +=
-    `            
-            </datalist>
-            <input type="submit">go</input>
-        </form>
-        
-        <h3>page ${page} of ${pagetotal}</h3><br>
-    </div>
-    `;
-    return pagebutton;
-    
-}
 //table renderer
 async function render_verifikasitable() {
-    page = 1;
-    const response = await fetch('../routers/verifikasi');
+
+    const response = await fetch('/admin/verifikasi');
     data = await response.json();
-    page_int();
-    let table =
-    `
-    <table class="">
-        <thead>
-            <tr>
-                <th scope="col">no</th>
-                <th scope="col">nama lembaga</th>
-                <th scope="col">status</th>
-                <th scope="col">modify</th>
-            </tr>
-        </thead>
-        <tbody id="tabel-pencairan">  
-    `
-    pagedt.forEach(item => {
+    let table = ``;
+    data.forEach(item => {
         table +=
         `
-            <tr>
-                <td class="">${item.id_lembaga}</td>
-                <td class="">${item.nama_lembaga}</td>
-                <td class="">${item.verifikasi}</td>
-                <td class="">
-                    <form action="#" onsubmit="return false;">
-                        <input type="checkbox" id="" value="1">
-                        </input>
-                    </form>
+            <tr class="border-b hover:bg-orange-100 bg-gray-100">
+                <td class="p-3 px-5"><input type="text" value="${item.id_lembaga}" class="bg-transparent"></td>
+                <td class="p-3 px-5"><input type="text" value="${item.nama_lembaga}" class="bg-transparent"></td>
+                <td class="p-3 px-5">
+                    <select value="${item.verifikasi}" class="bg-transparent">
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                </td>
+                <td class="p-3 px-5 flex justify-end">
+                    <button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Save</button>
+                    <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button>
                 </td>
             </tr>
         `
     });
-    table+=
-    `
-        </tbody>
-    </table>
-    ` 
-    paging= page_control()
-    document.getElementById('section-verifikasi').innerHTML = table + paging;
+    table +=
+        ``
+    document.getElementById('tabel_verifikasi').innerHTML = table;
 }
 
 function render_historytable() {
