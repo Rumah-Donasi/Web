@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include ('../partials/head'); %>
+</head>
+
+<body class="bg-gray-50 text-gray-800 flex min-h-screen md:flex-row flex-col">
+  <!-- navbar -->
+  <%- include('../partials/navbar'); %>
+  <!-- Sidebar -->
+  <%- include('../partials/sideNavLembaga'); %>
+
+  <!-- Main Content -->
+  <section class="flex-1 p-6 md:mb-0 mb-4">
+    <%- include('../partials/mainLembaga', { currentPath }); %>
+  </section>
+</body>
+
+
+</html>

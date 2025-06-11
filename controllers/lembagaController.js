@@ -171,8 +171,41 @@ const detailDonasi = async (req, res) => {
   }
 };
 
+const akunLembaga = async (req, res) => {
+  if (req.method === 'GET' || req.method === 'get') {
+    const id = res.locals.user.id_user;
+
+    const result = await db.query(`
+      SELECT * FROM users WHERE id_user = $1
+    `, [id]);
+
+    if (result.rows.length > 0) {
+      res.render('pages/akunLembaga', { user: result.rows[0] });
+    } else {
+      res.render('pages/error', { error: 'Akun tidak ditemukan' });
+    }
+  }
+  else if (req.method === 'POST' || req.method === 'post') {
+    const { username, email, telp_user, alamat, deskripsi } = req.body;
+    const id = res.locals.user.id_user;
+
+    try {
+      await db.query(`
+        UPDATE users 
+        SET username = $1, email = $2, telp_user = $3, alamat = $4, deskripsi = $5
+        WHERE id_user = $6
+      `, [username, email, telp_user, alamat, deskripsi, id]);
+
+      res.redirect('/lembaga/akun');
+    } catch (error) {
+      console.error(error);
+      res.render('pages/error', { error: 'Gagal memperbarui akun' });
+    }
+  }
+};
 
 module.exports = {
     awalLembaga,
-    detailDonasi
+    detailDonasi,
+    akunLembaga
 }

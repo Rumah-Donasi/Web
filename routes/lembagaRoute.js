@@ -5,7 +5,8 @@ const upload = multer({ storage: storage });
 
 const {
     awalLembaga,
-    detailDonasi
+    detailDonasi,
+    akunLembaga
 } = require('../controllers/lembagaController');
 const {
     cekLogin,
@@ -27,6 +28,8 @@ const router = express.Router();
 router.get("/", authorize("lembaga"), getInfoAkun, awalLembaga);
 router.get("/galangDana", authorize("lembaga"), getInfoAkun, homeCreate);
 router.post("/galangDana", authorize("lembaga"), getInfoAkun, upload.single('thumbnail'), createIssue);
+router.get('/akun', authorize("lembaga"), getInfoAkun, akunLembaga);
+router.post('/akun', authorize("lembaga"), getInfoAkun, akunLembaga);
 router.get("/:id", authorize("lembaga"), detailDonasi);
 router.get("/edit/:id", authorize("lembaga"), homeUpdate );
 router.post("/edit/:id", authorize("lembaga"), getInfoAkun, upload.single('thumbnail'), updateIssue);
