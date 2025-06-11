@@ -46,7 +46,7 @@
               <div class="w-full bg-gray-200 rounded-full h-1.5 mt-3">
                 <div
                   class="bg-secondary h-1.5 rounded-full"
-                  style="width: <%= Number(item.progress || 0) + '%' %>"
+                  style="width: <%= Number(item.progress.toFixed(2) || 0) + '%' %>"
                 ></div>
               </div>
             </div>
