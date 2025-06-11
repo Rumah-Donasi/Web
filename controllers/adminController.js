@@ -1,7 +1,7 @@
 const { pool } = require('../database/db.js')
-gverify = 'SELECT id_lembaga,nama_lembaga,verifikasi FROM lembaga ORDER BY id_lembaga ASC';
+gverify = `SELECT id_user,nama_user,verifikasi FROM users where usertype='lembaga' ORDER BY id_user ASC`;
 ghistory = 'SELECT id_detail,id_user,id_issue,jumlah_bayar,tanggal,nama_donatur FROM detail_donasi ORDER BY id_detail ASC';
-gissue = 'SELECT id_issue,id_lembaga,deskripsi,deadline,pilihan,alasan FROM issues ORDER BY id_issue ASC';
+gissue = 'SELECT id_issue,id_pembuat,deskripsi,deadline,ispilihan FROM issues ORDER BY id_issue ASC';
 //get
 exports.getVerifikasi = async (req, res) => {
     try {
@@ -49,12 +49,12 @@ exports.admlogout = (req, res) => {
 //updata
 exports.putVerifikasi = async (req, res) => {
     try {
-        const { id_lembaga, verifikasi } = req.body;
+        const { id_user, verifikasi } = req.body;
 
         // Check if the record exists
         const existingData = await pool.query(
-            "SELECT verifikasi FROM lembaga WHERE id_lembaga = $1",
-            [id_lembaga]
+            "SELECT verifikasi FROM users WHERE id_user = $1",
+            [id_user]
         );
 
         if (existingData.rows.length === 0) {
@@ -68,8 +68,8 @@ exports.putVerifikasi = async (req, res) => {
 
         // Update verification status only
         await pool.query(
-            "UPDATE lembaga SET verifikasi = $1 WHERE id_lembaga = $2",
-            [verifikasi, id_lembaga]
+            "UPDATE users SET verifikasi = $1 WHERE id_user = $2",
+            [verifikasi, id_user]
         );
 
         res.status(200).json({ success: true, message: "Verification status updated successfully" });
@@ -82,7 +82,7 @@ exports.putVerifikasi = async (req, res) => {
 
 exports.putIssue = async (req, res) => {
     try {
-        const { id_issue, pilihan, alasan } = req.body;
+        const { id_issue, ispilihan } = req.body;
 
         const existingData = await pool.query(
             "SELECT * FROM issues WHERE id_issue = $1",
@@ -94,8 +94,8 @@ exports.putIssue = async (req, res) => {
         }
 
         await pool.query(
-            "UPDATE issues SET pilihan = $1, alasan = $2 WHERE id_issue = $3",
-            [pilihan, alasan, id_issue]
+            "UPDATE issues SET ispilihan = $1 WHERE id_issue = $2",
+            [ispilihan, id_issue]
         );
 
         res.status(200).json({ success: true, message: "Issue updated successfully" });
@@ -109,15 +109,15 @@ exports.putIssue = async (req, res) => {
 //delete
 exports.deleteVerifikasi = async (req, res) => {
     try {
-        const { id_lembaga } = req.params;
-        const existingData = await pool.query("select id_lembaga from lembaga where id_lembaga = $1", [id_lembaga])
+        const { id_user } = req.params;
+        const existingData = await pool.query("select id_user from users where id_user = $1", [id_user])
 
         if (existingData.rows.length === 0) {
             return res.status(404).json({ success: false, message: "record not found" })
 
         }
         // Delete the record
-        await pool.query("DELETE FROM lembaga WHERE id_lembaga = $1", [id_lembaga]);
+        await pool.query("DELETE FROM users WHERE id_user = $1", [id_user]);
 
         res.status(200).json({ success: true, message: "Record deleted successfully" });
 

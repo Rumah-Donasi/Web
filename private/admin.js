@@ -43,8 +43,8 @@ async function render_verifikasitable() {
     dataverify.forEach(item => {
         table += `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                <td class="p-3 px-5">${item.id_lembaga}</td>
-                <td class="p-3 px-5">${item.nama_lembaga}</td>
+                <td class="p-3 px-5">${item.id_user}</td>
+                <td class="p-3 px-5">${item.nama_user}</td>
                 <td class="p-3 px-5">
                     <select class="bg-transparent">
                         <option value="true" ${item.verifikasi === true ? "selected" : ""}>true</option>
@@ -52,10 +52,10 @@ async function render_verifikasitable() {
                     </select>
                 </td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" data-id="${item.id_lembaga}" onclick="update_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                    <button type="button" data-id="${item.id_user}" onclick="update_verify(${item.id_user})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                         <i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i>
                     </button>
-                    <button type="button" onclick="delete_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                    <button type="button" onclick="delete_verify(${item.id_user})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                         <i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i>
                     </button>
                 </td>
@@ -116,17 +116,14 @@ async function render_issuetable() {
         table += `
             <tr class="border-b hover:bg-orange-100 bg-gray-100" id="row-${item.id_issue}">
                 <td class="p-3 px-5">${item.id_issue}</td>
-                <td class="p-3 px-5">${item.id_lembaga}</td>
+                <td class="p-3 px-5">${item.id_pembuat}</td>
                 <td class="p-3 px-5">${item.deskripsi}</td>
                 <td class="p-3 px-5">${item.deadline}</td>
                 <td class="p-3 px-5">
-                    <select class="bg-transparent w-20 pilihan-select">
-                        <option value="false" ${item.pilihan === "false" ? "selected" : ""}>false</option>
-                        <option value="true" ${item.pilihan === "true" ? "selected" : ""}>true</option>
+                    <select class="bg-transparent w-20 ispilihan-select">
+                        <option value="false" ${item.ispilihan === "false" ? "selected" : ""}>false</option>
+                        <option value="true" ${item.ispilihan === "true" ? "selected" : ""}>true</option>
                     </select>
-                </td>
-                <td class="p-3 px-5">
-                    <input type="text" value="${item.alasan || ""}" class="bg-transparent alasan-input">
                 </td>
                 <td class="p-3 px-5 flex justify-start">
                     <button type="button" data-id="${item.id_issue}" onclick="update_issue(${item.id_issue})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
@@ -151,7 +148,7 @@ async function update_verify(id) {
     await fetch(`/admin/updateVerifikasi`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_lembaga: id, verifikasi: verify === "true" })
+        body: JSON.stringify({ id_user: id, verifikasi: verify === "true" })
     })
         .then(response => response.json())
         .then(data => {
@@ -163,18 +160,16 @@ async function update_verify(id) {
 
 async function update_issue(id) {
     const row = document.getElementById(`row-${id}`);
-    const selectElement = row.querySelector("select.pilihan-select");
-    const inputElement = row.querySelector("input.alasan-input");
+    const selectElement = row.querySelector("select.ispilihan-select");
 
-    const pilihan = selectElement.value;
-    const alasan = inputElement.value;
+    const ispilihan = selectElement.value;
 
     await fetch("/admin/updateIssue", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id_issue: id, pilihan, alasan }),
+        body: JSON.stringify({ id_issue: id, ispilihan}),
     })
     .then((res) => res.json())
     .then((data) => {

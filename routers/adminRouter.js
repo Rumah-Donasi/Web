@@ -25,7 +25,7 @@ router.get('/issue', getIssue);
 router.get('/logout',admlogout);
 router.put('/updateVerifikasi', putVerifikasi);
 router.put('/updateIssue', putIssue);
-router.delete("/deleteVerifikasi/:id_lembaga",deleteVerifikasi);
+router.delete("/deleteVerifikasi/:id_user",deleteVerifikasi);
 router.delete("/deleteHistory/:id_detail",deleteHistory)
 router.delete("/deleteIssue/:id_issue",deleteIssue)
 module.exports = router;
