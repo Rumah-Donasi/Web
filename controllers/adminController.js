@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
 gverify = 'SELECT id_lembaga,nama_lembaga,verifikasi FROM lembaga ORDER BY id_lembaga ASC';
 ghistory = 'SELECT id_detail,id_user,id_issue,jumlah_bayar,tanggal,nama_donatur FROM detail_donasi ORDER BY id_detail ASC';
