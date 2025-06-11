@@ -45,7 +45,7 @@ const awalLembaga = async (req, res) => {
                 jumlahDonatur: parseInt(issue.jumlah_donatur, 10),
                 hariTersisa: hariTersisa,
                 targetFormatted: formatRupiah(issue.target),
-                terkumpulFormat: formatRupiah(issue.terkumpul)
+                terkumpulFormatted: formatRupiah(issue.terkumpul)
             };
         });
 
@@ -171,7 +171,6 @@ const detailDonasi = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
 const akunLembaga = async (req, res) => {
   if (req.method === 'GET' || req.method === 'get') {
     const id = res.locals.user.id_user;
@@ -205,10 +204,9 @@ const akunLembaga = async (req, res) => {
   }
 };
 
-=======
->>>>>>> 1f576178de6d3f3b04acf6736d613c1dd2630ff4
 module.exports = {
     awalLembaga,
     detailDonasi,
-    akunLembaga
+    akunLembaga,
+    detailDonasi
 }
