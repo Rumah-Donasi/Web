@@ -1,3 +1,4 @@
+
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
 const JWT = require("jsonwebtoken");
@@ -212,7 +213,30 @@ const login = async (req, res) => {
     }
 };
 
+const aquery = 'select * from admins where username = $1 and passwd = $2 limit 1'
+
+exports.adminLogin = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const result = await db.query(
+      aquery, [username, password]
+    );
+    if (result.rows.length > 0) {
+      req.session.role = 'admin';
+      req.session.username = username;
+      res.redirect('/admin');
+    } else {
+      res.redirect('/private/adminlogin.html');
+    }
+  } catch (error) {
+    console.error('DB query error:', error);
+    res.status(500).send('Internal server error');
+  }
+}
+
 module.exports = { 
     register,
     login
 };
+
+

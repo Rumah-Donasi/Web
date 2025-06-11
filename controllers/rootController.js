@@ -1,4 +1,4 @@
-module.exports = (req, res) => {
+function rootRedirect(req, res) {
   if (req.session.role === 'admin') {
     res.redirect('/admin');
   }
@@ -12,3 +12,5 @@ module.exports = (req, res) => {
     res.redirect('/login');
   }
 }
+
+module.exports = { rootRedirect };

@@ -1,0 +1,151 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/private/admin.output.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="/private/admin.js" defer></script>
+    <title>admintool</title>
+</head>
+
+<body>
+    <div class="flex min-h-screen">
+        <nav class="bg-white shadow-md border-r border-gray-200 h-screen min-w-[250px] py-6 px-4 overflow-auto">
+
+            <div class="mt-4">
+                <h6 class="text-blue-600 text-sm font-semibold px-4">Lembaga</h6>
+                <ul class="mt-2 space-y-1">
+                    <li>
+                        <a href="javascript:void(0)" data-section="verifikasi"
+                            class="text-slate-700 font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
+                            Verifikasi Lembaga
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mt-4">
+                <h6 class="text-blue-600 text-sm font-semibold px-4">Transaction</h6>
+                <ul class="mt-2 space-y-1">
+                    <li>
+                        <a href="javascript:void(0)" data-section="history"
+                            class="text-slate-700 font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
+                            History transaksi
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-4">
+                <h6 class="text-blue-600 text-sm font-semibold px-4">Issue</h6>
+                <ul class="mt-2 space-y-1">
+                    <li>
+                        <a href="javascript:void(0)" data-section="issue"
+                            class="text-slate-700 font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
+                            Edit
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" data-section="pencairan"
+                            class="text-slate-700 font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
+                            Pencairan dana
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-4">
+                <h6 class="text-blue-600 text-sm font-semibold px-4">Action</h6>
+                <ul class="mt-2 space-y-1">
+                    <li>
+                        <a href="/admin/logout"
+                            class="text-slate-700 font-medium text-[15px] block hover:text-slate-900 hover:bg-gray-100 rounded px-4 py-2 transition-all">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Main Content (section)-->
+        <main class="flex-1 p-8 overflow-y-auto " id="main-content">
+            <div id="section-verifikasi" style="display:none;">
+                <div class="container">
+                    <h1>Verifikasi Lembaga</h1>
+                    <div class="px-3 py-4 flex ">
+                        <table class="text-md bg-white shadow-md rounded mb-4 table-auto overflow-x-auto w-full">
+                            <thead>
+                                <tr class="border-b ">
+                                    <th class="text-left p-3 px-5">ID</th>
+                                    <th class="text-left p-3 px-5">Nama lembaga</th>
+                                    <th class="text-left p-3 px-5">verifikasi</th>
+                                    <th class="text-left p-3 px-5">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel_verifikasi">
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div id="section-history" style="display:none;">
+                <div class="container">
+                    <h1>History transaksi</h1>
+                    <div class="px-3 py-4 flex">
+                        <table class=" text-md bg-white shadow-md rounded mb-4 table-auto overflow-x-auto w-full">
+                            <thead
+                                <tr class="border-b">
+                                    <th class="text-left p-3 px-5">ID</th>
+                                    <th class="text-left p-3 px-5">ID User</th>
+                                    <th class="text-left p-3 px-5">ID Issue</th>
+                                    <th class="text-left p-3 px-5">Jumlah bayar</th>
+                                    <th class="text-left p-3 px-5">Tanggal</th>
+                                    <th class="text-left p-3 px-5">Nama donatur</th>
+                                    <th class="text-left p-3 px-5">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel_history">
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="section-issue" style="display:none;">
+                <div class="container">
+                    <h1>Edit Issue</h1>
+                    <div class="px-3 py-4 flex ">
+                        
+                        <table class=" text-md bg-white shadow-md rounded mb-4 table-auto overflow-x-auto w-full">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="text-left p-3 px-5">ID Issue</th>
+                                    <th class="text-left p-3 px-5">ID Lembaga</th>
+                                    <th class="text-left p-3 px-5">Deskripsi</th>
+                                    <th class="text-left p-3 px-5">Deadline</th>
+                                    <th class="text-left p-3 px-5">Pilihan</th>
+                                    <th class="text-left p-3 px-5">Alasan</th>
+                                    <th class="text-left p-3 px-5">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel_issue">
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+            <div id="section-pencairan" style="display:none;">
+                <div class="container">
+                    <h1>Work in progress</h1>
+                    
+
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
