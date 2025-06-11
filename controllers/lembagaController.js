@@ -20,8 +20,8 @@ const awalLembaga = async (req, res) => {
             }).format(angka);
         };
 
+        const progress = Math.round((req.issues.terkumpul / req.issues.target) * 100);
         req.issues = result.rows.map(issue => {
-            const progress = Math.round((issue.terkumpul / issue.target) * 100);
 
             let hariTersisa = 0;
             if (issue.deadline) {
