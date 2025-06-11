@@ -1,7 +1,7 @@
-const {pool} = require ('../database/db.js')
-gverify='SELECT id_lembaga,nama_lembaga,verifikasi FROM lembaga';
-ghistory='SELECT id_detail,id_user,id_issue,jumlah_bayar,tanggal,nama_donatur FROM detail_donasi';
-gissue='SELECT id_issue,id_lembaga,deskripsi,deadline,alasan FROM issues';
+const { pool } = require('../database/db.js')
+gverify = 'SELECT id_lembaga,nama_lembaga,verifikasi FROM lembaga';
+ghistory = 'SELECT id_detail,id_user,id_issue,jumlah_bayar,tanggal,nama_donatur FROM detail_donasi';
+gissue = 'SELECT id_issue,id_lembaga,deskripsi,deadline,alasan FROM issues';
 //get
 exports.getVerifikasi = async (req, res) => {
     try {
@@ -9,7 +9,7 @@ exports.getVerifikasi = async (req, res) => {
         res.json(data.rows);
     } catch (error) {
         console.error("Query error:", error);
-        res.status(500).json({ error: "Internal Server Error" }); 
+        res.status(500).json({ error: "Internal Server Error" });
     }
 };
 exports.getHistory = async (req, res) => {
@@ -18,7 +18,7 @@ exports.getHistory = async (req, res) => {
         res.json(data.rows);
     } catch (error) {
         console.error("Query error:", error);
-        res.status(500).json({ error: "Internal Server Error" }); 
+        res.status(500).json({ error: "Internal Server Error" });
     }
 };
 exports.getIssue = async (req, res) => {
@@ -27,7 +27,7 @@ exports.getIssue = async (req, res) => {
         res.json(data.rows);
     } catch (error) {
         console.error("Query error:", error);
-        res.status(500).json({ error: "Internal Server Error" }); 
+        res.status(500).json({ error: "Internal Server Error" });
     }
 };
 
@@ -46,3 +46,67 @@ exports.admlogout = (req, res) => {
 };
 
 
+//updata
+exports.putVerifikasi = async (req, res) => {
+    try {
+        const { id_lembaga, verifikasi } = req.body;
+
+        // Check if the record exists
+        const existingData = await pool.query(
+            "SELECT verifikasi FROM lembaga WHERE id_lembaga = $1",
+            [id_lembaga]
+        );
+
+        if (existingData.rows.length === 0) {
+            return res.status(404).json({ success: false, message: "Record not found" });
+        }
+
+        // Skip update if verifikasi is unchanged
+        if (existingData.rows[0].verifikasi == verifikasi) {
+            return res.status(200).json({ success: true, message: "No changes detected" });
+        }
+
+        // Update verification status only
+        await pool.query(
+            "UPDATE lembaga SET verifikasi = $1 WHERE id_lembaga = $2",
+            [verifikasi, id_lembaga]
+        );
+
+        res.status(200).json({ success: true, message: "Verification status updated successfully" });
+
+    } catch (error) {
+        console.error("Update error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+
+
+exports.putHistory = (req, res) => {
+
+}
+
+exports.putIssue = (req, res) => {
+
+}
+
+//delete
+exports.deleteVerifikasi = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const existingData = await pool.query("select id_lembaga from lembaga where id_lembaga = $1", [id])
+
+        if (existingData.rows.length === 0) {
+            return res.status(404).json({ success: false, message: "record not found" })
+
+        }
+        // Delete the record
+        await pool.query("DELETE FROM lembaga WHERE id_lembaga = $1", [id]);
+
+        res.status(200).json({ success: true, message: "Record deleted successfully" });
+
+    } catch (error) {
+        console.error("Delete error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}

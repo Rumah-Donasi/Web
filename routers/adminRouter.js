@@ -4,7 +4,12 @@ const {
   getVerifikasi,
   getHistory,
   getIssue, 
-  admlogout
+  admlogout,
+  putVerifikasi,
+  putHistory,
+  putIssue,
+  deleteVerifikasi
+
 } = require('../controllers/adminController');
 const { adminLogin } = require('../controllers/loginController');
 const router = express.Router();
@@ -18,4 +23,8 @@ router.get('/verifikasi', getVerifikasi);
 router.get('/history', getHistory);
 router.get('/issue', getIssue);
 router.get('/logout',admlogout);
+router.put('/updateVerifikasi', putVerifikasi);
+router.put('/updateHistory', putHistory);
+router.put('/updateIssue', putIssue);
+router.delete("/deleteVerifikasi/:id",deleteVerifikasi)
 module.exports = router;

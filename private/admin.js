@@ -1,8 +1,7 @@
 
-
 document.addEventListener('DOMContentLoaded', function () {
     // Show dashboard by default
-    showSection('dashboard');
+    showSection('verifikasi');
 
     // Add click listeners to sidebar links
     document.querySelectorAll('a[data-section]').forEach(link => {
@@ -15,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function showSection(section) {
     // List section id
-    const sections = ['dashboard', 'verifikasi', 'history', 'issue', 'pencairan'];
+    const sections = ['verifikasi', 'history', 'issue', 'pencairan'];
     sections.forEach(id => {
         const el = document.getElementById('section-' + id);
         if (el) el.style.display = 'none';
@@ -52,20 +51,19 @@ async function render_verifikasitable() {
     }
     dataverify.forEach(item => {
         table +=
-        `
+            `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                <td class="p-3 px-5"><input value="${item.id_lembaga}" class="bg-transparent w-20"></td>
-                <td class="p-3 px-5"><input value="${item.nama_lembaga}" class="bg-transparent"></td>
+                <td class="p-3 px-5">${item.id_lembaga}</td>
+                <td class="p-3 px-5">${item.nama_lembaga}</td>
                 <td class="p-3 px-5">
                     <select value="${item.verifikasi}" class="bg-transparent">
-                        <option value="true">true</option>
-                        <option value="false">false</option>
+                        <option value="true" ${item.verifikasi === "true" ? "selected" : ""}>true</option>
+                        <option value="false" ${item.verifikasi === "false" ? "selected" : ""}>false</option>
                     </select>
                 </td>
                 <td class="p-3 px-5 flex justify-start">
-                    
-                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i></button>
-                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
+                    <button type="button" data-id="${item.id_lembaga}" onclick="update_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i></button>
+                    <button type="button" onclick="delete_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
                 </td>
             </tr>
         `
@@ -89,14 +87,14 @@ async function render_historytable() {
     }
     datahistory.forEach(item => {
         table +=
-        `
+            `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                <td class="p-3 px-5"><input value="${item.id_detail}" class="bg-transparent w-20"></td>
-                <td class="p-3 px-5"><input value="${item.id_user}" class="bg-transparent w-20"></td>
-                <td class="p-3 px-5"><input value="${item.id_issue}" class="bg-transparent w-20"></td>
-                <td class="p-3 px-5"><input value="${item.jumlah_bayar}" class="bg-transparent"></td>
-                <td class="p-3 px-5"><input value="${item.tanggal}" class="bg-transparent"></td>
-                <td class="p-3 px-5"><input value="${item.nama_donatur}" class="bg-transparent "></td>
+                <td class="p-3 px-5">${item.id_detail}</td>
+                <td class="p-3 px-5">${item.id_user}</td>
+                <td class="p-3 px-5">${item.id_issue}</td>
+                <td class="p-3 px-5">${item.jumlah_bayar}</td>
+                <td class="p-3 px-5">${item.tanggal}</td>
+                <td class="p-3 px-5">${item.nama_donatur}</td>
                 <td class="p-3 px-5 flex justify-start">
                     <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
                 </td>
@@ -110,11 +108,11 @@ async function render_historytable() {
 
 
 async function render_issuetable() {
-    let dataissue=[]
-const response = await fetch('/admin/issue');
+    let dataissue = []
+    const response = await fetch('/admin/issue');
     jsonData = await response.json();
     let table = ``;
-    dataissue  = jsonData.rows || jsonData; // Adjust based on actual API response format
+    dataissue = jsonData.rows || jsonData; // Adjust based on actual API response format
 
     if (!Array.isArray(dataissue)) {
         console.error("Expected an array, but got:", datahistory);
@@ -122,16 +120,16 @@ const response = await fetch('/admin/issue');
     }
     dataissue.forEach(item => {
         table +=
-        `
+            `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                <td class="p-3 px-5"><input value="${item.id_issue}" class="bg-transparent w-20"></td>
-                <td class="p-3 px-5"><input value="${item.id_lembaga}" class="bg-transparent w-20"></td>
+                <td class="p-3 px-5">${item.id_issue}</td>
+                <td class="p-3 px-5">${item.id_lembaga}</td>
                 <td class="p-3 px-5"><input type="text" value="${item.deskripsi}" class="bg-transparent"></td>
                 <td class="p-3 px-5"><input type="datetime-local" value="${item.deadline}" class="bg-transparent"></td>
                 <td class="p-3 px-5">
-                    <select value="${item.pilihan}" class="bg-transparent w-20">
-                        <option value="true">true</option>
-                        <option value="false">false</option>
+                    <select class="bg-transparent w-20">
+                        <option value="true" ${item.pilihan === "true" ? "selected" : ""}>true</option>
+                        <option value="false" ${item.pilihan === "false" ? "selected" : ""}>false</option>
                     </select>
                 </td>
                 <td class="p-3 px-5"><input type="text" value="${item.alasan}" class="bg-transparent"></td>
@@ -147,3 +145,53 @@ const response = await fetch('/admin/issue');
     document.getElementById('tabel_issue').innerHTML = table;
 }
 
+function update_verify(id) {
+    const button = document.querySelector(`button[data-id="${id}"]`);
+    if (!button) {
+        console.error(`Button with id ${id} not found.`);
+        return;
+    }
+
+    const row = button.closest("tr");
+    if (!row) {
+        console.error(`No parent <tr> found for button with id ${id}.`);
+        return;
+    }
+
+    const verify = row.querySelector("select").value.trim();
+
+    fetch(`/admin/updateVerifikasi`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_lembaga: id, verifikasi: verify === "true" })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        console.log("Verification updated:", data);
+    })
+    .catch(error => console.error("Update error:", error));
+}
+
+
+function update_history(id) {
+
+}
+
+function update_issue(id) {
+
+}
+
+function delete_verify(id) {
+    if (!confirm("are you sure you want to delete this?")) return;
+    fetch(`/admin/deleteVerifikasi/${id}`, {
+        method: "DELETE",
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            console.log("Deletion successful:", data);
+            location.reload(); // Refresh the page after deletion
+        })
+        .catch(error => console.error("Deletion error:", error));
+}
