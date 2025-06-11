@@ -45,7 +45,7 @@ const awalLembaga = async (req, res) => {
                 jumlahDonatur: parseInt(issue.jumlah_donatur, 10),
                 hariTersisa: hariTersisa,
                 targetFormatted: formatRupiah(issue.target),
-                terkumpulFormat: formatRupiah(issue.terkumpul)
+                terkumpulFormatted: formatRupiah(issue.terkumpul)
             };
         });
 
