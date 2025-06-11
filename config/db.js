@@ -1,4 +1,4 @@
-const pool = new Pool({
+const db = new Pool({
   host: 'db.ocuwghtrsjrfqnqyfvjn.supabase.co',
   port: 5432,
   user: 'postgres',
