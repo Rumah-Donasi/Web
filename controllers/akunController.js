@@ -16,11 +16,22 @@ const histori = async (req, res) => {
                 minimumFractionDigits: 0
             }).format(angka);
         };
+
+        const tanggal = new Date("Mon Apr 21 2025 00:00:00 GMT+0000");
+
+        const hari = tanggal.toLocaleDateString('id-ID', { weekday: 'long' });
+        const tanggalNum = tanggal.getDate();
+        const bulan = tanggal.toLocaleDateString('id-ID', { month: 'long' });
+        const tahun = tanggal.getFullYear();
+        const jam = tanggal.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        
+        const hasil = `${hari}, ${tanggalNum} ${bulan} ${tahun} jam ${jam}`;
         
         req.issues = result.rows.map(issue => {
             return {
                 ...issue,
-                jumlahFormatted: formatRupiah(issue.jumlah_bayar)
+                jumlahFormatted: formatRupiah(issue.jumlah_bayar),
+                tanggal: hasil
             };
         });
 
