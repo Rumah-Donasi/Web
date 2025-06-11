@@ -46,8 +46,6 @@ app.use('/register/lembaga', registerLembagaRouter);
 app.use('/register/user', registerUserRouter);
 
 app.use('/admin', authAdmin, adminRouter);
-app.use('/lembaga', authLembaga, lembagaRouter);
-app.use('/user', authUser, userRouter);
 
 app.listen(port, () => {
   console.log(`Server: http://localhost:${port}`);
