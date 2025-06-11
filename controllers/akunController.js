@@ -23,12 +23,12 @@ const histori = async (req, res) => {
             const tanggalNum = tanggal.getDate();
             const bulan = tanggal.toLocaleDateString('id-ID', { month: 'long' });
             const tahun = tanggal.getFullYear();
-            const jam = tanggal.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); // en-GB agar pakai ":"
+            const jam = tanggal.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
         
             return {
                 ...issue,
                 jumlahFormatted: formatRupiah(issue.jumlah_bayar),
-                tanggalFormatted: `${hari}, ${tanggalNum} ${bulan} ${tahun} jam ${jam}`
+                tanggalFormatted: `${hari}, ${tanggalNum} ${bulan} ${tahun} \| ${jam}`
             };
         });
 
