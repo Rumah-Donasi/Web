@@ -6,10 +6,10 @@
       
       <!-- Progress Bar -->
       <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-        <div class="bg-primary h-4" style="width: <%= issues.progress || 0 %>%"></div>
+        <div class="bg-primary h-4" style="width: <%= issues.progress.toFixed(2) || 0 %>%"></div>
       </div>
       <div class="flex justify-between">
-        <p class="text-sm text-gray-500"><%= issues.progress || 0 %>% tercapai</p>
+        <p class="text-sm text-gray-500"><%= issues.progress.toFixed(2) || 0 %>% tercapai</p>
         <span class="flex items-center">
             <i class="fas fa-clock mr-1"></i>
             <%= issues.hariTersisa %> hari tersisa

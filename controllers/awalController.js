@@ -20,7 +20,7 @@ const awalBanget = async (req, res) => {
         };
 
         req.issues = result.rows.map(issue => {
-            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+            const progress = (issue.terkumpul / issue.target) * 100;
 
             let imageSrc = null;
             if (issue.thumbnail) {
@@ -46,7 +46,7 @@ const awalBanget = async (req, res) => {
             LIMIT 4
         `);
         req.random = random.rows.map(issue => {
-            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+            const progress = (issue.terkumpul / issue.target) * 100;
 
             let imageSrc = null;
             if (issue.thumbnail) {
@@ -72,7 +72,7 @@ const awalBanget = async (req, res) => {
             LIMIT 4
         `);
         req.mendesak = mendesak.rows.map(issue => {
-            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+            const progress = (issue.terkumpul / issue.target) * 100;
 
             let imageSrc = null;
             if (issue.thumbnail) {
