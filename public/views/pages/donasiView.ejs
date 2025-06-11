@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <%- include('../partials/navbar'); %>
+    <form id="donasiForm" action="<%= `/bayar/${id}` %>" method="POST" class="flex flex-col items-center min-h-screen bg-gray-100">
+      <input type="hidden" name="id_issue" value="<%= id %>">
+
+      <div class="bg-white p-6 rounded-xl shadow w-full max-w-2xl mt-32 mx-auto shadow-dark">
+        <h2 class="text-xl font-bold text-center mb-6 text-dark">Pilih Nominal Donasi</h1>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <button type="button"
+              class="nominal-btn bg-white text-gray-700 hover:bg-primary hover:text-white py-1 rounded-full border-2 border-primary"
+              data-value="5000">Rp 5.000</button>
+            <button type="button"
+              class="nominal-btn bg-white text-gray-700 hover:bg-primary hover:text-white py-1 rounded-full border-2 border-primary"
+              data-value="10000">Rp 10.000</button>
+            <button type="button"
+              class="nominal-btn bg-white text-gray-700 hover:bg-primary hover:text-white py-1 rounded-full border-2 border-primary"
+              data-value="20000">Rp 20.000</button>
+            <button type="button"
+              class="nominal-btn bg-white text-gray-700 hover:bg-primary hover:text-white py-1 rounded-full border-2 border-primary"
+              data-value="50000">Rp 50.000</button>
+            <button type="button"
+              class="nominal-btn bg-white text-gray-700 hover:bg-primary hover:text-white py-1 rounded-full border-2 border-primary"
+              data-value="100000">Rp 100.000</button>
+            <button type="button"
+              class="nominal-btn bg-white text-gray-700 hover:bg-primary hover:text-white py-1 rounded-full border-2 border-primary"
+              data-value="lainnya">Lainnya</button>
+          </div>
+
+          <div id="nominalLainWrapper" class="hidden w-full relative mt-10 mb-5">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700">
+              <span class="ps-2 text-dark">Rp</span>
+            </span>
+            <input type="number" id="nominalLain" placeholder="Masukkan nominal lain"
+              class="w-full pl-12 p-3 border border-primary rounded-full focus:outline-none focus:ring-2 focus:ring-dark" />
+          </div>
+
+          <input type="hidden" name="nominal" id="nominalHidden" />
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow w-full max-w-2xl mt-8 mx-auto shadow-dark">
+        <h3 class="text-xl mb-6 text-dark font-semibold">Dukungan dan Pesan</h3>
+
+        <textarea name="pesan" id="dukungan" rows="4"
+          class="w-full p-3 border border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-dark"
+          placeholder="Tuliskan dukungan dan pesan Anda di sini"></textarea>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow w-full max-w-2xl mt-8 mx-auto shadow-dark">
+        <h3 class="text-md text-dark font-semibold">Nama Anda</h3>
+        <input name="nama_donatur" type="text" id="namaDisplay" class="w-full p-3 border border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-dark" placeholder="Masukkan nama Anda di sini" />
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow w-full max-w-2xl mt-8 mx-auto shadow-dark">
+        <h3 class="text-md text-dark font-semibold">Rincian Donasi</h3>
+
+        <div class="flex justify-between items-center mt-3">
+          <span class="text-dark">Nominal Donasi</span>
+          <span id="nominalDisplay" class="text-dark font-semibold">Rp 0</span>
+        </div>
+        <div class="flex justify-between items-center mt-3">
+          <span class="text-dark">Biaya Operasional (2%)</span>
+          <span id="biayaOperasional" class="text-dark font-semibold">Rp 0</span>
+        </div>
+
+        <div class="flex justify-between items-center mt-3">
+          <span class="text-dark">Total Donasi</span>
+          <span id="totalDonasi" class="text-dark font-semibold">Rp 0</span>
+        </div>
+
+        <div class="flex justify-between items-center border border-dark p-2 rounded-xl mt-6 px-3 mb-3"
+          onclick="document.getElementById('dana-operasional').click()">
+          <label for="dana-operasional" class="text-md text-dark font-semibold flex items-center"
+            onclick="document.getElementById('dana-operasional').click()">Dana Operasional (2%)</label>
+          <input id="dana-operasional" name="dana-operasional" type="checkbox"
+            class="h-5 w-5 text-primary focus:ring-dark border-gray-300 rounded-full"
+            onclick="document.getElementById('dana-operasional').click()" checked>
+        </div>
+
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow w-full max-w-2xl mt-8 mb-24 mx-auto shadow-dark">
+        <h3 class="text-md text-dark font-semibold mb-4">Metode Pembayaran</h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Transfer Bank -->
+          <button type="button"
+            class="metode-btn border-2 border-primary rounded-xl p-4 flex flex-col items-center gap-2 hover:bg-primary hover:text-white bg-white text-dark transition"
+            data-metode="transfer_bank">
+            <i class="fa-solid fa-building-columns text-2xl"></i>
+            <span class="font-semibold text-sm text-center">Transfer Bank</span>
+          </button>
+
+          <!-- E-Wallet -->
+          <button type="button"
+            class="metode-btn border-2 border-primary rounded-xl p-4 flex flex-col items-center gap-2 hover:bg-primary hover:text-white bg-white text-dark transition"
+            data-metode="e_wallet">
+            <i class="fa-solid fa-wallet text-2xl"></i>
+            <span class="font-semibold text-sm text-center">E-Wallet</span>
+          </button>
+
+          <!-- Kartu Kredit -->
+          <button type="button"
+            class="metode-btn border-2 border-primary rounded-xl p-4 flex flex-col items-center gap-2 hover:bg-primary hover:text-white bg-white text-dark transition"
+            data-metode="kartu_kredit">
+            <i class="fa-regular fa-credit-card text-2xl"></i>
+            <span class="font-semibold text-sm text-center">Kartu Kredit</span>
+          </button>
+        </div>
+
+        <!-- Hidden input to store selected method -->
+        <input type="hidden" name="metode" id="metodeHidden">
+      </div>
+      <!-- Tombol Bayar dalam parent div putih -->
+      <div
+        class="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white shadow-inner py-4 flex justify-center z-50 w-full max-w-xl px-4 rounded-full">
+        <button type="submit"
+          class="w-full bg-primary text-white py-3 rounded-full hover:bg-dark text-xl transition duration-300 shadow-lg hover:shadow-xl">
+          <i class="fa-solid fa-donate mr-2"></i>
+          Bayar
+        </button>
+      </div>
+
+
+
+
+    </form>
+    <script>
+      const buttons = document.querySelectorAll('.nominal-btn');
+      const inputLain = document.getElementById('nominalLainWrapper');
+      const nominalHidden = document.getElementById('nominalHidden');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const value = btn.getAttribute('data-value');
+
+          // Reset semua tombol ke style default
+          buttons.forEach(b => {
+            b.classList.remove('bg-dark', 'hover:bg-dark', 'text-white');
+            b.classList.add('bg-white', 'hover:bg-primary', 'text-gray-700');
+          });
+
+          // Beri style aktif ke tombol yang diklik
+          btn.classList.remove('bg-white', 'hover:bg-primary', 'text-gray-700');
+          btn.classList.add('bg-dark', 'hover:bg-dark', 'text-white');
+
+          if (value === 'lainnya') {
+            inputLain.classList.remove('hidden');
+            nominalHidden.value = inputLain.querySelector('input').value || '';
+          } else {
+            inputLain.classList.add('hidden');
+            nominalHidden.value = value;
+          }
+        });
+      });
+
+      const nominalLainInput = document.getElementById('nominalLain');
+      const nominalDisplay = document.getElementById('nominalDisplay');
+      const biayaOperasional = document.getElementById('biayaOperasional');
+      const totalDonasi = document.getElementById('totalDonasi');
+      const danaOperasionalCheckbox = document.getElementById('dana-operasional');
+
+      // Update total donasi dan biaya operasional
+      function updateDonasi() {
+        let nominal = parseInt(nominalHidden.value) || 0;
+        let includeFee = danaOperasionalCheckbox.checked;
+
+        let fee = includeFee ? Math.round(nominal * 0.02) : 0;
+        let total = nominal + fee;
+
+        nominalDisplay.textContent = formatRupiah(nominal);
+        biayaOperasional.textContent = formatRupiah(fee);
+        totalDonasi.textContent = formatRupiah(total);
+      }
+
+      // Format angka ke bentuk Rupiah
+      function formatRupiah(angka) {
+        return new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
+          minimumFractionDigits: 0
+        }).format(angka);
+      }
+
+      // Saat isi input nominal lain berubah
+      nominalLainInput.addEventListener('input', (e) => {
+        nominalHidden.value = e.target.value;
+        updateDonasi();
+      });
+
+      // Saat checkbox diubah
+      danaOperasionalCheckbox.addEventListener('change', updateDonasi);
+
+      // Saat tombol nominal dipilih, update donasi
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const value = btn.getAttribute('data-value');
+          if (value === 'lainnya') {
+            nominalHidden.value = nominalLainInput.value || '';
+          }
+          updateDonasi();
+        });
+      });
+
+      // Inisialisasi awal
+      updateDonasi();
+
+      const metodeButtons = document.querySelectorAll('.metode-btn');
+      const metodeHidden = document.getElementById('metodeHidden');
+
+      metodeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          metodeButtons.forEach(b => {
+            b.classList.remove('bg-dark', 'text-white');
+            b.classList.add('bg-white', 'text-dark');
+          });
+
+          btn.classList.remove('bg-white', 'text-dark');
+          btn.classList.add('bg-dark', 'text-white');
+
+          metodeHidden.value = btn.getAttribute('data-metode');
+        });
+      });
+
+
+    </script>
+</body>
+
+</html>

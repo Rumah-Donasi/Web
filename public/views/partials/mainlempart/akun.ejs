@@ -1,0 +1,105 @@
+<h1 class="text-2xl font-bold mb-6 text-center">Lembaga Saya</h1>
+
+<!-- Informasi Lembaga -->
+<section class="mb-8 bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-xl font-semibold mb-4">Informasi Lembaga</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <p class="text-gray-600 text-sm">Nama Lembaga</p>
+      <p class="text-gray-900 font-medium">
+        <%= user.username %>
+      </p>
+    </div>
+    <div>
+      <p class="text-gray-600 text-sm">Email</p>
+      <p class="text-gray-900 font-medium">
+        <%= user.email %>
+      </p>
+    </div>
+    <div>
+      <p class="text-gray-600 text-sm">Nomor Telepon</p>
+      <p class="text-gray-900 font-medium">
+        <%= user.telp_user %>
+      </p>
+    </div>
+    <div>
+      <p class="text-gray-600 text-sm">Alamat</p>
+      <p class="text-gray-900 font-medium">
+        <%= user.alamat %>
+      </p>
+    </div>
+  </div>
+  <p class="text-gray-600 text-sm mt-5">Deskripsi</p>
+  <p class="text-gray-900 font-medium">
+    <%= user.deskripsi %>
+  </p>
+</section>
+
+<!-- Form Edit Lembaga -->
+<section class="mb-8 bg-primary p-6 rounded-lg shadow-md">
+  <h2 class="text-xl font-bold mb-4 text-white">Edit Informasi Lembaga</h2>
+  <form action="/lembaga/akun" method="POST" class="space-y-4">
+
+    <!-- Nama Lembaga -->
+    <div>
+      <label class="block text-white font-medium mb-1" for="name">Nama Lembaga</label>
+      <div
+        class="flex items-center border border-gray-300 rounded-lg px-4 py-2 focus-within:ring focus-within:border-blue-500 bg-white">
+        <i class="fa-solid fa-building text-gray-400 mr-3"></i>
+        <input type="text" id="name" name="username" value="<%= user.username %>" class="w-full focus:outline-none" />
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label class="block text-white font-medium mb-1" for="email">Email</label>
+      <div
+        class="flex items-center border border-gray-300 rounded-lg px-4 py-2 focus-within:ring focus-within:border-blue-500 bg-white">
+        <i class="fa-solid fa-envelope text-gray-400 mr-3"></i>
+        <input type="email" id="email" name="email" value="<%= user.email %>" class="w-full focus:outline-none" />
+      </div>
+    </div>
+
+    <!-- Nomor Telepon -->
+    <div>
+      <label class="block text-white font-medium mb-1" for="phone">Nomor Telepon</label>
+      <div
+        class="flex items-center border border-gray-300 rounded-lg px-4 py-2 focus-within:ring focus-within:border-blue-500 bg-white">
+        <i class="fa-solid fa-phone text-gray-400 mr-3"></i>
+        <input type="text" id="phone" name="telp_user" value="<%= user.telp_user %>" class="w-full focus:outline-none" />
+      </div>
+    </div>
+
+    <!-- Alamat -->
+    <div>
+      <label class="block text-white font-medium mb-1" for="address">Alamat</label>
+      <div
+        class="flex items-start border border-gray-300 rounded-lg px-4 py-2 focus-within:ring focus-within:border-blue-500 bg-white">
+        <i class="fa-solid fa-location-dot text-gray-400 mr-3 mt-1"></i>
+        <textarea id="address" name="alamat" rows="3"
+          class="w-full focus:outline-none"><%= user.alamat %></textarea>
+      </div>
+    </div>
+
+    <!-- Deskripsi -->
+    <div>
+      <label class="block text-white font-medium mb-1" for="description">Deskripsi</label>
+      <div
+        class="flex items-start border border-gray-300 rounded-lg px-4 py-2 focus-within:ring focus-within:border-blue-500 bg-white">
+        <i class="fa-solid fa-align-left text-gray-400 mr-3 mt-1"></i>
+        <textarea id="description" name="deskripsi" rows="3"
+          class="w-full focus:outline-none"><%= user.deskripsi %></textarea>
+      </div>
+    </div>
+
+
+    <!-- Button -->
+    <div>
+      <button type="submit"
+        class="bg-white text-gray-700 px-6 py-3 w-full rounded-lg hover:bg-dark hover:text-white transform hover:scale-[1.01] transition duration-200 ease-in-out font-semibold">
+        Simpan Perubahan
+      </button>
+    </div>
+
+  </form>
+</section>
