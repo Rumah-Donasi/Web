@@ -17,7 +17,7 @@ const histori = async (req, res) => {
             }).format(angka);
         };
 
-        const tanggal = issues.tanggal;
+        const tanggal = result.tanggal;
 
         const hari = tanggal.toLocaleDateString('id-ID', { weekday: 'long' });
         const tanggalNum = tanggal.getDate();
@@ -31,7 +31,7 @@ const histori = async (req, res) => {
             return {
                 ...issue,
                 jumlahFormatted: formatRupiah(issue.jumlah_bayar),
-                tanggal: hasil
+                tanggalFormatted: hasil
             };
         });
 
