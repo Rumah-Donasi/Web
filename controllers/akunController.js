@@ -33,7 +33,7 @@ const histori = async (req, res) => {
         });
 
         res.render('pages/account', {
-            donasi: req.issues
+            donasi: issues
         });
     } catch (error) {
         console.log(error);
