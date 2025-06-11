@@ -17,21 +17,18 @@ const histori = async (req, res) => {
             }).format(angka);
         };
 
-        const tanggal = result.tanggal;
-
-        const hari = tanggal.toLocaleDateString('id-ID', { weekday: 'long' });
-        const tanggalNum = tanggal.getDate();
-        const bulan = tanggal.toLocaleDateString('id-ID', { month: 'long' });
-        const tahun = tanggal.getFullYear();
-        const jam = tanggal.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        const donasiFormatted = result.rows.map(issue => {
+            const tanggal = new Date(issue.tanggal);
+            const hari = tanggal.toLocaleDateString('id-ID', { weekday: 'long' });
+            const tanggalNum = tanggal.getDate();
+            const bulan = tanggal.toLocaleDateString('id-ID', { month: 'long' });
+            const tahun = tanggal.getFullYear();
+            const jam = tanggal.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); // en-GB agar pakai ":"
         
-        const hasil = `${hari}, ${tanggalNum} ${bulan} ${tahun} jam ${jam}`;
-        
-        req.issues = result.rows.map(issue => {
             return {
                 ...issue,
                 jumlahFormatted: formatRupiah(issue.jumlah_bayar),
-                tanggalFormatted: hasil
+                tanggalFormatted: `${hari}, ${tanggalNum} ${bulan} ${tahun} jam ${jam}`
             };
         });
 
