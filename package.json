@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "build:css": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --watch",
     "devStart": "nodemon app.js"
   },
