@@ -56,9 +56,9 @@ async function render_verifikasitable() {
                 <td class="p-3 px-5">${item.id_lembaga}</td>
                 <td class="p-3 px-5">${item.nama_lembaga}</td>
                 <td class="p-3 px-5">
-                    <select value="${item.verifikasi}" class="bg-transparent">
-                        <option value="true" ${item.verifikasi === "true" ? "selected" : ""}>true</option>
-                        <option value="false" ${item.verifikasi === "false" ? "selected" : ""}>false</option>
+                    <select class="bg-transparent">
+                        <option value="true" ${item.verifikasi === true ? "selected" : ""}>true</option>
+                        <option value="false" ${item.verifikasi === false ? "selected" : ""}>false</option>
                     </select>
                 </td>
                 <td class="p-3 px-5 flex justify-start">
@@ -157,20 +157,25 @@ function update_verify(id) {
         console.error(`No parent <tr> found for button with id ${id}.`);
         return;
     }
-
+    const verifyElement = row.querySelector("select");
+    if (!verifyElement) {
+        console.error(`Select element not found in row for id: ${id}`);
+        return;
+    }
     const verify = row.querySelector("select").value.trim();
 
     fetch(`/admin/updateVerifikasi`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_lembaga: id, verifikasi: verify === "true" })
+        body: JSON.stringify({ id_lembaga: id, verifikasi: verify === "true" ? true : false })
+
     })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        console.log("Verification updated:", data);
-    })
-    .catch(error => console.error("Update error:", error));
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            console.log("Verification updated:", data);
+        })
+        .catch(error => console.error("Update error:", error));
 }
 
 

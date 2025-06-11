@@ -1,7 +1,7 @@
 const { pool } = require('../database/db.js')
-gverify = 'SELECT id_lembaga,nama_lembaga,verifikasi FROM lembaga';
-ghistory = 'SELECT id_detail,id_user,id_issue,jumlah_bayar,tanggal,nama_donatur FROM detail_donasi';
-gissue = 'SELECT id_issue,id_lembaga,deskripsi,deadline,alasan FROM issues';
+gverify = 'SELECT id_lembaga,nama_lembaga,verifikasi FROM lembaga ORDER BY id_lembaga ASC';
+ghistory = 'SELECT id_detail,id_user,id_issue,jumlah_bayar,tanggal,nama_donatur FROM detail_donasi ORDER BY id_detail ASC';
+gissue = 'SELECT id_issue,id_lembaga,deskripsi,deadline,alasan FROM issues ORDER BY id_issue ASC';
 //get
 exports.getVerifikasi = async (req, res) => {
     try {
@@ -93,15 +93,15 @@ exports.putIssue = (req, res) => {
 //delete
 exports.deleteVerifikasi = async (req, res) => {
     try {
-        const { id } = req.params;
-        const existingData = await pool.query("select id_lembaga from lembaga where id_lembaga = $1", [id])
+        const { id_lembaga } = req.params;
+        const existingData = await pool.query("select id_lembaga from lembaga where id_lembaga = $1", [id_lembaga])
 
         if (existingData.rows.length === 0) {
             return res.status(404).json({ success: false, message: "record not found" })
 
         }
         // Delete the record
-        await pool.query("DELETE FROM lembaga WHERE id_lembaga = $1", [id]);
+        await pool.query("DELETE FROM lembaga WHERE id_lembaga = $1", [id_lembaga]);
 
         res.status(200).json({ success: true, message: "Record deleted successfully" });
 
