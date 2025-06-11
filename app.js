@@ -23,11 +23,11 @@ app.use((req, res, next) => {
 });
 app.use(cekLogin);
 
-app.use('/', require('./routes/loginRoute'));
-app.use('/isu', require('./routes/galangDanaRoute'));
+app.use('/', require('./routes/firstRoute'));
 app.use('/cari', require('./routes/searchRoute'));
 app.use('/akun', require('./routes/akunRoute'));
 app.use('/lembaga', require('./routes/lembagaRoute'));
+app.use('/issue', require('./routes/issueRoute'));
 
 app.listen(8080);
 console.log('Server is listening on port 8080');

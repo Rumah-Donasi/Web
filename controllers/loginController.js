@@ -126,9 +126,7 @@ const register = (usertype) => {
             }
             res.redirect('/');
         } catch (err) {
-            return res.render('pages/error.ejs', {
-            error: err
-        });
+            console.error(err);
         }
     };
 };
@@ -206,9 +204,7 @@ const login = async (req, res) => {
         }
         return res.redirect('/');
     } catch (err) {
-        return res.render('pages/error', {
-            error: err
-        });
+        console.error(err);
     }
 };
 

@@ -1,0 +1,66 @@
+<!-- view untuk detail issue jika diakses oleh user atau user yng belum login -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header><%- include('../partials/navbar'); %></header>
+
+  <main class="flex flex-col items-center pt-16">
+
+    <section class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
+      <!-- Thumbnail -->
+      <img src="<%- issue.thumbnail %>" alt="Thumbnail campaign" class="w-[1000px] object-cover rounded-md mb-6 mt-2">
+
+      <!-- Judul kampanye -->
+      <h1 class="text-2xl font-bold mb-4 text-center">
+        <%= issue.title %>
+      </h1>
+
+      <!-- Progress & Statistik -->
+      <div class="flex flex-col justify-between items-center bg-gray-100 rounded-md p-4 mb-6">
+        <div class="w-full mb-4 sm:mb-0">
+          <div class="h-4 bg-gray-300 rounded-full w-full">
+            <div class="h-full bg-green-500 rounded-full" style="width: <%= issue.percentage.toFixed(2) %>%"></div>
+          </div>
+          <div class="flex justify-between text-sm text-gray-700 mt-2">
+            <span>Rp <%= issue.terkumpul %></span>
+            <span>Rp <%= issue.target %></span>
+          </div>
+        </div>
+        <div class="flex justify-between flex-row w-full mt-5">
+          <div class="text-left">Terkumpul: <span class="font-bold">
+              <%= issue.percentage.toFixed(2) %>
+            </span>%</div>
+          <div class="text-right">Deadline: <strong>
+              <%= new Date(issue.deadline).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) %>
+            </strong></div>
+        </div>
+      </div>
+
+      <!-- Deskripsi -->
+      <div class="prose mb-6">
+        <%= issue.deskripsi %>
+      </div>
+
+      <!-- Tombol atau Link Aksi -->
+      <div class="flex justify-center">
+        <button"
+          class="py-3 px-6 bg-primary text-white font-semibold rounded-md hover:bg-dark cursor-pointer transition duration-100">
+          Donasi Sekarang
+        </button>
+      </div>
+    </section>
+
+
+    <footer>
+      <%- include('../partials/footer'); %>
+    </footer>
+  </main>
+</body>
+
+</html>

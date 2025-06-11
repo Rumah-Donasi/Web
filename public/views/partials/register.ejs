@@ -1,156 +1,132 @@
-  <main class="flex flex-col lg:flex-row bg-white/95 backdrop-blur-lg shadow-2xl rounded-2xl w-full max-w-6xl mx-4 border border-white/20 animate-fade-in">
-    
-    <section class="w-full lg:w-1/2 px-8 py-8 relative animate-slide-up">
-      <div class="mb-2 relative">
-        <h1 class="text-5xl font-bold pb-4 bg-gradient-to-r from-dark to-secondary bg-clip-text text-transparent mb-2">
-            <% if (usertype === 'user') { %>
-                Bergabung Bersama Kami!
-            <% } else if (usertype === 'lembaga') { %>
-                Register Lembaga
+<main
+  class="flex flex-col lg:flex-row bg-white/95 backdrop-blur-lg shadow-2xl rounded-2xl w-full max-w-6xl mx-4 border border-white/20 animate-fade-in">
+  <section class="w-full lg:w-1/2 px-8 py-8 relative animate-slide-up">
+    <div class="mb-2 relative">
+      <h1 class="text-5xl font-bold pb-4 bg-gradient-to-r from-dark to-secondary bg-clip-text text-transparent mb-2">
+        <% if (usertype==='user' ) { %>
+          Bergabung Bersama Kami!
+          <% } else if (usertype==='lembaga' ) { %>
+            Register Lembaga
             <% } else { %>
-                Woi Admin
-            <% } %>
-        </h1>
-        <p class="text-gray-600 mb-2">Mari peduli bersama <span class="text-dark">Rumah Donasi</span></p>
+              Woi Admin
+              <% } %>
+      </h1>
+      <p class="text-gray-600 mb-2">Mari peduli bersama <span class="text-dark">Rumah Donasi</span></p>
+    </div>
+
+    <form action="<% if (usertype === 'user') { %>/register<% } else { %>/lembaga/register<% } %>" method="post"
+      class="space-y-2">
+
+      <div class="flex flex-col">
+
+        <!-- Username Field -->
+        <div class="relative group pt-3">
+          <input type="text" id="username" name="username" required
+            value="<%= typeof username !== 'undefined' ? username : '' %>"
+            class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent">
+          <label for="username"
+            class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm peer-valid:text-primary">
+            Username
+          </label>
+          <p class="ml-4 text-xs text-red-500">
+            <%= typeof err.username !=='undefined' ? err.username : '' %>
+          </p>
+        </div>
+
+        <!-- Email Field -->
+        <div class="relative group pt-3">
+          <input type="text" id="email" name="email" required value="<%= typeof email !== 'undefined' ? email : '' %>"
+            class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent">
+          <label for="email"
+            class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm peer-valid:text-primary">
+            Email
+          </label>
+          <p class="ml-4 text-xs text-red-500">
+            <%= typeof err.email !=='undefined' ? err.email : '' %>
+          </p>
+        </div>
+
+        <!-- Password Field -->
+        <div class="relative group pt-3">
+          <input type="password" name="password" id="password" required
+            value="<%= typeof password !== 'undefined' ? password : '' %>"
+            class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent" />
+          <label for="password"
+            class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm peer-valid:text-primary">
+            Password
+          </label>
+          <button type="button" id="toggle-password"
+            class="absolute right-4 top-10 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+            <div id="eye-closed">
+              <i class="fa-solid fa-eye-slash"></i>
+            </div>
+            <div class="hidden" id="eye-open">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+          </button>
+          <p class="ml-4 text-xs text-red-500">
+            <%= typeof err.password !=='undefined' ? err.password : '' %>
+          </p>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="relative group pt-3">
+          <input type="password" name="confirm_password" id="confirm_password" required
+            value="<%= typeof confirm_password !== 'undefined' ? confirm_password : '' %>"
+            class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent" />
+          <label for="confirm_password"
+            class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm peer-valid:text-primary">
+            Confirm Password
+          </label>
+          <button type="button" id="toggle-confirm-password"
+            class="absolute right-4 top-10 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+            <div id="confirm-eye-closed">
+              <i class="fa-solid fa-eye-slash"></i>
+            </div>
+            <div class="hidden" id="confirm-eye-open">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+          </button>
+          <p class="ml-4 text-xs text-red-500">
+            <%= typeof err.username !=='undefined' ? err.username : '' %>
+          </p>
+        </div>
       </div>
 
-      <form action="<% if (usertype === 'user') { %>/register<% } else { %>/lembaga/register<% } %>" method="post" class="space-y-2">
 
-        <div class="flex flex-col">
-    
-            <!-- Username Field -->
-            <div class="relative group pt-3">
-              <input 
-                type="text"
-                id="username"
-                name="username"
-                required
-                value="<%= typeof username !== 'undefined' ? username : '' %>"
-                class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent"
-              >
-              <label for="username"
-                class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm peer-valid:text-primary">
-                Username
-              </label>
-              <p class="ml-4 text-xs text-red-500"><%= typeof err.username !== 'undefined' ? err.username : '' %></p>
-            </div>
-    
-            <!-- Email Field -->
-            <div class="relative group pt-3">
-              <input 
-                type="text"
-                id="email"
-                name="email"
-                required
-                value="<%= typeof email !== 'undefined' ? email : '' %>"
-                class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent"
-              >
-              <label for="email"
-                class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm peer-valid:text-primary">
-                Email
-              </label>
-              <p class="ml-4 text-xs text-red-500"><%= typeof err.email !== 'undefined' ? err.email : '' %></p>
-            </div>
-    
-            <!-- Password Field -->
-            <div class="relative group pt-3">
-              <input 
-                type="password"
-                name="password"
-                id="password"
-                required
-                value="<%= typeof password !== 'undefined' ? password : '' %>"
-                class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent"
-              />
-              <label for="password"
-                class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm peer-valid:text-primary">
-                Password
-              </label>
-              <button
-                type="button"
-                id="toggle-password"
-                class="absolute right-4 top-10 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
-              >
-                <div id="eye-closed">
-                  <i class="fa-solid fa-eye-slash"></i>
-                </div>
-                <div class="hidden" id="eye-open">
-                  <i class="fa-solid fa-eye"></i>
-                </div>
-              </button>
-              <p class="ml-4 text-xs text-red-500"><%= typeof err.password !== 'undefined' ? err.password : '' %></p>
-            </div>
+      <!-- Terms and Conditions -->
+      <div class="flex items-start pt-4">
+        <input type="checkbox" id="terms" name="terms" required
+          class="mt-1 w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2">
+        <label for="terms" class="ml-3 text-sm text-gray-600">
+          Saya menyetujui
+          <a href="/terms" class="text-primary font-medium hover:underline">Syarat dan Ketentuan</a>
+          serta
+          <a href="/privacy" class="text-primary font-medium hover:underline">Kebijakan Privasi</a>
+        </label>
+      </div>
 
-            <!-- Confirm Password Field -->
-            <div class="relative group pt-3">
-              <input 
-                type="password"
-                name="confirm_password"
-                id="confirm_password"
-                required
-                value="<%= typeof confirm_password !== 'undefined' ? confirm_password : '' %>"
-                class="peer w-full h-14 px-4 pt-4 pl-7 pb-4 text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder-transparent"
-              />
-              <label for="confirm_password"
-                class="absolute left-4 top-7 bg-white/95 border-white/95 rounded-full px-2 text-gray-500 text-sm transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-focus:top-1 peer-focus:text-sm peer-focus:text-primary peer-valid:top-1 peer-valid:text-sm peer-valid:text-primary">
-                Confirm Password
-              </label>
-              <button
-                type="button"
-                id="toggle-confirm-password"
-                class="absolute right-4 top-10 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
-              >
-                <div id="confirm-eye-closed">
-                  <i class="fa-solid fa-eye-slash"></i>
-                </div>
-                <div class="hidden" id="confirm-eye-open">
-                  <i class="fa-solid fa-eye"></i>
-                </div>
-              </button>
-              <p class="ml-4 text-xs text-red-500"><%= typeof err.username !== 'undefined' ? err.username : '' %></p>
-            </div>
-        </div>
-        
+      <div class="pt-6 pb-3">
+        <button type="submit"
+          class="group relative w-full h-14 bg-primary hover:bg-dark text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-dark/20 overflow-hidden">
+          <span class="relative z-10 flex items-center justify-center space-x-2">
+            <span>Daftar</span>
+            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
 
-        <!-- Terms and Conditions -->
-        <div class="flex items-start pt-4">
-          <input 
-            type="checkbox" 
-            id="terms" 
-            name="terms" 
-            required
-            class="mt-1 w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2"
-          >
-          <label for="terms" class="ml-3 text-sm text-gray-600">
-            Saya menyetujui 
-            <a href="/terms" class="text-primary font-medium hover:underline">Syarat dan Ketentuan</a> 
-            serta 
-            <a href="/privacy" class="text-primary font-medium hover:underline">Kebijakan Privasi</a>
-          </label>
-        </div>
+      <!-- Link to Login -->
+      <div class="text-center text-sm text-gray-600">
+        Sudah punya akun?
+        <a href="/login" class="text-primary font-medium hover:underline">Masuk di sini</a>
+      </div>
+    </form>
 
-        <div class="pt-6 pb-3">
-          <button
-            type="submit"
-            class="group relative w-full h-14 bg-primary hover:bg-dark text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-dark/20 overflow-hidden"
-          >
-            <span class="relative z-10 flex items-center justify-center space-x-2">
-              <span>Daftar</span>
-              <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-              </svg>
-            </span>
-          </button>
-        </div>
-
-        <!-- Link to Login -->
-        <div class="text-center text-sm text-gray-600">
-          Sudah punya akun? 
-          <a href="/login" class="text-primary font-medium hover:underline">Masuk di sini</a>
-        </div>
-      </form>
-
-      <!-- <div class="mt-8">
+    <!-- <div class="mt-8">
         <div class="relative">
           <div class="absolute inset-3 flex items-center">
             <div class="w-full border-t border-gray-200"></div>
@@ -179,52 +155,53 @@
           Facebook
         </button>
       </div> -->
-    </section>
+  </section>
 
-    <section class="w-full lg:w-1/2 relative overflow-hidden p-0">
-        <!-- Full Background Image -->
-        <img src="/images/pegangan2.jpg" alt="Helping hands together" class="absolute inset-0 w-full h-full object-cover z-0 rounded-r-2xl"/>
+  <section class="w-full lg:w-1/2 relative overflow-hidden p-0">
+    <!-- Full Background Image -->
+    <img src="/images/pegangan2.jpg" alt="Helping hands together"
+      class="absolute inset-0 w-full h-full object-cover z-0 rounded-r-2xl" />
 
-        <!-- Caption / Box Text -->
-        <div class="absolute bottom-8 left-8 right-8 z-20">
-            <div class="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-lg">
-                <h3 class="text-xl font-semibold text-gray-800 mb-1">Bersama Kita Kuat</h3>
-                <p class="text-sm text-gray-600">Bergabunglah dengan komunitas yang peduli dan siap membantu sesama.</p>
-    
-            </div>
-        </div>
-    </section>
+    <!-- Caption / Box Text -->
+    <div class="absolute bottom-8 left-8 right-8 z-20">
+      <div class="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+        <h3 class="text-xl font-semibold text-gray-800 mb-1">Bersama Kita Kuat</h3>
+        <p class="text-sm text-gray-600">Bergabunglah dengan komunitas yang peduli dan siap membantu sesama.</p>
 
-  </main>
+      </div>
+    </div>
+  </section>
 
-  <script>
-    // Password toggle functionality for main password
-    const togglePassword = document.getElementById('toggle-password');
-    const passwordInput = document.getElementById('password');
-    const eyeOpen = document.getElementById('eye-open');
-    const eyeClosed = document.getElementById('eye-closed');
+</main>
 
-    togglePassword.addEventListener('click', function() {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-      
-      eyeOpen.classList.toggle('hidden');
-      eyeClosed.classList.toggle('hidden');
-    });
+<script>
+  // Password toggle functionality for main password
+  const togglePassword = document.getElementById('toggle-password');
+  const passwordInput = document.getElementById('password');
+  const eyeOpen = document.getElementById('eye-open');
+  const eyeClosed = document.getElementById('eye-closed');
 
-    // Password toggle functionality for confirm password
-    const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
-    const confirmPasswordInput = document.getElementById('confirm_password');
-    const confirmEyeOpen = document.getElementById('confirm-eye-open');
-    const confirmEyeClosed = document.getElementById('confirm-eye-closed');
+  togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
 
-    toggleConfirmPassword.addEventListener('click', function() {
-      const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      confirmPasswordInput.setAttribute('type', type);
-      
-      confirmEyeOpen.classList.toggle('hidden');
-      confirmEyeClosed.classList.toggle('hidden');
-    });
+    eyeOpen.classList.toggle('hidden');
+    eyeClosed.classList.toggle('hidden');
+  });
 
-    
-  </script>
+  // Password toggle functionality for confirm password
+  const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+  const confirmPasswordInput = document.getElementById('confirm_password');
+  const confirmEyeOpen = document.getElementById('confirm-eye-open');
+  const confirmEyeClosed = document.getElementById('confirm-eye-closed');
+
+  toggleConfirmPassword.addEventListener('click', function () {
+    const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    confirmPasswordInput.setAttribute('type', type);
+
+    confirmEyeOpen.classList.toggle('hidden');
+    confirmEyeClosed.classList.toggle('hidden');
+  });
+
+
+</script>

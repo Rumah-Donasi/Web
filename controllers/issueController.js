@@ -1,35 +1,46 @@
+const { parse } = require('dotenv');
 const db = require('../config/db');
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+require('dotenv').config();
 
+const upload = multer({ storage: multer.memoryStorage() });
 const createIssue = async (req, res) => {
     try {
+        const token = req.cookies.token;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const id_user = decoded.id;
+
         const {
             title,
-            thumbnail,
             target,
             deadline,
             deskripsi,
-            id_lembaga
+            tipe_donasi,
+            prioritas
         } = req.body;
-        
-        if(!title || !thumbnail || !target || !deadline || !deskripsi || !id_lembaga) {
+
+        const thumbnail = req.file ? req.file.buffer : null;
+
+        if (!title || !thumbnail || !target || !deadline || !deskripsi || !id_user || !tipe_donasi || !prioritas) {
+            console.log(title, thumbnail, target, deadline, deskripsi, id_user, tipe_donasi, prioritas);
             return res.status(400).json({
                 success: false,
                 message: "Mohon lengkapi semua field"
             });
         }
 
-        imgBuffer = thumbnail;
-        imgHex = imgBuffer.toString('hex');
+        const parsedTarget = parseInt(target.replace(/\./g, ''), 10);
 
         const insertQuery = `
-            INSERT INTO issues (title, thumbnail, target, deadline, deskripsi, id_lembaga)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            INSERT INTO issues (title, thumbnail, target, deadline, deskripsi, id_lembaga, tipe_donasi, prioritas)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *;
         `;
-        const values = [title, imgHex, target, deadline, deskripsi, id_lembaga];
+        const values = [title, thumbnail, parsedTarget, deadline, deskripsi, id_user, tipe_donasi, prioritas];
 
         db.query(insertQuery, values, (err, result) => {
-            if(err) {
+            if (err) {
                 console.log(err);
                 return res.status(500).json({
                     success: false,
@@ -39,7 +50,9 @@ const createIssue = async (req, res) => {
 
             res.render("pages/createIssue", {
                 success: true,
-                message: "Issue berhasil dibuat"
+                message: "Issue berhasil dibuat",
+                user: decoded,
+                err: {}
             });
         });
 
@@ -47,7 +60,8 @@ const createIssue = async (req, res) => {
         console.log(error);
         res.render("pages/error", {
             success: false,
-            message: "Terjadi kesalahan pada server"
+            message: "Terjadi kesalahan pada server",
+            err: {}
         });
     }
 };
@@ -259,20 +273,32 @@ const getAllIssue = async (req, res) => {
 
 const getIssueById = async (req, res) => {
     try {
-        const issueId = req.params.id;
+        const issueId = parseInt(req.params.id);
         if (!issueId) {
             return res.status(400).json({ success: false, message: "Isi ID" });
         }
 
-        const result = await db.query('SELECT * FROM issues WHERE id = $1', [issueId]);
+        const result = await db.query('SELECT * FROM issues WHERE id_issue = $1', [issueId]);
         if (result.rows.length === 0) {
-            return res.status(404).json({ success: false, message: "Issue tidak ditemukan" });
+            return res.render("pages/error", { error: "Issue tidak ditemukan" });
         }
 
-        return res.status(200).json({
-            success: true,
-            message: "Issue berhasil diambil",
-            data: result.rows[0]
+        console.log(result.rows[0].thumbnail);
+
+        const terkumpul = Number(result.rows[0].terkumpul);
+        const target = Number(result.rows[0].target);
+
+        if (!isNaN(terkumpul) && !isNaN(target) && target > 0) {
+            result.rows[0].percentage = (terkumpul / target) * 100;
+        } else {
+            result.rows[0].percentage = 0;
+        }
+
+        result.rows[0].percentage = 3;
+
+        result.rows[0].thumbnail = `data:image/jpeg;base64,${result.rows[0].thumbnail.toString('base64')}`;
+        return res.render("pages/detailIssueUser", {
+            issue: result.rows[0]
         });
     } catch (error) {
         console.log(error);
@@ -285,7 +311,16 @@ const getIssueById = async (req, res) => {
 
 const homeCreate = async (req, res) => {
     try {
-        res.render('pages/createIssue', { err: {} });
+        const token = req.cookies.token;
+        if (!token) {
+            return res.render('pages/error', { err: { message: "Mohon login terlebih dahulu" } });
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (!decoded || !decoded.id) {
+            return res.render('pages/error', { err: { message: "Token tidak valid" } });
+        }
+        console.log(decoded);
+        res.render('pages/createIssue', { err: {}, user: decoded });
     } catch (error) {
         console.log(error);
         res.render("pages/error", { error: error });
@@ -293,10 +328,12 @@ const homeCreate = async (req, res) => {
 };
 
 module.exports = {
+    upload,
     createIssue,
     rejectIssue,
     accIssue,
     updateIssue,
     deleteIssue,
-    homeCreate
+    homeCreate,
+    getIssueById,
 }

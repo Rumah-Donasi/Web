@@ -12,6 +12,7 @@ const authorize = (...allowedUserTypes) => {
                 }
 
                 if (!allowedUserTypes.includes(decoded.usertype)) {
+                    console.log(decoded.usertype, allowedUserTypes);
                     return res.status(403).json({
                         success: false,
                         message: `Akses ditolak: hanya ${allowedUserTypes.join('/')} yang diizinkan`
