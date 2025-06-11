@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <%- include('../partials/navbar'); %>
+
+  <main class="mt-24 max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <!-- Bagian Kiri (Detail Campaign) -->
+    <%- include('../partials/leftView', {
+      thumbnail: issues.thumbnail,
+      nama_issue: issues.nama_issue,
+      nama_pembuat: issues.username,
+      title: issues.nama_issue,
+      deskripsi: issues.deskripsi,
+      donatur: donatur
+    }); %>
+
+    <!-- Bagian Kanan (Sticky Donasi Box) -->
+    <%- include('../partials/rightView', {
+      terkumpul: issues.terkumpul,
+      target: issues.target,
+      progress: issues.progress,
+      id_issue: issues.id_issue
+    }); %>
+  </main>
+
+  <% if (!user || user.usertype !== 'lembaga') { %>
+  <section>
+    <section class="bg-primary py-10 px-6 md:px-16 rounded-xl mx-4 sm:mx-20 lg:mx-40 mt-12">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl text-white font-semibold">Donasi Lainnya</h1>
+        <a
+          href="/search/"
+          class="text-sm font-medium md:text-base text-white border border-white px-4 py-2 rounded-full hover:bg-white hover:text-primary transition-colors"
+        >
+          Lihat Lainnya
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <% random.forEach((item) => { %>
+          <%- include('../partials/card', {
+            id_issue: '/detail/' + item.id_issue,
+            thumbnail: item.thumbnail,
+            pembuat: item.id_lembaga,
+            nama_issue: item.nama_issue,
+            terkumpul: item.terkumpulFormatted,
+            progress: item.progress
+          }) %>
+        <% }) %>
+      </div>
+    </section>
+  </section>
+  <% } %>
+
+</body>
+</html>

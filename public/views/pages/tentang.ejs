@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #5FCFBA 0%, #3B9E8C 100%);
+        }
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .form-focus:focus {
+            border-color: #5FCFBA;
+            box-shadow: 0 0 0 3px rgba(95, 207, 186, 0.1);
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <header><%- include('../partials/navbar'); %></header>
+
+    <!-- Hero Section -->
+    <section class="relative mt-32 py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="floating-animation mb-8">
+                <div class="w-20 h-20 bg-gradient-to-r from-primary to-dark rounded-full flex items-center justify-center mx-auto">
+                    <i class="fas fa-hands-helping text-white text-2xl"></i>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                Hubungi <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-dark">Kami</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
+                Platform donasi terpercaya yang menghubungkan hati-hati dermawan dengan mereka yang membutuhkan bantuan. 
+                Bersama-sama, kita wujudkan Indonesia yang lebih peduli dan saling membantu.
+            </p>
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <i class="fas fa-chevron-down text-primary text-2xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                <div class="group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                        <i class="fas fa-heart text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">1.2M+</h3>
+                    <p class="text-gray-600">Donatur Aktif</p>
+                </div>
+                <div class="group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
+                        <i class="fas fa-hand-holding-usd text-2xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">50M+</h3>
+                    <p class="text-gray-600">Dana Terkumpul</p>
+                </div>
+                <div class="group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors">
+                        <i class="fas fa-users text-2xl text-orange-500"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">25K+</h3>
+                    <p class="text-gray-600">Keluarga Terbantu</p>
+                </div>
+                <div class="group hover:scale-105 transition-all duration-300">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
+                        <i class="fas fa-map-marker-alt text-2xl text-purple-500"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-2">34</h3>
+                    <p class="text-gray-600">Provinsi Terjangkau</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Cerita Kami</h2>
+                    <div class="space-y-6">
+                        <p class="text-gray-600 leading-relaxed">
+                            Rumah Donasi lahir dari mimpi sederhana untuk menciptakan platform yang memudahkan 
+                            masyarakat Indonesia dalam berbagi kebaikan. Dimulai pada tahun 2020, kami percaya 
+                            bahwa setiap orang memiliki potensi untuk membuat perubahan positif.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            Dengan teknologi yang user-friendly dan sistem yang transparan, kami telah membantu 
+                            ribuan kampanye donasi mencapai targetnya. Dari bantuan bencana alam hingga 
+                            pendidikan anak-anak kurang mampu, setiap donasi membawa dampak nyata.
+                        </p>
+                        <div class="flex items-center space-x-4 pt-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-primary text-lg"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">100% Transparan & Terpercaya</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-primary rounded-2xl p-8 shadow-2xl">
+                        <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-quote-left text-white text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold">Misi Kami</h4>
+                                    <p class="text-white/80 text-sm">Visi untuk Indonesia</p>
+                                </div>
+                            </div>
+                            <p class="text-white/90 leading-relaxed">
+                                "Menjadi jembatan kebaikan yang menghubungkan hati-hati dermawan dengan 
+                                mereka yang membutuhkan, menciptakan ekosistem kepedulian yang berkelanjutan 
+                                di seluruh Indonesia."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Nilai-Nilai Kami</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Prinsip-prinsip yang memandu setiap langkah kami dalam melayani masyarakat Indonesia
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Value 1 -->
+                <div class="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Transparansi</h3>
+                    <p class="text-gray-600 text-center leading-relaxed">
+                        Setiap donasi dapat dilacak dengan jelas. Kami memberikan laporan real-time 
+                        tentang penggunaan dana untuk membangun kepercayaan.
+                    </p>
+                </div>
+                
+                <!-- Value 2 -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Integritas</h3>
+                    <p class="text-gray-600 text-center leading-relaxed">
+                        Kami berkomitmen pada standar etika tertinggi dalam setiap aspek operasional, 
+                        menjaga kepercayaan yang telah diberikan.
+                    </p>
+                </div>
+                
+                <!-- Value 3 -->
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-orange-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-heart text-2xl text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Empati</h3>
+                    <p class="text-gray-600 text-center leading-relaxed">
+                        Kami memahami setiap cerita di balik kebutuhan bantuan dan berusaha memberikan 
+                        solusi yang tepat sasaran.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Tim Kami</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Orang-orang inspiratif yang berdedikasi untuk menciptakan dampak positif
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-24 h-24 bg-gradient-to-br from-dark to-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-user text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Faris Akmal Suhartono</h3>
+                    <p class="text-primary font-medium mb-4">CEO & Founder</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                            <i class="fab fa-linkedin text-sm"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                            <i class="fab fa-twitter text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-24 h-24 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-user text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Dimas Reza Ardhana</h3>
+                    <p class="text-blue-600 font-medium mb-4">CTO</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                            <i class="fab fa-linkedin text-sm"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                            <i class="fab fa-github text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-24 h-24 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-user text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Ardanu Egitya Ash Shafah</h3>
+                    <p class="text-orange-600 font-medium mb-4">Pemain Gloo</p>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                    <div class="flex justify-center space-x-4">
+                        <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-orange-600 hover:text-white transition-all">
+                            <i class="fab fa-linkedin text-sm"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-orange-600 hover:text-white transition-all">
+                            <i class="fab fa-instagram text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-20 bg-dark">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">Bergabunglah dengan Gerakan Kebaikan</h2>
+            <p class="text-xl text-white/90 mb-8 leading-relaxed">
+                Setiap donasi, sekecil apapun, memiliki kekuatan untuk mengubah hidup seseorang. 
+                Mari bersama-sama membangun Indonesia yang lebih peduli.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all hover:scale-105 shadow-lg">
+                    <i class="fas fa-heart mr-2"></i>Mulai Berdonasi
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <%- include('../partials/footer'); %>
+</body>
+</html>

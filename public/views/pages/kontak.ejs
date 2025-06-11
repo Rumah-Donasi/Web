@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <%- include('../partials/head'); %>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #5FCFBA 0%, #3B9E8C 100%);
+        }
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .form-focus:focus {
+            border-color: #5FCFBA;
+            box-shadow: 0 0 0 3px rgba(95, 207, 186, 0.1);
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="">
+    <!-- Navigation -->
+    <%- include('../partials/navbar'); %>
+
+    <!-- Hero Section -->
+    <section class="relative mt-32 py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="floating-animation mb-8">
+                <div class="w-20 h-20 bg-gradient-to-r from-primary to-dark rounded-full flex items-center justify-center mx-auto">
+                    <i class="fas fa-phone text-white text-2xl"></i>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                Hubungi <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-dark">Kami</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
+                Kami siap membantu Anda dengan layanan terbaik. Jangan ragu untuk menghubungi tim profesional kami kapan saja.
+            </p>
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <i class="fas fa-chevron-down text-primary text-2xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Informasi Kontak</h2>
+                        <p class="text-gray-600 text-lg">Temukan berbagai cara untuk menghubungi kami dan dapatkan respons cepat dari tim profesional kami.</p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-2xl shadow-lg hover-lift">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Alamat Kantor</h3>
+                                <p class="text-gray-600">Jl. Raya Sukses No. 123<br>Nganjuk, Jawa Timur 64418<br>Indonesia</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-2xl shadow-lg hover-lift">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Telepon</h3>
+                                <p class="text-gray-600">+62 358 123 4567<br>+62 812 3456 7890</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-2xl shadow-lg hover-lift">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Email</h3>
+                                <p class="text-gray-600">info@suksesbersama.co.id<br>support@suksesbersama.co.id</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-2xl shadow-lg hover-lift">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-primary"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 mb-2">Jam Operasional</h3>
+                                <p class="text-gray-600">Senin - Jumat: 08:00 - 17:00<br>Sabtu: 08:00 - 14:00<br>Minggu: Tutup</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-white rounded-3xl shadow-2xl p-8 lg:p-10">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-8">Kirim Pesan</h2>
+                    
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">Nama Depan</label>
+                            <input type="text" id="firstName" name="firstName" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none form-focus transition-all duration-300"
+                                    placeholder="Masukkan nama depan">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none form-focus transition-all duration-300"
+                                   placeholder="nama@email.com">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon</label>
+                            <input type="tel" id="phone" name="phone" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none form-focus transition-all duration-300"
+                                   placeholder="+62 812 3456 7890">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subjek</label>
+                            <select id="subject" name="subject" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none form-focus transition-all duration-300">
+                                <option value="">Pilih subjek pesan</option>
+                                <option value="umum">Pertanyaan Umum</option>
+                                <option value="layanan">Informasi Layanan</option>
+                                <option value="kerjasama">Kerjasama Bisnis</option>
+                                <option value="keluhan">Keluhan/Saran</option>
+                                <option value="lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Pesan</label>
+                            <textarea id="message" name="message" rows="5" required
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none form-focus transition-all duration-300 resize-none"
+                                      placeholder="Tulis pesan Anda di sini..."></textarea>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" id="agreement" name="agreement" required
+                                   class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                            <label for="agreement" class="text-sm text-gray-600">
+                                Saya setuju dengan <a href="#" class="text-primary hover:underline">kebijakan privasi</a> dan <a href="#" class="text-primary hover:underline">syarat layanan</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full bg-gradient-to-r from-primary to-dark text-white font-semibold py-4 px-6 rounded-xl hover:from-dark hover:to-primary transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <span class="flex items-center justify-center space-x-2">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Kirim Pesan</span>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-primary">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">Lokasi Kami</h2>
+                <p class="text-xl text-white">Temukan kantor kami di lokasi strategis yang mudah dijangkau</p>
+            </div>
+            
+            <div class="bg-white rounded-3xl shadow-2xl p-8 overflow-hidden">
+                <div class="aspect-w-16 aspect-h-9 bg-gray-200 rounded-2xl flex items-center justify-center">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10011.987925754845!2d112.78240419041623!3d-7.314372479373037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fa8cf321a5d3%3A0xa20235fc28e1ca1a!2sKebun%20Bibit%20Wonorejo!5e0!3m2!1sid!2sid!4v1749447816143!5m2!1sid!2sid" width="1920" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <%- include('../partials/footer'); %>
+
+    <script>
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            const button = this.querySelector('button[type="submit"]');
+            const originalContent = button.innerHTML;
+            
+            button.innerHTML = '<span class="flex items-center justify-center space-x-2"><i class="fas fa-spinner fa-spin"></i><span>Mengirim...</span></span>';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = '<span class="flex items-center justify-center space-x-2"><i class="fas fa-check"></i><span>Terkirim!</span></span>';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                    button.disabled = false;
+                    this.reset();
+                    
+                    // Show success message
+                    alert('Pesan Anda berhasil dikirim! Kami akan segera menghubungi Anda.');
+                }, 2000);
+            }, 2000);
+        });
+        
+        // Add floating animation to elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        
+        document.querySelectorAll('.hover-lift').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
