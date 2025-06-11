@@ -80,12 +80,6 @@ exports.putVerifikasi = async (req, res) => {
     }
 };
 
-
-
-exports.putHistory = (req, res) => {
-
-}
-
 exports.putIssue = (req, res) => {
 
 }
@@ -102,6 +96,46 @@ exports.deleteVerifikasi = async (req, res) => {
         }
         // Delete the record
         await pool.query("DELETE FROM lembaga WHERE id_lembaga = $1", [id_lembaga]);
+
+        res.status(200).json({ success: true, message: "Record deleted successfully" });
+
+    } catch (error) {
+        console.error("Delete error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+exports.deleteHistory = async (req, res) => {
+    try {
+        const { id_detail } = req.params;
+        const existingData = await pool.query("select id_detail from detail_donasi where id_detail = $1", [id_detail])
+
+        if (existingData.rows.length === 0) {
+            return res.status(404).json({ success: false, message: "record not found" })
+
+        }
+        // Delete the record
+        await pool.query("DELETE FROM detail_donasi WHERE id_detail = $1", [id_lembaga]);
+
+        res.status(200).json({ success: true, message: "Record deleted successfully" });
+
+    } catch (error) {
+        console.error("Delete error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+exports.deleteIssue = async (req, res) => {
+    try {
+        const { id_issue } = req.params;
+        const existingData = await pool.query("select id_issue from issues where id_issue = $1", [id_issue])
+
+        if (existingData.rows.length === 0) {
+            return res.status(404).json({ success: false, message: "record not found" })
+
+        }
+        // Delete the record
+        await pool.query("DELETE FROM issues WHERE id_issue = $1", [id_issue]);
 
         res.status(200).json({ success: true, message: "Record deleted successfully" });
 

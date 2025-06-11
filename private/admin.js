@@ -96,7 +96,7 @@ async function render_historytable() {
                 <td class="p-3 px-5">${item.tanggal}</td>
                 <td class="p-3 px-5">${item.nama_donatur}</td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
+                    <button type="button" onclick="delete_history(${item.id_detail})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
                 </td>
             </tr>
         `
@@ -124,8 +124,8 @@ async function render_issuetable() {
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
                 <td class="p-3 px-5">${item.id_issue}</td>
                 <td class="p-3 px-5">${item.id_lembaga}</td>
-                <td class="p-3 px-5"><input type="text" value="${item.deskripsi}" class="bg-transparent"></td>
-                <td class="p-3 px-5"><input type="datetime-local" value="${item.deadline}" class="bg-transparent"></td>
+                <td class="p-3 px-5">${item.deskripsi} class="bg-transparent"></td>
+                <td class="p-3 px-5">${item.deadline} class="bg-transparent"></td>
                 <td class="p-3 px-5">
                     <select class="bg-transparent w-20">
                         <option value="true" ${item.pilihan === "true" ? "selected" : ""}>true</option>
@@ -134,8 +134,8 @@ async function render_issuetable() {
                 </td>
                 <td class="p-3 px-5"><input type="text" value="${item.alasan}" class="bg-transparent"></td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i></button>
-                    <button type="button" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
+                    <button type="button" data-id="${item.id_issue}" onclick="update_issue(${item.id_issue})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i></button>
+                    <button type="button" onclick="delete_issue(${item.id_issue})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
                 </td>
             </tr>
         `
@@ -178,18 +178,70 @@ function update_verify(id) {
         .catch(error => console.error("Update error:", error));
 }
 
-
-function update_history(id) {
-
-}
-
 function update_issue(id) {
+        const button = document.querySelector(`button[data-id="${id}"]`);
+    if (!button) {
+        console.error(`Button with id ${id} not found.`);
+        return;
+    }
 
+    const row = button.closest("tr");
+    if (!row) {
+        console.error(`No parent <tr> found for button with id ${id}.`);
+        return;
+    }
+    const verifyElement = row.querySelector("select");
+    if (!verifyElement) {
+        console.error(`Select element not found in row for id: ${id}`);
+        return;
+    }
+    const verify = row.querySelector("select").value.trim();
+
+    fetch(`/admin/updateIssue`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_issue: id, pilihan: pilihan === "true" ? true : false,alasan: alasan })
+
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            console.log("Verification updated:", data);
+        })
+        .catch(error => console.error("Update error:", error));
 }
 
 function delete_verify(id) {
     if (!confirm("are you sure you want to delete this?")) return;
     fetch(`/admin/deleteVerifikasi/${id}`, {
+        method: "DELETE",
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            console.log("Deletion successful:", data);
+            location.reload(); // Refresh the page after deletion
+        })
+        .catch(error => console.error("Deletion error:", error));
+}
+
+function delete_history(id){
+    if (!confirm("are you sure you want to delete this?")) return;
+    fetch(`/admin/deleteHistory/${id}`, {
+        method: "DELETE",
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            console.log("Deletion successful:", data);
+            location.reload(); // Refresh the page after deletion
+        })
+        .catch(error => console.error("Deletion error:", error));
+}
+
+function delete_issue(id){
+    if (!confirm("are you sure you want to delete this?")) return;
+    fetch(`/admin/deleteIssue/${id}`, {
         method: "DELETE",
     })
         .then(response => response.json())
