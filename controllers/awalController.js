@@ -7,8 +7,17 @@ const awalBanget = async (req, res) => {
             FROM issues i
             JOIN users u 
             ON i.id_pembuat = u.id_user
+            WHERE isPilihan = true
             LIMIT 4
         `);
+
+        const formatRupiah = (angka) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(angka);
+        };
 
         req.issues = result.rows.map(issue => {
             const progress = Math.round((issue.terkumpul / issue.target) * 100);
@@ -23,10 +32,10 @@ const awalBanget = async (req, res) => {
             return {
                 ...issue,
                 progress,
-                thumbnail: imageSrc 
+                thumbnail: imageSrc  ,
+                terkumpulFormatted: formatRupiah(issue.terkumpul)
             };
         });
-
 
         const random = await db.query(`
             SELECT i.id_issue, i.nama_issue, u.username, i.terkumpul, i.target, i.thumbnail, i.deskripsi, isPilihan, prioritas, tipe
@@ -49,7 +58,8 @@ const awalBanget = async (req, res) => {
             return {
                 ...issue,
                 progress,
-                thumbnail: imageSrc
+                thumbnail: imageSrc,
+                terkumpulFormatted: formatRupiah(issue.terkumpul)
             };
         });
 
@@ -74,14 +84,15 @@ const awalBanget = async (req, res) => {
             return {
                 ...issue,
                 progress,
-                thumbnail: imageSrc
+                thumbnail: imageSrc,
+                terkumpulFormatted: formatRupiah(issue.terkumpul)
             };
         });
 
         res.render('pages/index.ejs', {
             issues: req.issues,
             random: req.random,
-            mendesak: req.mendesak
+            mendesak: req.mendesak,
         });
     } catch (err) {
         res.render('pages/error', {

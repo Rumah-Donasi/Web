@@ -18,7 +18,9 @@ const {
 } = require('../controllers/loginController');
 const {
     createIssue,
-    homeCreate
+    homeCreate,
+    updateIssue,
+    homeUpdate
 } = require('../controllers/issueController');
 const router = express.Router();
 
@@ -28,5 +30,7 @@ router.post("/register", register('lembaga'));
 router.get("/galangDana", authorize("lembaga"), getInfoAkun, homeCreate);
 router.post("/galangDana", authorize("lembaga"), getInfoAkun, upload.single('thumbnail'), createIssue);
 router.get("/:id", authorize("lembaga"), detailDonasi);
+router.get("/edit/:id", authorize("lembaga"), homeUpdate );
+router.post("/edit/:id", authorize("lembaga"), getInfoAkun, upload.single('thumbnail'), updateIssue);
 
 module.exports = router;

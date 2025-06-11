@@ -82,7 +82,7 @@
                 <div class="space-y-4">
                     <!-- Primary Action -->
                     <a 
-                        href="<%= (typeof user !== 'undefined' && user.usertype === 'lembaga') ? '/lembaga' : '/'%>"
+                        href="<%= ( !user || user.usertype !== 'lembaga' ) ? '/' : '/lembaga'%>"
                         class="w-full py-3 px-6 rounded-lg font-medium text-white transition-all transform hover:scale-105 shadow-lg flex items-center justify-center"
                         style="background: linear-gradient(135deg, #5FCFBA 0%, #3B9E8C 100%);"
                         onmouseover="this.style.background='linear-gradient(135deg, #3B9E8C 0%, #5FCFBA 100%)'"

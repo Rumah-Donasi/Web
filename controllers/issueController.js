@@ -1,5 +1,14 @@
 const db = require('../config/db');
 
+const homeCreate = async (req, res) => {
+    try {
+        res.render('pages/createIssue', { tipe: 'def', prioritas: 'def', err: {} });
+    } catch (error) {
+        console.log(error);
+        res.render("pages/error", { error: error });
+    }
+};
+
 const createIssue = async (req, res) => {
     try {
         const {
@@ -11,10 +20,81 @@ const createIssue = async (req, res) => {
             deadline
         } = req.body;
 
-        console.log('File:', req.file);
-
         const jumlah = parseInt(target.replace(/\./g, ''), 10);
         const thumbnail = req.file ? req.file.buffer : null;
+
+        if(!nama_issue){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
+        }
+        if(!tipe){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
+        }
+        if(!deskripsi){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
+        }
+        if(!target){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
+        }
+        if(!deadline){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
+        }
+        if (!thumbnail) {
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { thumbnail: "Thumbnail harus diisi" }
+            });
+        }
 
         if (isNaN(jumlah)) {
             return res.render("pages/createIssue", {
@@ -60,10 +140,7 @@ const createIssue = async (req, res) => {
                     message: "Terjadi kesalahan pada server"
                 });
             }
-            res.status(201).json({
-                success: true,
-                message: "Issue berhasil dibuat"
-            });
+            res.redirect('/lembaga');
         });
 
     } catch (error) {
@@ -72,252 +149,156 @@ const createIssue = async (req, res) => {
     }
 };
 
-
-const accIssue = async (req, res) => {
+const homeUpdate = async (req, res) => {
     try {
-        const issueId = req.params.id;
-        if (!issueId) {
-            return res.status(400).json({
-                success: false,
-                message: "Isi ID"
-            });
-        }
+        const { id } = req.params;
 
-        const issue = await db.query('SELECT * FROM issues WHERE id = $1', [issueId]);
+        const issue = await db.query('SELECT * FROM issues WHERE id_issue = $1', [id]);
         if (issue.rows.length === 0) {
             return res.status(404).json({
                 success: false,
                 message: "Issue tidak ditemukan"
             });
         }
-
-        const updateQuery = `
-            UPDATE issues
-            SET status = 'acc'
-            WHERE id = $1;
-        `;
-        db.query(updateQuery, [issueId], (err, result) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).json({
-                    success: false,
-                    message: "Terjadi kesalahan pada server"
-                });
-            }
-
-            return res.status(200).json({
-                success: true,
-                message: "Issue berhasil diterima",
-                data: result.rows[0]
-            });
+        
+        res.render('pages/createIssue', { 
+            id_issue : issue.rows[0].id_issue,
+            nama_issue : issue.rows[0].nama_issue,
+            tipe : issue.rows[0].tipe,
+            prioritas : issue.rows[0].prioritas,
+            deskripsi : issue.rows[0].deskripsi,
+            target : issue.rows[0].target,
+            deadline : issue.rows[0].deadline.toISOString().split('T')[0],
+            err: {} 
         });
-
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: "Terjadi kesalahan pada server"
-        });
+        res.render("pages/error", { error: error });
     }
-};
-
-const rejectIssue = async (req, res) => {
-    try {
-        const issueId = req.params.id;
-        if (!issueId) {
-            return res.status(400).json({
-                success: false,
-                message: "Isi ID"
-            });
-        }
-
-        const issue = await db.query('SELECT * FROM issues WHERE id = $1', [issueId]);
-        if (issue.rows.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Issue tidak ditemukan"
-            });
-        }
-
-        const updateQuery = `
-            UPDATE issues
-            SET status = 'reject'
-            WHERE id = $1;
-        `;
-        db.query(updateQuery, [issueId], (err, result) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).json({
-                    success: false,
-                    message: "Terjadi kesalahan pada server"
-                });
-            }
-
-            return res.status(200).json({
-                success: true,
-                message: "Issue berhasil ditolak",
-                data: result.rows[0]
-            });
-        });
-
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: "Terjadi kesalahan pada server"
-        });
-    }
-};
+}
 
 const updateIssue = async (req, res) => {
     try {
-        const issueId = req.params.id;
-        if (!issueId) {
-            return res.status(400).json({ success: false, message: "Isi ID" });
+        const { id } = req.params;
+        const {
+            nama_issue,
+            tipe,
+            prioritas,
+            deskripsi,
+            target,
+            deadline
+        } = req.body;
+
+        const jumlah = parseInt(target.replace(/\./g, ''), 10);
+        const thumbnail = req.file ? req.file.buffer : null;
+
+        if(!nama_issue){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
+        }
+        if(!tipe){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
+        }
+        if(!deskripsi){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
+        }
+        if(!target){
+            return res.render("pages/createIssue", {
+                nama_issue,
+                tipe,
+                prioritas,
+                deskripsi,
+                thumbnail,
+                target,
+                deadline,
+                err: { nama_issue: "Nama Issue harus diisi" }
+            });
         }
 
-        const issueCheck = await db.query('SELECT * FROM issues WHERE id = $1', [issueId]);
+        const issueCheck = await db.query('SELECT * FROM issues WHERE id_issue = $1', [id]);
         if (issueCheck.rows.length === 0) {
-            return res.status(404).json({ success: false, message: "Issue tidak ditemukan" });
+            return res.render("pages/error", { error: "Issue tidak ditemukan" });
         }
 
-        const fields = ['title', 'thumbnail', 'target', 'deadline', 'deskripsi'];
+        const fields = ['nama_issue', 'tipe', 'prioritas', 'thumbnail', 'target', 'deadline', 'deskripsi'];
         const updates = [];
         const values = [];
         let paramIndex = 1;
 
         fields.forEach(field => {
-            if (req.body[field] !== undefined) {
+            if(field=='target'){
+                if(isNaN(jumlah)){
+                    return res.render("pages/error", { error: "Target harus berupa angka" });
+                }
+                updates.push(`${field} = $${paramIndex++}`);
+                values.push(jumlah);
+            } else if (field == 'thumbnail') {
+                if (thumbnail) {
+                    updates.push(`${field} = $${paramIndex++}`);
+                    values.push(thumbnail);
+                }
+            }
+            else if (req.body[field] !== undefined) {
                 updates.push(`${field} = $${paramIndex++}`);
                 values.push(req.body[field]);
             }
         });
 
+        console.log(updates);
+
         if (updates.length === 0) {
-            return res.status(400).json({
-                success: false,
-                message: "Tidak ada data yang dikirim untuk diupdate"
-            });
+            res.render("pages/error", { error: "Tidak ada data yang diubah" });
         }
 
-        values.push(issueId);
+        values.push(id);
 
         const updateQuery = `
             UPDATE issues
             SET ${updates.join(', ')}
-            WHERE id = $${paramIndex}
+            WHERE id_issue = $${paramIndex}
             RETURNING *;
         `;
+
+        console.log(updateQuery);
 
         const result = await db.query(updateQuery, values);
 
-        return res.status(200).json({
-            success: true,
-            message: "Issue berhasil diupdate",
-            data: result.rows[0]
-        });
+        return res.redirect('/lembaga/' + id);
 
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: "Terjadi kesalahan pada server"
-        });
-    }
-};
-
-const deleteIssue = async (req, res) => {
-    try {
-        const issueId = req.params.id;
-        if (!issueId) {
-            return res.status(400).json({ success: false, message: "Isi ID" });
-        }
-
-        const issueCheck = await db.query('SELECT * FROM issues WHERE id = $1', [issueId]);
-        if (issueCheck.rows.length === 0) {
-            return res.status(404).json({ success: false, message: "Issue tidak ditemukan" });
-        }
-
-        const deleteQuery = `
-            DELETE FROM issues
-            WHERE id = $1
-            RETURNING *;
-        `;
-
-        const result = await db.query(deleteQuery, [issueId]);
-
-        return res.status(200).json({
-            success: true,
-            message: "Issue berhasil dihapus",
-            data: result.rows[0]
-        });
-
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            success: false,
-            message: "Terjadi kesalahan pada server"
-        });
-    }
-};
-
-const getAllIssue = async (req, res) => {
-    try {
-        const result = await db.query('SELECT * FROM issues');
-        return res.status(200).json({
-            success: true,
-            message: "Issue berhasil diambil",
-            data: result.rows
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: "Terjadi kesalahan pada server"
-        });
-    }
-};
-
-const getIssueById = async (req, res) => {
-    try {
-        const issueId = req.params.id;
-        if (!issueId) {
-            return res.status(400).json({ success: false, message: "Isi ID" });
-        }
-
-        const result = await db.query('SELECT * FROM issues WHERE id = $1', [issueId]);
-        if (result.rows.length === 0) {
-            return res.status(404).json({ success: false, message: "Issue tidak ditemukan" });
-        }
-
-        return res.status(200).json({
-            success: true,
-            message: "Issue berhasil diambil",
-            data: result.rows[0]
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: "Terjadi kesalahan pada server"
-        });
-    }
-};
-
-const homeCreate = async (req, res) => {
-    try {
-        res.render('pages/createIssue', { err: {} });
-    } catch (error) {
-        console.log(error);
-        res.render("pages/error", { error: error });
+        return res.render("pages/error", { error: error });
     }
 };
 
 module.exports = {
     createIssue,
-    rejectIssue,
-    accIssue,
     updateIssue,
-    deleteIssue,
-    homeCreate
+    homeCreate,
+    homeUpdate
 }

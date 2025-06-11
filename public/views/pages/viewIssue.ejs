@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <% include('../partials/head'); %>
+  <%- include('../partials/head'); %>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
   <!-- Navbar -->
-  <% include('../partials/navbar'); %>
+  <%- include('../partials/navbar'); %>
 
-  <main class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
+  <main class="mt-24 max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-10">
     <!-- Bagian Kiri (Detail Campaign) -->
-    <% include('../partials/leftView', {
-      thumbnail: issue.thumbnail,
-      nama_issue: issue.nama_issue,
-      nama_pembuat: issue.username,
-      title: issue.nama_issue,
-      deskripsi: issue.deskripsi
+    <%- include('../partials/leftView', {
+      thumbnail: issues.thumbnail,
+      nama_issue: issues.nama_issue,
+      nama_pembuat: issues.username,
+      title: issues.nama_issue,
+      deskripsi: issues.deskripsi,
+      donatur: donatur
     }); %>
 
     <!-- Bagian Kanan (Sticky Donasi Box) -->
-    <% include('../partials/rightView'); %>
+    <%- include('../partials/rightView', {
+      terkumpul: issues.terkumpul,
+      target: issues.target,
+      progress: issues.progress,
+      id_issue: issues.id_issue
+    }); %>
   </main>
 
+  <% if (!user || user.usertype !== 'lembaga') { %>
   <section>
     <section class="bg-primary py-10 px-6 md:px-16 rounded-xl mx-4 sm:mx-20 lg:mx-40 mt-12">
       <div class="flex justify-between items-center mb-6">
@@ -35,18 +42,19 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
         <% random.forEach((item) => { %>
-          <% include('../partials/card', {
-            link: '/detail/' + item.id_issue,
-            image: item.thumbnail,
-            creator: 'Lembaga #' + item.id_lembaga, // opsional
-            title: item.nama_issue,
-            amount: item.target.toLocaleString('id-ID'),
+          <%- include('../partials/card', {
+            id_issue: '/detail/' + item.id_issue,
+            thumbnail: item.thumbnail,
+            pembuat: item.id_lembaga,
+            nama_issue: item.nama_issue,
+            terkumpul: item.terkumpulFormatted,
             progress: item.progress
           }) %>
         <% }) %>
       </div>
     </section>
   </section>
+  <% } %>
 
 </body>
 </html>

@@ -1,9 +1,9 @@
-<section class="lg:col-span-2 space-y-6">
-      <img src="<%= thumbnail %>" alt="<%= nama_issue %>" class="w-full h-72 object-cover rounded-xl shadow">
+<section class="lg:col-span-2 space-y-6 bg-white rounded-xl p-6 shadow">
+      <img src="<%= thumbnail %>" alt="<%= nama_issue %>" class="w-full aspect-[16/9] object-cover rounded-xl shadow">
 
       <div>
         <h1 class="text-3xl font-bold text-gray-900 mb-2"><%= nama_issue %></h1>
-        <p class="text-gray-600 mb-4">Penggalang: <span class="font-medium">Lembaga #<%= nama_pembuat %></span></p>
+        <p class="text-gray-600 mb-4">Penggalang: <span class="font-medium"><%= nama_pembuat %></span></p>
 
         <h3 class="text-xl font-semibold mb-2">Deskripsi</h3>
         <p class="text-gray-700 leading-relaxed whitespace-pre-line"><%= deskripsi %></p>
