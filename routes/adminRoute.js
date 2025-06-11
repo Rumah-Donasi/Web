@@ -11,7 +11,6 @@ const {
   deleteHistory,
   deleteIssue
 } = require('../controllers/adminController');
-const { adminLogin } = require('../controllers/loginController');
 const router = express.Router();
 
 //redirect /admin to admintool.html
@@ -22,7 +21,6 @@ router.get('/', (req, res) => {
 router.get('/verifikasi', getVerifikasi);
 router.get('/history', getHistory);
 router.get('/issue', getIssue);
-router.get('/logout',admlogout);
 router.put('/updateVerifikasi', putVerifikasi);
 router.put('/updateIssue', putIssue);
 router.delete("/deleteVerifikasi/:id_lembaga",deleteVerifikasi);
