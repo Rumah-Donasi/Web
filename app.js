@@ -9,7 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const {
     cekLogin,
-    redirectIfLogin
+    redirectIfLogin,
+    authorize
 } = require('./middleware/authUser');
 
 app.set('views', path.join(__dirname, 'public/views'));
@@ -27,7 +28,7 @@ app.use('/', require('./routes/firstRoute'));
 app.use('/cari', require('./routes/searchRoute'));
 app.use('/akun', redirectIfLogin, require('./routes/akunRoute'));
 app.use('/lembaga', redirectIfLogin, require('./routes/lembagaRoute'));
-app.use('/admin', authAdmin, require('./routes/adminRoute'));
+app.use('/admin', authorize("admin"), require('./routes/adminRoute'));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
