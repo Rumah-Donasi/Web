@@ -15,6 +15,8 @@ router.get("/kontak", checkNotUsertype("lembaga"), (req, res) => res.render("pag
 router.get("/detail/:id", checkNotUsertype("lembaga"), detailDonasi);
 router.get("/register", (req, res) => res.render("pages/logres", { err: {}, usertype: "user"}));
 router.post("/register", register('user'));
+router.get("/registerLembaga", (req, res) => res.render("pages/logres", { usertype: "lembaga", err: {}}));
+router.post("/registerLembaga", register('lembaga'));
 router.get("/login", (req, res) => res.render("pages/logres", { err: {}}));
 router.post("/login", login);
 router.get('/keluar', (req, res) => {

@@ -3,13 +3,29 @@ const db = require('../config/db');
 const histori = async (req, res) => {
     try {
         const result = await db.query (`
-            SELECT * FROM detail_donasi
+            SELECT detail_donasi.*, issues.nama_issue FROM detail_donasi
+            JOIN issues ON detail_donasi.id_issue = issues.id_issue
             WHERE id_user = $1
             ORDER BY tanggal DESC
-        `, [req.user.id_user]);
+        `, [req.user.id]);
+        
+        const formatRupiah = (angka) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(angka);
+        };
+        
+        req.issues = result.rows.map(issue => {
+            return {
+                ...issue,
+                jumlahFormatted: formatRupiah(issue.jumlah_bayar)
+            };
+        });
 
         res.render('pages/account', {
-            hostori: result.rows
+            donasi: req.issues
         });
     } catch (error) {
         console.log(error);

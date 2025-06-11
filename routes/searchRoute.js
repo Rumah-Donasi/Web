@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.get("/campaign-pilihan", searchPilihan);
 router.get("/kebutuhan-mendesak", searchMendesak);
-router.get("/bencana-alam", searchMendesak);
 router.get("/bencana-alam", searchTipe("Bencana Alam"));
 router.get("/bantuan-sosial", searchTipe("Bantuan Sosial"));
 router.get("/bantuan-medis", searchTipe("Bantuan Medis"));

@@ -5,7 +5,7 @@ const searchPilihan = async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM issues WHERE isPilihan = true');
         res.render("pages/search", {
-            issues: result.rows || [],
+            
             query: "Campaign Pilihan"
         });
     } catch (error) {
@@ -32,26 +32,52 @@ const searchMendesak = async (req, res) => {
     }
 };
 
-// Search Tipe
 const searchTipe = (...tipeCari) => {
     return async (req, res) => {
         try {
             const result = await db.query(
-                `SELECT * FROM issues WHERE tipe = $1`, 
-                tipeCari // langsung string, bukan array
+                `SELECT issues.*, users.username FROM issues
+                JOIN users ON issues.id_pembuat = users.id_user
+                WHERE tipe = ANY($1)`,
+                [tipeCari]
             );
+
+            const formatRupiah = (angka) => {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                }).format(angka);
+            };
+
+            const issues = result.rows.map(issue => {
+                const progress = Math.round((issue.terkumpul / issue.target) * 100);
+
+                let imageSrc = null;
+                if (issue.thumbnail) {
+                    const base64 = issue.thumbnail.toString('base64');
+                    imageSrc = `data:image/jpeg;base64,${base64}`;
+                }
+
+                return {
+                    ...issue,
+                    progress,
+                    terkumpulFormatted : formatRupiah(issue.terkumpul),
+                    thumbnail: imageSrc
+                };
+            });
+
             res.render("pages/search", {
-                issues: result.rows || [],
+                issues : issues || [],
                 query: tipeCari
             });
         } catch (error) {
             console.log(error);
-            res.render("../views/pages/error.ejs", {
-                error: error
-            });
+            res.render("pages/error", { error });
         }
     };
 };
+
 
 const searchQuery = async (req, res) => {
     try {
@@ -61,8 +87,33 @@ const searchQuery = async (req, res) => {
             [`%${query}%`]
         );
 
+        const formatRupiah = (angka) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(angka);
+        };
+
+        const issues = result.rows.map(issue => {
+            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+
+            let imageSrc = null;
+            if (issue.thumbnail) {
+                const base64 = issue.thumbnail.toString('base64');
+                imageSrc = `data:image/jpeg;base64,${base64}`;
+            }
+
+            return {
+                ...issue,
+                progress,
+                terkumpulFormatted : formatRupiah(issue.terkumpul),
+                thumbnail: imageSrc
+            };
+        });
+
         res.render("pages/search", {
-            issues: result.rows || [],
+            issues,
             query
         });
     } catch (error) {

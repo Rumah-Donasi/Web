@@ -25,8 +25,6 @@ const {
 const router = express.Router();
 
 router.get("/", authorize("lembaga"), getInfoAkun, awalLembaga);
-router.get("/register", (req, res) => res.render("pages/logres", { usertype: "lembaga", err: {}}));
-router.post("/register", register('lembaga'));
 router.get("/galangDana", authorize("lembaga"), getInfoAkun, homeCreate);
 router.post("/galangDana", authorize("lembaga"), getInfoAkun, upload.single('thumbnail'), createIssue);
 router.get("/:id", authorize("lembaga"), detailDonasi);

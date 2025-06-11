@@ -14,7 +14,7 @@
         <p class="text-gray-600 mb-2">Mari peduli bersama <span class="text-dark">Rumah Donasi</span></p>
       </div>
 
-      <form action="<% if (usertype === 'user') { %>/register<% } else { %>/lembaga/register<% } %>" method="post" class="space-y-2">
+      <form action="<% if (usertype === 'user') { %>/register<% } else { %>/registerLembaga<% } %>" method="post" class="space-y-2">
 
         <div class="flex flex-col">
     
@@ -150,7 +150,7 @@
                 <a href="/login" class="text-primary font-medium hover:underline">Masuk di sini</a>
             </div>
             <% if(currentPath === '/register') { %>
-                <a href="/lembaga/register" class="text-primary text-sm hover:text-dark underline">Daftar Lembaga</a>
+                <a href="/registerLembaga" class="text-primary text-sm hover:text-dark underline">Daftar Lembaga</a>
             <% } else { %>
                 <a href="/register" class="text-primary text-sm hover:text-dark underline">Daftar User</a>
             <% } %>
