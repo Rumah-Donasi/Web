@@ -17,7 +17,7 @@ const histori = async (req, res) => {
             }).format(angka);
         };
 
-        const donasiFormatted = result.rows.map(issue => {
+        const issues = result.rows.map(issue => {
             const tanggal = new Date(issue.tanggal);
             const hari = tanggal.toLocaleDateString('id-ID', { weekday: 'long' });
             const tanggalNum = tanggal.getDate();
