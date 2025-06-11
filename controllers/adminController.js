@@ -1,7 +1,7 @@
 const { pool } = require('../database/db.js')
 gverify = 'SELECT id_lembaga,nama_lembaga,verifikasi FROM lembaga ORDER BY id_lembaga ASC';
 ghistory = 'SELECT id_detail,id_user,id_issue,jumlah_bayar,tanggal,nama_donatur FROM detail_donasi ORDER BY id_detail ASC';
-gissue = 'SELECT id_issue,id_lembaga,deskripsi,deadline,alasan FROM issues ORDER BY id_issue ASC';
+gissue = 'SELECT id_issue,id_lembaga,deskripsi,deadline,pilihan,alasan FROM issues ORDER BY id_issue ASC';
 //get
 exports.getVerifikasi = async (req, res) => {
     try {
@@ -80,9 +80,31 @@ exports.putVerifikasi = async (req, res) => {
     }
 };
 
-exports.putIssue = (req, res) => {
+exports.putIssue = async (req, res) => {
+    try {
+        const { id_issue, pilihan, alasan } = req.body;
 
-}
+        const existingData = await pool.query(
+            "SELECT * FROM issues WHERE id_issue = $1",
+            [id_issue]
+        );
+
+        if (existingData.rows.length === 0) {
+            return res.status(404).json({ success: false, message: "Issue not found" });
+        }
+
+        await pool.query(
+            "UPDATE issues SET pilihan = $1, alasan = $2 WHERE id_issue = $3",
+            [pilihan, alasan, id_issue]
+        );
+
+        res.status(200).json({ success: true, message: "Issue updated successfully" });
+
+    } catch (error) {
+        console.error("Update issue error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
 
 //delete
 exports.deleteVerifikasi = async (req, res) => {
@@ -115,7 +137,7 @@ exports.deleteHistory = async (req, res) => {
 
         }
         // Delete the record
-        await pool.query("DELETE FROM detail_donasi WHERE id_detail = $1", [id_lembaga]);
+        await pool.query("DELETE FROM detail_donasi WHERE id_detail = $1", [id_detail]);
 
         res.status(200).json({ success: true, message: "Record deleted successfully" });
 

@@ -6,10 +6,10 @@ const {
   getIssue, 
   admlogout,
   putVerifikasi,
-  putHistory,
   putIssue,
-  deleteVerifikasi
-
+  deleteVerifikasi,
+  deleteHistory,
+  deleteIssue
 } = require('../controllers/adminController');
 const { adminLogin } = require('../controllers/loginController');
 const router = express.Router();
@@ -27,5 +27,5 @@ router.put('/updateVerifikasi', putVerifikasi);
 router.put('/updateIssue', putIssue);
 router.delete("/deleteVerifikasi/:id_lembaga",deleteVerifikasi);
 router.delete("/deleteHistory/:id_detail",deleteHistory)
-router.delete("/deleteIssue/:id_issue",deleteHistory)
+router.delete("/deleteIssue/:id_issue",deleteIssue)
 module.exports = router;

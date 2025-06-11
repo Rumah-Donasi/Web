@@ -1,9 +1,6 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-    // Show dashboard by default
     showSection('verifikasi');
 
-    // Add click listeners to sidebar links
     document.querySelectorAll('a[data-section]').forEach(link => {
         link.addEventListener('click', function () {
             const section = this.getAttribute('data-section');
@@ -13,45 +10,38 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function showSection(section) {
-    // List section id
     const sections = ['verifikasi', 'history', 'issue', 'pencairan'];
     sections.forEach(id => {
         const el = document.getElementById('section-' + id);
         if (el) el.style.display = 'none';
     });
 
-    // Show the selected section
     const target = document.getElementById('section-' + section);
     if (target) target.style.display = '';
-    //section call
+
     if (section === 'verifikasi') {
         render_verifikasitable();
-    }
-    else if (section === 'history') {
+    } else if (section === 'history') {
         render_historytable();
-    }
-    else if (section === 'issue') {
+    } else if (section === 'issue') {
         render_issuetable();
-    }
-    else if (section === 'pencairan') {
     }
 }
 
-//table renderer
 async function render_verifikasitable() {
-    dataverify = []
+    let dataverify = [];
     const response = await fetch('/admin/verifikasi');
-    jsonData = await response.json();
+    const jsonData = await response.json();
     let table = ``;
-    dataverify = jsonData.rows || jsonData; // Adjust based on actual API response format
+    dataverify = jsonData.rows || jsonData;
 
     if (!Array.isArray(dataverify)) {
-        console.error("Expected an array, but got:", datahistory);
+        console.error("Expected an array, but got:", dataverify);
         return;
     }
+
     dataverify.forEach(item => {
-        table +=
-            `
+        table += `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
                 <td class="p-3 px-5">${item.id_lembaga}</td>
                 <td class="p-3 px-5">${item.nama_lembaga}</td>
@@ -62,32 +52,34 @@ async function render_verifikasitable() {
                     </select>
                 </td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" data-id="${item.id_lembaga}" onclick="update_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i></button>
-                    <button type="button" onclick="delete_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
+                    <button type="button" data-id="${item.id_lembaga}" onclick="update_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        <i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i>
+                    </button>
+                    <button type="button" onclick="delete_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        <i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i>
+                    </button>
                 </td>
             </tr>
-        `
+        `;
     });
-    table +=
-        ``
+
     document.getElementById('tabel_verifikasi').innerHTML = table;
 }
 
 async function render_historytable() {
-    datahistory = []
+    let datahistory = [];
     const response = await fetch('/admin/history');
-    jsonData = await response.json();
+    const jsonData = await response.json();
     let table = ``;
-
-    datahistory = jsonData.rows || jsonData; // Adjust based on actual API response format
+    datahistory = jsonData.rows || jsonData;
 
     if (!Array.isArray(datahistory)) {
         console.error("Expected an array, but got:", datahistory);
         return;
     }
+
     datahistory.forEach(item => {
-        table +=
-            `
+        table += `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
                 <td class="p-3 px-5">${item.id_detail}</td>
                 <td class="p-3 px-5">${item.id_user}</td>
@@ -96,79 +88,70 @@ async function render_historytable() {
                 <td class="p-3 px-5">${item.tanggal}</td>
                 <td class="p-3 px-5">${item.nama_donatur}</td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" onclick="delete_history(${item.id_detail})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
+                    <button type="button" onclick="delete_history(${item.id_detail})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        <i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i>
+                    </button>
                 </td>
             </tr>
-        `
+        `;
     });
-    table +=
-        ``
+
     document.getElementById('tabel_history').innerHTML = table;
 }
 
-
 async function render_issuetable() {
-    let dataissue = []
+    
+    let dataissue = [];
     const response = await fetch('/admin/issue');
-    jsonData = await response.json();
+    const jsonData = await response.json();
     let table = ``;
-    dataissue = jsonData.rows || jsonData; // Adjust based on actual API response format
+    dataissue = jsonData.rows || jsonData;
 
     if (!Array.isArray(dataissue)) {
-        console.error("Expected an array, but got:", datahistory);
+        console.error("Expected an array, but got:", dataissue);
         return;
     }
+
     dataissue.forEach(item => {
-        table +=
-            `
-            <tr class="border-b hover:bg-orange-100 bg-gray-100">
+        table += `
+            <tr class="border-b hover:bg-orange-100 bg-gray-100" id="row-${item.id_issue}">
                 <td class="p-3 px-5">${item.id_issue}</td>
                 <td class="p-3 px-5">${item.id_lembaga}</td>
-                <td class="p-3 px-5">${item.deskripsi} class="bg-transparent"></td>
-                <td class="p-3 px-5">${item.deadline} class="bg-transparent"></td>
+                <td class="p-3 px-5">${item.deskripsi}</td>
+                <td class="p-3 px-5">${item.deadline}</td>
                 <td class="p-3 px-5">
-                    <select class="bg-transparent w-20">
-                        <option value="true" ${item.pilihan === "true" ? "selected" : ""}>true</option>
+                    <select class="bg-transparent w-20 pilihan-select">
                         <option value="false" ${item.pilihan === "false" ? "selected" : ""}>false</option>
+                        <option value="true" ${item.pilihan === "true" ? "selected" : ""}>true</option>
                     </select>
                 </td>
-                <td class="p-3 px-5"><input type="text" value="${item.alasan}" class="bg-transparent"></td>
+                <td class="p-3 px-5">
+                    <input type="text" value="${item.alasan || ""}" class="bg-transparent alasan-input">
+                </td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" data-id="${item.id_issue}" onclick="update_issue(${item.id_issue})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i></button>
-                    <button type="button" onclick="delete_issue(${item.id_issue})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline"><i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i></button>
+                    <button type="button" data-id="${item.id_issue}" onclick="update_issue(${item.id_issue})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        <i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i>
+                    </button>
+                    <button type="button" onclick="delete_issue(${item.id_issue})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        <i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i>
+                    </button>
                 </td>
             </tr>
-        `
+        `;
     });
-    table +=
-        ``
+
     document.getElementById('tabel_issue').innerHTML = table;
 }
 
-function update_verify(id) {
+async function update_verify(id) {
     const button = document.querySelector(`button[data-id="${id}"]`);
-    if (!button) {
-        console.error(`Button with id ${id} not found.`);
-        return;
-    }
-
     const row = button.closest("tr");
-    if (!row) {
-        console.error(`No parent <tr> found for button with id ${id}.`);
-        return;
-    }
-    const verifyElement = row.querySelector("select");
-    if (!verifyElement) {
-        console.error(`Select element not found in row for id: ${id}`);
-        return;
-    }
     const verify = row.querySelector("select").value.trim();
 
-    fetch(`/admin/updateVerifikasi`, {
+    await fetch(`/admin/updateVerifikasi`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_lembaga: id, verifikasi: verify === "true" ? true : false })
-
+        body: JSON.stringify({ id_lembaga: id, verifikasi: verify === "true" })
     })
         .then(response => response.json())
         .then(data => {
@@ -178,77 +161,63 @@ function update_verify(id) {
         .catch(error => console.error("Update error:", error));
 }
 
-function update_issue(id) {
-        const button = document.querySelector(`button[data-id="${id}"]`);
-    if (!button) {
-        console.error(`Button with id ${id} not found.`);
-        return;
-    }
+async function update_issue(id) {
+    const row = document.getElementById(`row-${id}`);
+    const selectElement = row.querySelector("select.pilihan-select");
+    const inputElement = row.querySelector("input.alasan-input");
 
-    const row = button.closest("tr");
-    if (!row) {
-        console.error(`No parent <tr> found for button with id ${id}.`);
-        return;
-    }
-    const verifyElement = row.querySelector("select");
-    if (!verifyElement) {
-        console.error(`Select element not found in row for id: ${id}`);
-        return;
-    }
-    const verify = row.querySelector("select").value.trim();
+    const pilihan = selectElement.value;
+    const alasan = inputElement.value;
 
-    fetch(`/admin/updateIssue`, {
+    await fetch("/admin/updateIssue", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_issue: id, pilihan: pilihan === "true" ? true : false,alasan: alasan })
-
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id_issue: id, pilihan, alasan }),
     })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            console.log("Verification updated:", data);
-        })
-        .catch(error => console.error("Update error:", error));
+    .then((res) => res.json())
+    .then((data) => {
+        alert(data.message || "Update success");
+    })
+    .catch((err) => {
+        console.error("Update failed:", err);
+        alert("Update failed");
+    });
 }
 
-function delete_verify(id) {
-    if (!confirm("are you sure you want to delete this?")) return;
-    fetch(`/admin/deleteVerifikasi/${id}`, {
-        method: "DELETE",
-    })
+async function delete_verify(id) {
+    if (!confirm("Are you sure you want to delete this?")) return;
+    await fetch(`/admin/deleteVerifikasi/${id}`, { method: "DELETE" })
         .then(response => response.json())
         .then(data => {
             alert(data.message);
             console.log("Deletion successful:", data);
-            location.reload(); // Refresh the page after deletion
-        })
-        .catch(error => console.error("Deletion error:", error));
-}
-
-function delete_history(id){
-    if (!confirm("are you sure you want to delete this?")) return;
-    fetch(`/admin/deleteHistory/${id}`, {
-        method: "DELETE",
-    })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            console.log("Deletion successful:", data);
-            location.reload(); // Refresh the page after deletion
+            location.reload();
         })
         .catch(error => console.error("Deletion error:", error));
 }
 
-function delete_issue(id){
-    if (!confirm("are you sure you want to delete this?")) return;
-    fetch(`/admin/deleteIssue/${id}`, {
-        method: "DELETE",
-    })
+async function delete_history(id) {
+    if (!confirm("Are you sure you want to delete this?")) return;
+    await fetch(`/admin/deleteHistory/${id}`, { method: "DELETE" })
         .then(response => response.json())
         .then(data => {
             alert(data.message);
             console.log("Deletion successful:", data);
-            location.reload(); // Refresh the page after deletion
+            location.reload();
+        })
+        .catch(error => console.error("Deletion error:", error));
+}
+
+async function delete_issue(id) {
+    if (!confirm("Are you sure you want to delete this?")) return;
+    await fetch(`/admin/deleteIssue/${id}`, { method: "DELETE" })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            console.log("Deletion successful:", data);
+            location.reload();
         })
         .catch(error => console.error("Deletion error:", error));
 }
