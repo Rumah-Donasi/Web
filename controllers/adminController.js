@@ -80,7 +80,7 @@ const putIssue = async (req, res) => {
             return res.status(404).json({ success: false, message: "Issue not found" });
         }
 
-        await pool.query("UPDATE issues SET pilihan = $1, alasan = $2 WHERE id_issue = $3", [pilihan, alasan, id_issue]);
+        await pool.query("UPDATE issues SET isPilihan = $1, alasan = $2 WHERE id_issue = $3", [pilihan, alasan, id_issue]);
         res.status(200).json({ success: true, message: "Issue updated successfully" });
     } catch (error) {
         console.error("Update issue error:", error);
