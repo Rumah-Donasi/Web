@@ -21,7 +21,7 @@ const awalLembaga = async (req, res) => {
         };
 
         req.issues = result.rows.map(issue => {
-            const progress = issue.terkumpul / issue.target) * 100;
+            const progress = (issue.terkumpul / issue.target) * 100;
 
             let hariTersisa = 0;
             if (issue.deadline) {
