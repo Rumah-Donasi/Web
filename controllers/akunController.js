@@ -17,7 +17,7 @@ const histori = async (req, res) => {
             }).format(angka);
         };
 
-        const tanggal = new Date("Mon Apr 21 2025 00:00:00 GMT+0000");
+        const tanggal = issues.tanggal;
 
         const hari = tanggal.toLocaleDateString('id-ID', { weekday: 'long' });
         const tanggalNum = tanggal.getDate();
