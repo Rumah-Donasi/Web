@@ -1,3 +1,5 @@
+const { Pool } = require('pg');
+
 const db = new Pool({
   host: 'db.ocuwghtrsjrfqnqyfvjn.supabase.co',
   port: 5432,
@@ -8,3 +10,5 @@ const db = new Pool({
     rejectUnauthorized: false, // Wajib untuk koneksi ke Supabase
   },
 });
+
+module.exports = pool;
