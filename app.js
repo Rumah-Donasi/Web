@@ -9,7 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const {
     cekLogin,
-    redirectIfLogin
+    redirectIfLogin,
+    authorize
 } = require('./middleware/authUser');
 
 app.set('views', path.join(__dirname, 'public/views'));
