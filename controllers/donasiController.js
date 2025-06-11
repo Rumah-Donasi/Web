@@ -12,9 +12,9 @@ const postKirimDonasi = (req, res) => {
   console.log("Data Donasi:", { id_issue, nominal, pesan, nama_donatur });
 
   db.query(
-    `INSERT INTO detail_donasi (id_issue, nama_donatur, jumlah_bayar, pesan, tanggal)
-         VALUES ($1, $2, $3, $4, $5)`,
-    [id_issue, nama_donatur, nominal, pesan, new Date()]
+    `INSERT INTO detail_donasi (id_issue, id_user, nama_donatur, jumlah_bayar, pesan, tanggal)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+    [id_issue, req.user.id, nama_donatur, nominal, pesan, new Date()]
   )
 
   db.query(

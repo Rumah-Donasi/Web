@@ -43,8 +43,8 @@ async function render_verifikasitable() {
     dataverify.forEach(item => {
         table += `
             <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                <td class="p-3 px-5">${item.id_lembaga}</td>
-                <td class="p-3 px-5">${item.nama_lembaga}</td>
+                <td class="p-3 px-5">${item.id_user}</td>
+                <td class="p-3 px-5">${item.username}</td>
                 <td class="p-3 px-5">
                     <select class="bg-transparent">
                         <option value="true" ${item.verifikasi === true ? "selected" : ""}>true</option>
@@ -52,10 +52,10 @@ async function render_verifikasitable() {
                     </select>
                 </td>
                 <td class="p-3 px-5 flex justify-start">
-                    <button type="button" data-id="${item.id_lembaga}" onclick="update_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                    <button type="button" data-id="${item.id_user}" onclick="update_verify(${item.id_user})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                         <i class="bi bi-floppy-fill text-blue-500 hover:text-blue-700 text-[1.5rem]"></i>
                     </button>
-                    <button type="button" onclick="delete_verify(${item.id_lembaga})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                    <button type="button" onclick="delete_verify(${item.id_user})" class="text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                         <i class="bi bi-trash-fill text-red-500 hover:text-red-700 text-[1.5rem]"></i>
                     </button>
                 </td>
@@ -116,7 +116,7 @@ async function render_issuetable() {
         table += `
             <tr class="border-b hover:bg-orange-100 bg-gray-100" id="row-${item.id_issue}">
                 <td class="p-3 px-5">${item.id_issue}</td>
-                <td class="p-3 px-5">${item.id_lembaga}</td>
+                <td class="p-3 px-5">${item.id_pembuat}</td>
                 <td class="p-3 px-5">${item.deskripsi}</td>
                 <td class="p-3 px-5">${item.deadline}</td>
                 <td class="p-3 px-5">
@@ -151,7 +151,7 @@ async function update_verify(id) {
     await fetch(`/admin/updateVerifikasi`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id_lembaga: id, verifikasi: verify === "true" })
+        body: JSON.stringify({ id_user: id, verifikasi: verify === "true" })
     })
         .then(response => response.json())
         .then(data => {
