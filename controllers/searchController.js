@@ -51,7 +51,7 @@ const searchTipe = (...tipeCari) => {
             };
 
             const issues = result.rows.map(issue => {
-                const progress = Math.round((issue.terkumpul / issue.target) * 100);
+                const progress = (issue.terkumpul / issue.target) * 100;
 
                 let imageSrc = null;
                 if (issue.thumbnail) {
@@ -96,7 +96,7 @@ const searchQuery = async (req, res) => {
         };
 
         const issues = result.rows.map(issue => {
-            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+            const progress = (issue.terkumpul / issue.target) * 100;
 
             let imageSrc = null;
             if (issue.thumbnail) {

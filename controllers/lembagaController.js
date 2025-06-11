@@ -21,7 +21,7 @@ const awalLembaga = async (req, res) => {
         };
 
         req.issues = result.rows.map(issue => {
-            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+            const progress = (issue.terkumpul / issue.target) * 100;
 
             let hariTersisa = 0;
             if (issue.deadline) {
@@ -102,7 +102,7 @@ const detailDonasi = async (req, res) => {
     }));
 
     const issues = result.rows.map(issue => {
-      const progress = Math.round((issue.terkumpul / issue.target) * 100);
+      const progress = (issue.terkumpul / issue.target) * 100;
 
       let hariTersisa = 0;
       if (issue.deadline) {
@@ -137,7 +137,7 @@ const detailDonasi = async (req, res) => {
             LIMIT 4
         `);
         req.random = random.rows.map(issue => {
-            const progress = Math.round((issue.terkumpul / issue.target) * 100);
+            const progress = (issue.terkumpul / issue.target) * 100;
 
             let imageSrc = null;
             if (issue.thumbnail) {
@@ -171,6 +171,7 @@ const detailDonasi = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 const akunLembaga = async (req, res) => {
   if (req.method === 'GET' || req.method === 'get') {
     const id = res.locals.user.id_user;
@@ -204,6 +205,8 @@ const akunLembaga = async (req, res) => {
   }
 };
 
+=======
+>>>>>>> 1f576178de6d3f3b04acf6736d613c1dd2630ff4
 module.exports = {
     awalLembaga,
     detailDonasi,
