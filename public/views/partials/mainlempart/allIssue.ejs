@@ -74,10 +74,10 @@
 
                     <div class="relative pb-6">
                         <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                            <div class="bg-gradient-to-r from-primary to-secondary h-full rounded-full transition-all duration-500 ease-out" style="width: <%= item.progress || 0 %>%"></div>
+                            <div class="bg-gradient-to-r from-primary to-secondary h-full rounded-full transition-all duration-500 ease-out" style="width: <%= item.progress.toFixed(2) || 0 %>%"></div>
                         </div>
                         <div class="absolute right-0 bottom-0">
-                            <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full"><%= item.progress || 0 %>%</span>
+                            <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full"><%= item.progress.toFixed(2) || 0 %>%</span>
                         </div>
                     </div>
 
