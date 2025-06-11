@@ -1,0 +1,43 @@
+<!-- sidebar.ejs -->
+<div
+  class="hidden md:block fixed top-20 left-0 w-64 h-[calc(100vh-5rem)] bg-white shadow-lg z-40 py-6 px-4"
+>
+  <a
+    href="/akun"
+    class="<%= currentPath === '/akun' ? 'bg-gray-100 text-primary' : 'text-gray-700 ' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Akun
+  </a>
+  <a
+    href="/akun/histori"
+    class="<%= currentPath === '/akun/histori' ? 'bg-gray-100 text-primary' : 'text-gray-700 hover:text-dark' %> block px-4 py-2 rounded-lg font-medium"
+  >
+    Donasi Saya
+  </a>
+  <a
+    href="/keluar"
+    class="block px-4 py-2 rounded-lg font-medium text-red-600 hover:text-red-800"
+  >
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Keluar
+  </a>
+</div>
+
+<!-- bottom nav -->
+ <!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t shadow-md md:hidden">
+  <div class="flex justify-around items-center h-16">
+    <a href="/akun/donasi" class="flex flex-col items-center <%= currentPath === '/akun/donasi' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-hand-holding-heart text-xl"></i>
+      <span class="text-xs">Donasi</span>
+    </a>
+    <a href="/akun" class="flex flex-col items-center <%= currentPath === '/akun' ? 'text-primary' : 'text-gray-500' %> hover:text-primary">
+      <i class="fa-solid fa-user text-xl"></i>
+      <span class="text-xs">Akun</span>
+    </a>
+    <a href="/keluar" class="flex flex-col items-center text-red-600 hover:text-red-800">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span class="text-xs">Keluar</span>
+    </a>
+  </div>
+</nav>

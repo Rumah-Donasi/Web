@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Halaman Tidak Ditemukan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .floating-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse-custom 2s infinite;
+        }
+        
+        @keyframes pulse-custom {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen" style="background: linear-gradient(135deg, #3B9E8C 0%, #5FCFBA 50%, #3B9E8C 100%);">
+    <div class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div class="max-w-lg w-full text-center">
+            <!-- Animated Error Icon -->
+            <div class="mb-8 flex justify-center">
+                <div class="floating-animation rounded-full p-6 shadow-2xl" style="background: rgba(223, 248, 243, 0.2); backdrop-filter: blur(16px);">
+                    <i class="fas fa-exclamation-triangle text-6xl text-red-400 pulse-animation"></i>
+                </div>
+            </div>
+
+            <!-- Error Content -->
+            <div class="slide-in rounded-2xl shadow-2xl p-8 mb-8" style="background: rgba(223, 248, 243, 0.15); backdrop-filter: blur(16px); border: 1px solid rgba(95, 207, 186, 0.3);">
+                <!-- Error Code -->
+                <h1 class="text-8xl font-bold text-white mb-4 tracking-tight">
+                    <span class="inline-block" style="text-shadow: 0 0 20px rgba(95, 207, 186, 0.5);">4</span>
+                    <span class="inline-block" style="text-shadow: 0 0 20px rgba(169, 241, 227, 0.5);">0</span>
+                    <span class="inline-block" style="text-shadow: 0 0 20px rgba(95, 207, 186, 0.5);">4</span>
+                </h1>
+
+                <!-- Error Title -->
+                <h2 class="text-2xl font-bold text-white mb-4">
+                    Halaman Tidak Ditemukan
+                </h2>
+
+                <!-- Error Description -->
+                <p class="text-white/80 mb-6 leading-relaxed">
+                    Maaf, halaman yang Anda cari tidak dapat ditemukan. 
+                    Halaman mungkin telah dipindah, dihapus, atau URL yang Anda masukkan salah.
+                </p>
+
+                <!-- Error Details (EJS Template) -->
+                <% if (typeof error !== 'undefined' && error) { %>
+                <div class="mb-6 p-4 rounded-lg text-left" style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3);">
+                    <div class="flex items-start">
+                        <i class="fas fa-info-circle text-red-400 mr-3 mt-1 flex-shrink-0"></i>
+                        <div>
+                            <h4 class="font-medium text-red-300 mb-1">Detail Error:</h4>
+                            <p class="text-red-200 text-sm"><%= error %></p>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+
+                <!-- Action Buttons -->
+                <div class="space-y-4">
+                    <!-- Primary Action -->
+                    <a 
+                        href="<%= ( !user || user.usertype !== 'lembaga' ) ? '/' : '/lembaga'%>"
+                        class="w-full py-3 px-6 rounded-lg font-medium text-white transition-all transform hover:scale-105 shadow-lg flex items-center justify-center"
+                        style="background: linear-gradient(135deg, #5FCFBA 0%, #3B9E8C 100%);"
+                        onmouseover="this.style.background='linear-gradient(135deg, #3B9E8C 0%, #5FCFBA 100%)'"
+                        onmouseout="this.style.background='linear-gradient(135deg, #5FCFBA 0%, #3B9E8C 100%)'"
+                    >
+                        <i class="fas fa-home mr-2"></i>
+                        Kembali ke Beranda
+                    </a>
+
+                    <!-- Secondary Actions -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button 
+                            onclick="goBack()"
+                            class="py-2 px-4 rounded-lg font-medium text-white transition-all hover:scale-105 flex items-center justify-center"
+                            style="background: rgba(223, 248, 243, 0.15); border: 1px solid rgba(169, 241, 227, 0.3);"
+                            onmouseover="this.style.background='rgba(95, 207, 186, 0.2)'"
+                            onmouseout="this.style.background='rgba(223, 248, 243, 0.15)'"
+                        >
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Kembali
+                        </button>
+                        <button 
+                            onclick="refreshPage()"
+                            class="py-2 px-4 rounded-lg font-medium text-white transition-all hover:scale-105 flex items-center justify-center"
+                            style="background: rgba(223, 248, 243, 0.15); border: 1px solid rgba(169, 241, 227, 0.3);"
+                            onmouseover="this.style.background='rgba(95, 207, 186, 0.2)'"
+                            onmouseout="this.style.background='rgba(223, 248, 243, 0.15)'"
+                        >
+                            <i class="fas fa-redo mr-2"></i>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="rounded-xl p-6 text-center" style="background: rgba(223, 248, 243, 0.1); backdrop-filter: blur(8px); border: 1px solid rgba(169, 241, 227, 0.2);">
+                <h3 class="text-lg font-semibold text-white mb-3">
+                    <i class="fas fa-question-circle mr-2" style="color: #A9F1E3;"></i>
+                    Butuh Bantuan?
+                </h3>
+                <p class="text-white/70 text-sm mb-4">
+                    Jika masalah terus berlanjut, silakan hubungi tim support kami
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="mailto:support@example.com" class="text-white/80 hover:text-white transition-colors" style="color: #A9F1E3;">
+                        <i class="fas fa-envelope text-lg"></i>
+                    </a>
+                    <a href="tel:+6281234567890" class="text-white/80 hover:text-white transition-colors" style="color: #A9F1E3;">
+                        <i class="fas fa-phone text-lg"></i>
+                    </a>
+                    <a href="#" class="text-white/80 hover:text-white transition-colors" style="color: #A9F1E3;">
+                        <i class="fas fa-comments text-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center">
+                <p class="text-white/50 text-sm">
+                    © 2025 Portal Masuk. Semua hak dilindungi.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Particles Animation -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-1/4 left-1/4 w-2 h-2 rounded-full floating-animation" style="background: #A9F1E3; animation-delay: 0s;"></div>
+        <div class="absolute top-1/3 right-1/4 w-3 h-3 rounded-full floating-animation" style="background: #5FCFBA; animation-delay: 1s;"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-1 h-1 rounded-full floating-animation" style="background: #DDF8F3; animation-delay: 2s;"></div>
+        <div class="absolute bottom-1/3 right-1/3 w-2 h-2 rounded-full floating-animation" style="background: #A9F1E3; animation-delay: 0.5s;"></div>
+    </div>
+
+    <script>
+        function goHome() {
+            if(user.usertype==='lembaga')
+                window.location.href = '/lembaga';
+            else
+                window.location.href = '/';
+        }
+
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        function refreshPage() {
+            window.location.reload();
+        }
+
+        // Add smooth entrance animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.slide-in');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+
+        // Add click ripple effect
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            button { position: relative; overflow: hidden; }
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

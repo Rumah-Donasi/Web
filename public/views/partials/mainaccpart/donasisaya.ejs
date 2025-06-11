@@ -1,0 +1,56 @@
+<!-- Header -->
+<div class="max-w-3xl mx-auto mt-12">
+  <div class="flex justify-center space-x-8 mb-6">
+    <a
+      href="/u/<%= user.id %>/a/donasi"
+      class="pb-2 font-semibold text-primary border-b-2 border-primary"
+    >
+      Donasi terkini
+    </a>
+  </div>
+</div>
+
+<!-- Isi -->
+<% if (donasi.length < 0) { %>
+<section
+  class="bg-white rounded-xl shadow-2xl p-6 text-center max-w-3xl mx-auto px-4"
+>
+  <h1 class="text-2xl font-semibold text-gray-800 mb-4">Donasi terkini</h1>
+  <img
+    src="/images/blomdonate.png"
+    alt="Belum ada donasi"
+    class="mx-auto w-40 md:w-52 mb-6"
+  />
+
+  <p class="text-gray-600 text-base md:text-lg mb-6">
+    Dukunganmu sangat berharga. Mulai aksi baik dengan berdonasi hari ini!
+  </p>
+
+  <a
+    href="/"
+    class="inline-block bg-primary hover:bg-dark text-white font-semibold px-8 py-3 rounded-full transition duration-300"
+  >
+    Donasi Sekarang
+  </a>
+</section>
+<% } else { %>
+  <% donasi.forEach((item) => { %>
+     <section class="bg-white rounded-xl shadow-md p-6 mb-4 mx-auto max-w-5xl px-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800"><%= item.nama_issue %></h3>
+            <p class="text-gray-600 text-sm mt-1"><%= item.pesan %></p>
+            <div class="flex items-center mt-3">
+              <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600"><%= item.tanggal %></span>
+            </div>
+          </div>
+          <div class="text-left md:text-right">
+            <p class="text-2xl font-bold text-primary"><%= item.jumlahFormatted %></p>
+            <div class="text-sm mt-1 text-gray-500">
+              Sopipay
+            </div>
+          </div>
+        </div>
+      </section>
+  <% }) %>
+<% } %>

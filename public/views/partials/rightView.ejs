@@ -1,0 +1,21 @@
+<section class="sticky top-28 bg-white rounded-xl p-6 shadow space-y-4 h-fit">
+      <h3 class="text-xl font-bold">Dana Terkumpul</h3>
+      <p class="text-gray-700">
+        <%= issues.terkumpulFormatted || 0 %> dari <%= issues.targetFormatted %>
+      </p>
+      
+      <!-- Progress Bar -->
+      <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+        <div class="bg-primary h-4" style="width: <%= issues.progress || 0 %>%"></div>
+      </div>
+      <div class="flex justify-between">
+        <p class="text-sm text-gray-500"><%= issues.progress || 0 %>% tercapai</p>
+        <span class="flex items-center">
+            <i class="fas fa-clock mr-1"></i>
+            <%= issues.hariTersisa %> hari tersisa
+        </span>
+      </div>
+      <a href="<%= (user && user.usertype === 'lembaga') ? '/lembaga/edit/' + issues.id_issue : '/donasi/' + issues.id_issue %>" class="block bg-primary hover:bg-dark text-white text-center py-2 rounded-lg font-semibold transition">
+        <%- user && user.usertype === 'lembaga' ? 'Edit' : 'Donasi Sekarang' %>
+      </a>
+    </section>

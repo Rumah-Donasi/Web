@@ -1,8 +1,38 @@
 {
+  "name": "rumah-donasi",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --watch",
+    "devStart": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rumah-Donasi/Web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rumah-Donasi/Web/issues"
+  },
+  "homepage": "https://github.com/Rumah-Donasi/Web#readme",
+  "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
     "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "ejs": "^3.1.10",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.1"
   }
 }
